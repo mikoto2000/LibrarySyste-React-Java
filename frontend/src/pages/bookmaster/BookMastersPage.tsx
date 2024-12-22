@@ -27,8 +27,6 @@ export const BookMastersPage: React.FC<BookMastersPageProps> = ({ }) => {
   const page: any = queryParams['page'];
   const size: any = queryParams['size'];
 
-  console.log(publicationDateBegin);
-
   useEffect(() => {
     (async () => {
 

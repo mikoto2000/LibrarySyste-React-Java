@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Configuration, NdcCategoryEntityControllerApiFactory } from "../../api";
 import { BASE_URL } from "../../config";
 import { Link, useNavigate } from "react-router";
@@ -9,6 +10,8 @@ export const NdcCategoryCreatePage: React.FC<NdcCategoryCreatePageProps> = ({ })
 
   const navigate = useNavigate();
 
+  const api = useMemo(() => NdcCategoryEntityControllerApiFactory(new Configuration(), BASE_URL), []);
+
   const handleSubmitClick = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
     console.log(event);
@@ -16,8 +19,6 @@ export const NdcCategoryCreatePage: React.FC<NdcCategoryCreatePageProps> = ({ })
     console.log(form);
     const name = form.name.value;
     const number = form.number.value;
-
-    const api = NdcCategoryEntityControllerApiFactory(new Configuration(), BASE_URL);
 
     console.log(JSON.stringify({
       ndcCategoryRequestBody: {

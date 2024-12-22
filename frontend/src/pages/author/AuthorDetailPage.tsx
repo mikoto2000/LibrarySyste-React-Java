@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AuthorEntityControllerApiFactory, Configuration, EntityModelAuthor } from "../../api";
 import { BASE_URL } from "../../config";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 
 type AuthorDetailPageProps = {
 };
@@ -10,11 +10,14 @@ export const AuthorDetailPage: React.FC<AuthorDetailPageProps> = ({ }) => {
 
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
+  const api = useMemo(() => AuthorEntityControllerApiFactory(new Configuration(), BASE_URL), []);
+
   const [author, setAuthor] = useState<EntityModelAuthor | undefined>(undefined);
   useEffect(() => {
     (async () => {
       if (id) {
-        const api = AuthorEntityControllerApiFactory(new Configuration(), BASE_URL);
 
         const suthorResult = await api.getItemResourceAuthorGet({
           id
@@ -24,6 +27,14 @@ export const AuthorDetailPage: React.FC<AuthorDetailPageProps> = ({ }) => {
       }
     })();
   }, []);
+
+  const handleDelete = () => {
+    if (id) {
+      api.deleteItemResourceAuthorDelete({ id }).finally(() => {
+        navigate("/authors");
+      });
+    }
+  }
 
   return (
     author
@@ -41,6 +52,7 @@ export const AuthorDetailPage: React.FC<AuthorDetailPageProps> = ({ }) => {
             </tr>
           </tbody>
         </table>
+        <button onClick={handleDelete}>削除</button>
         <Link to="/authors">一覧に戻る</Link>
       </>
       :

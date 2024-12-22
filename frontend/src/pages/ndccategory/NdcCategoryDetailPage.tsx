@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { NdcCategoryEntityControllerApiFactory, Configuration, EntityModelNdcCategory } from "../../api";
 import { BASE_URL } from "../../config";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 
 type NdcCategoryDetailPageProps = {
 };
@@ -10,11 +10,14 @@ export const NdcCategoryDetailPage: React.FC<NdcCategoryDetailPageProps> = ({ })
 
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
+  const api = useMemo(() => NdcCategoryEntityControllerApiFactory(new Configuration(), BASE_URL), []);
+
   const [ndcCategory, setNdcCategory] = useState<EntityModelNdcCategory | undefined>(undefined);
   useEffect(() => {
     (async () => {
       if (id) {
-        const api = NdcCategoryEntityControllerApiFactory(new Configuration(), BASE_URL);
 
         const ndcCategoryResult = await api.getItemResourceNdccategoryGet({
           id
@@ -24,6 +27,14 @@ export const NdcCategoryDetailPage: React.FC<NdcCategoryDetailPageProps> = ({ })
       }
     })();
   }, []);
+
+  const handleDelete = () => {
+    if (id) {
+      api.deleteItemResourceNdccategoryDelete({ id }).finally(() => {
+        navigate("/ndcCategories");
+      });
+    }
+  }
 
   return (
     ndcCategory
@@ -45,6 +56,7 @@ export const NdcCategoryDetailPage: React.FC<NdcCategoryDetailPageProps> = ({ })
             </tr>
           </tbody>
         </table>
+        <button onClick={handleDelete}>削除</button>
         <Link to="/ndcCategories">一覧に戻る</Link>
       </>
       :

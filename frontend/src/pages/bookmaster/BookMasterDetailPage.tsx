@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { BookMasterEntityControllerApiFactory, Configuration, EntityModelBookMaster } from "../../api";
 import { BASE_URL } from "../../config";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 
 type BookMasterDetailPageProps = {
 };
@@ -10,11 +10,16 @@ export const BookMasterDetailPage: React.FC<BookMasterDetailPageProps> = ({ }) =
 
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
+  const api = useMemo(() => BookMasterEntityControllerApiFactory(new Configuration(), BASE_URL), []);
+
   const [bookMaster, setBookMaster] = useState<EntityModelBookMaster | undefined>(undefined);
   useEffect(() => {
     (async () => {
       if (id) {
-        const api = BookMasterEntityControllerApiFactory(new Configuration(), BASE_URL);
+
+        console.log(api);
 
         const bookMasterResult = await api.getItemResourceBookmasterGet({
           id
@@ -24,6 +29,14 @@ export const BookMasterDetailPage: React.FC<BookMasterDetailPageProps> = ({ }) =
       }
     })();
   }, []);
+
+  const handleDelete = () => {
+    if (id) {
+      api.deleteItemResourceBookmasterDelete({ id }).finally(() => {
+        navigate("/bookMasters");
+      });
+    }
+  }
 
   return (
     bookMaster
@@ -61,6 +74,7 @@ export const BookMasterDetailPage: React.FC<BookMasterDetailPageProps> = ({ }) =
             </tr>
           </tbody>
         </table>
+        <button onClick={handleDelete}>削除</button>
         <Link to="/bookMasters">一覧に戻る</Link>
       </>
       :
