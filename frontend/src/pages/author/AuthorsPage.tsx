@@ -38,6 +38,7 @@ export const AuthorsPage: React.FC<AuthorsPageProps> = ({ }) => {
 
   return (
     <>
+      <Link to="/authors/create">新規登録</Link>
       {/* TODO: ページ遷移せずに、 search の更新だけを行うように修正 */}
       <form action="/authors">
       <div>

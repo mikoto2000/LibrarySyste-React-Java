@@ -3,6 +3,7 @@ import { Link, Route, Routes } from 'react-router'
 import { BookMastersPage } from './pages/bookmaster/BookMastersPage'
 import { AuthorsPage } from './pages/author/AuthorsPage'
 import { AuthorDetailPage } from './pages/author/AuthorDetailPage'
+import { AuthorCreatePage } from './pages/author/AuthorCreatePage'
 import { BookMasterCreatePage } from './pages/bookmaster/BookMasterCreatePage'
 import { BookMasterDetailPage } from './pages/bookmaster/BookMasterDetailPage'
 
@@ -22,6 +23,10 @@ function App() {
       />
       <Route path="/authors/:id" element={
         <AuthorDetailPage />
+      }
+      />
+      < Route path="/authors/create" element={
+        <AuthorCreatePage />
       }
       />
       < Route path="/bookMasters" element={
