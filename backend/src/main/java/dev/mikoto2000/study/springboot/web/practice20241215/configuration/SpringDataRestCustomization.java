@@ -5,6 +5,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
+import dev.mikoto2000.study.springboot.web.practice20241215.entity.Author;
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.BookMaster;
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.NdcCategory;
 
@@ -22,6 +23,7 @@ public class SpringDataRestCustomization implements RepositoryRestConfigurer {
 
     // ID 追加設定
     config.exposeIdsFor(
+        Author.class,
         BookMaster.class,
         NdcCategory.class);
   }

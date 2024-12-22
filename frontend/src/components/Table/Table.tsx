@@ -11,12 +11,13 @@ type ContentInfo<T> = {
 }[];
 
 type TableProps<T> = {
+  linkTo?: string,
   headerInfo: HeaderInfo,
   contentInfo: ContentInfo<T>,
   content?: T[]
 };
 
-export const Table = <T,>({ headerInfo, contentInfo, content }: TableProps<T>): ReactElement<any, any> => {
+export const Table = <T,>({ linkTo, headerInfo, contentInfo, content }: TableProps<T>): ReactElement<any, any> => {
 
   const navigate = useNavigate();
 
@@ -41,7 +42,9 @@ export const Table = <T,>({ headerInfo, contentInfo, content }: TableProps<T>): 
             ?
             React.Children.toArray(
               content.map((e: any) => <tr onClick={() => {
-                navigate("/bookMasters/" + e.id);
+                if (linkTo) {
+                  navigate(`/${linkTo}/${e.id}`);
+                }
               }}>{
                   React.Children.toArray(
                     contentInfo.map((c) => <td>{c.getValueFunc(e)}</td>)

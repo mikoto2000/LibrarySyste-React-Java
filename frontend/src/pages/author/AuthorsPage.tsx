@@ -55,6 +55,7 @@ export const AuthorsPage: React.FC<AuthorsPageProps> = ({ }) => {
       </div>
       </form>
       <Table
+        linkTo="authors"
         headerInfo={[
           {
             name: "Id",

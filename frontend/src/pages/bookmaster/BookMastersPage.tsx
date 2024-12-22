@@ -83,6 +83,7 @@ export const BookMastersPage: React.FC<BookMastersPageProps> = ({ }) => {
       </div>
       </form>
       <Table
+        linkTo="bookMasters"
         headerInfo={[
           {
             name: "Id",
