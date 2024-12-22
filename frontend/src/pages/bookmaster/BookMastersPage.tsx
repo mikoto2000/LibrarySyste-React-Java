@@ -130,6 +130,7 @@ export const BookMastersPage: React.FC<BookMastersPageProps> = ({ }) => {
         ]}
         content={bookMasters}
       />
+      <Link to="/">トップに戻る</Link>
     </>
   )
 }
