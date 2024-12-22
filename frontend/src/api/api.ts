@@ -70,19 +70,6 @@ export interface AuthorRequestBody {
 /**
  * 
  * @export
- * @interface AuthorResponse
- */
-export interface AuthorResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof AuthorResponse
-     */
-    'name'?: string;
-}
-/**
- * 
- * @export
  * @interface BookMasterAuthorRelationshipRequestBody
  */
 export interface BookMasterAuthorRelationshipRequestBody {
@@ -108,43 +95,6 @@ export interface BookMasterAuthorRelationshipRequestBody {
 /**
  * 
  * @export
- * @interface BookMasterRequestBody
- */
-export interface BookMasterRequestBody {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterRequestBody
-     */
-    'name': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterRequestBody
-     */
-    'publicationDate': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterRequestBody
-     */
-    'ndcCategory': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof BookMasterRequestBody
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof BookMasterRequestBody
-     */
-    'author'?: Array<string>;
-}
-/**
- * 
- * @export
  * @interface BookMasterResponse
  */
 export interface BookMasterResponse {
@@ -160,38 +110,12 @@ export interface BookMasterResponse {
      * @memberof BookMasterResponse
      */
     'publicationDate': string;
-}
-/**
- * 
- * @export
- * @interface CollectionModelAuthor
- */
-export interface CollectionModelAuthor {
     /**
      * 
-     * @type {CollectionModelAuthorEmbedded}
-     * @memberof CollectionModelAuthor
+     * @type {number}
+     * @memberof BookMasterResponse
      */
-    '_embedded'?: CollectionModelAuthorEmbedded;
-    /**
-     * 
-     * @type {{ [key: string]: Link; }}
-     * @memberof CollectionModelAuthor
-     */
-    '_links'?: { [key: string]: Link; };
-}
-/**
- * 
- * @export
- * @interface CollectionModelAuthorEmbedded
- */
-export interface CollectionModelAuthorEmbedded {
-    /**
-     * 
-     * @type {Array<AuthorResponse>}
-     * @memberof CollectionModelAuthorEmbedded
-     */
-    'authors'?: Array<AuthorResponse>;
+    'id'?: number;
 }
 /**
  * 
@@ -297,6 +221,12 @@ export interface CollectionModelObjectEmbedded {
 export interface EntityModelAuthor {
     /**
      * 
+     * @type {number}
+     * @memberof EntityModelAuthor
+     */
+    'id'?: number;
+    /**
+     * 
      * @type {string}
      * @memberof EntityModelAuthor
      */
@@ -328,6 +258,12 @@ export interface EntityModelBookMaster {
     'publicationDate': string;
     /**
      * 
+     * @type {number}
+     * @memberof EntityModelBookMaster
+     */
+    'id'?: number;
+    /**
+     * 
      * @type {{ [key: string]: Link; }}
      * @memberof EntityModelBookMaster
      */
@@ -354,16 +290,22 @@ export interface EntityModelBookMasterAuthorRelationship {
 export interface EntityModelNdcCategory {
     /**
      * 
+     * @type {number}
+     * @memberof EntityModelNdcCategory
+     */
+    'id'?: number;
+    /**
+     * 
      * @type {string}
      * @memberof EntityModelNdcCategory
      */
     'name'?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof EntityModelNdcCategory
      */
-    'number'?: number;
+    'number'?: string;
     /**
      * 
      * @type {{ [key: string]: Link; }}
@@ -520,10 +462,10 @@ export interface NdcCategoryRequestBody {
     'name'?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof NdcCategoryRequestBody
      */
-    'number'?: number;
+    'number'?: string;
 }
 /**
  * 
@@ -551,6 +493,18 @@ export interface PageMapStringObject {
     'pageable'?: PageableObject;
     /**
      * 
+     * @type {boolean}
+     * @memberof PageMapStringObject
+     */
+    'first'?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof PageMapStringObject
+     */
+    'last'?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof PageMapStringObject
      */
@@ -573,18 +527,6 @@ export interface PageMapStringObject {
      * @memberof PageMapStringObject
      */
     'sort'?: SortObject;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageMapStringObject
-     */
-    'first'?: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageMapStringObject
-     */
-    'last'?: boolean;
     /**
      * 
      * @type {number}
@@ -655,6 +597,12 @@ export interface PageableObject {
     'pageSize'?: number;
     /**
      * 
+     * @type {boolean}
+     * @memberof PageableObject
+     */
+    'unpaged'?: boolean;
+    /**
+     * 
      * @type {number}
      * @memberof PageableObject
      */
@@ -665,12 +613,6 @@ export interface PageableObject {
      * @memberof PageableObject
      */
     'sort'?: SortObject;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof PageableObject
-     */
-    'unpaged'?: boolean;
 }
 /**
  * 
@@ -816,13 +758,13 @@ export interface SortObject {
      * @type {boolean}
      * @memberof SortObject
      */
-    'empty'?: boolean;
+    'unsorted'?: boolean;
     /**
      * 
      * @type {boolean}
      * @memberof SortObject
      */
-    'unsorted'?: boolean;
+    'empty'?: boolean;
 }
 
 /**
@@ -4069,39 +4011,6 @@ export class BookMasterAuthorRelationshipPropertyReferenceControllerApi extends 
 export const BookMasterEntityControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * delete-bookmaster
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteItemResourceBookmasterDelete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deleteItemResourceBookmasterDelete', 'id', id)
-            const localVarPath = `/bookMasters/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * get-bookmaster
          * @param {number} [page] Zero-based page index (0..N)
          * @param {number} [size] The size of the page to be returned
@@ -4145,152 +4054,6 @@ export const BookMasterEntityControllerApiAxiosParamCreator = function (configur
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * get-bookmaster
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemResourceBookmasterGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('getItemResourceBookmasterGet', 'id', id)
-            const localVarPath = `/bookMasters/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * patch-bookmaster
-         * @param {string} id 
-         * @param {BookMasterRequestBody} bookMasterRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        patchItemResourceBookmasterPatch: async (id: string, bookMasterRequestBody: BookMasterRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('patchItemResourceBookmasterPatch', 'id', id)
-            // verify required parameter 'bookMasterRequestBody' is not null or undefined
-            assertParamExists('patchItemResourceBookmasterPatch', 'bookMasterRequestBody', bookMasterRequestBody)
-            const localVarPath = `/bookMasters/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(bookMasterRequestBody, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * create-bookmaster
-         * @param {BookMasterRequestBody} bookMasterRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postCollectionResourceBookmasterPost: async (bookMasterRequestBody: BookMasterRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'bookMasterRequestBody' is not null or undefined
-            assertParamExists('postCollectionResourceBookmasterPost', 'bookMasterRequestBody', bookMasterRequestBody)
-            const localVarPath = `/bookMasters`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(bookMasterRequestBody, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * update-bookmaster
-         * @param {string} id 
-         * @param {BookMasterRequestBody} bookMasterRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        putItemResourceBookmasterPut: async (id: string, bookMasterRequestBody: BookMasterRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('putItemResourceBookmasterPut', 'id', id)
-            // verify required parameter 'bookMasterRequestBody' is not null or undefined
-            assertParamExists('putItemResourceBookmasterPut', 'bookMasterRequestBody', bookMasterRequestBody)
-            const localVarPath = `/bookMasters/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(bookMasterRequestBody, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -4301,18 +4064,6 @@ export const BookMasterEntityControllerApiAxiosParamCreator = function (configur
 export const BookMasterEntityControllerApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BookMasterEntityControllerApiAxiosParamCreator(configuration)
     return {
-        /**
-         * delete-bookmaster
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteItemResourceBookmasterDelete(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteItemResourceBookmasterDelete(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.deleteItemResourceBookmasterDelete']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
         /**
          * get-bookmaster
          * @param {number} [page] Zero-based page index (0..N)
@@ -4327,56 +4078,6 @@ export const BookMasterEntityControllerApiFp = function(configuration?: Configur
             const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.getCollectionResourceBookmasterGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
-        /**
-         * get-bookmaster
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getItemResourceBookmasterGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelBookMaster>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getItemResourceBookmasterGet(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.getItemResourceBookmasterGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * patch-bookmaster
-         * @param {string} id 
-         * @param {BookMasterRequestBody} bookMasterRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async patchItemResourceBookmasterPatch(id: string, bookMasterRequestBody: BookMasterRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelBookMaster>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.patchItemResourceBookmasterPatch(id, bookMasterRequestBody, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.patchItemResourceBookmasterPatch']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * create-bookmaster
-         * @param {BookMasterRequestBody} bookMasterRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async postCollectionResourceBookmasterPost(bookMasterRequestBody: BookMasterRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelBookMaster>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.postCollectionResourceBookmasterPost(bookMasterRequestBody, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.postCollectionResourceBookmasterPost']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * update-bookmaster
-         * @param {string} id 
-         * @param {BookMasterRequestBody} bookMasterRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async putItemResourceBookmasterPut(id: string, bookMasterRequestBody: BookMasterRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelBookMaster>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.putItemResourceBookmasterPut(id, bookMasterRequestBody, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.putItemResourceBookmasterPut']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
     }
 };
 
@@ -4388,15 +4089,6 @@ export const BookMasterEntityControllerApiFactory = function (configuration?: Co
     const localVarFp = BookMasterEntityControllerApiFp(configuration)
     return {
         /**
-         * delete-bookmaster
-         * @param {BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteItemResourceBookmasterDelete(requestParameters: BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deleteItemResourceBookmasterDelete(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
          * get-bookmaster
          * @param {BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -4404,42 +4096,6 @@ export const BookMasterEntityControllerApiFactory = function (configuration?: Co
          */
         getCollectionResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelBookMaster> {
             return localVarFp.getCollectionResourceBookmasterGet(requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-bookmaster
-         * @param {BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster> {
-            return localVarFp.getItemResourceBookmasterGet(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * patch-bookmaster
-         * @param {BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        patchItemResourceBookmasterPatch(requestParameters: BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster> {
-            return localVarFp.patchItemResourceBookmasterPatch(requestParameters.id, requestParameters.bookMasterRequestBody, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * create-bookmaster
-         * @param {BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postCollectionResourceBookmasterPost(requestParameters: BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster> {
-            return localVarFp.postCollectionResourceBookmasterPost(requestParameters.bookMasterRequestBody, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * update-bookmaster
-         * @param {BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        putItemResourceBookmasterPut(requestParameters: BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster> {
-            return localVarFp.putItemResourceBookmasterPut(requestParameters.id, requestParameters.bookMasterRequestBody, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4451,15 +4107,6 @@ export const BookMasterEntityControllerApiFactory = function (configuration?: Co
  */
 export interface BookMasterEntityControllerApiInterface {
     /**
-     * delete-bookmaster
-     * @param {BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApiInterface
-     */
-    deleteItemResourceBookmasterDelete(requestParameters: BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
      * get-bookmaster
      * @param {BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4468,56 +4115,6 @@ export interface BookMasterEntityControllerApiInterface {
      */
     getCollectionResourceBookmasterGet(requestParameters?: BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelBookMaster>;
 
-    /**
-     * get-bookmaster
-     * @param {BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApiInterface
-     */
-    getItemResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster>;
-
-    /**
-     * patch-bookmaster
-     * @param {BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApiInterface
-     */
-    patchItemResourceBookmasterPatch(requestParameters: BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster>;
-
-    /**
-     * create-bookmaster
-     * @param {BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApiInterface
-     */
-    postCollectionResourceBookmasterPost(requestParameters: BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster>;
-
-    /**
-     * update-bookmaster
-     * @param {BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApiInterface
-     */
-    putItemResourceBookmasterPut(requestParameters: BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster>;
-
-}
-
-/**
- * Request parameters for deleteItemResourceBookmasterDelete operation in BookMasterEntityControllerApi.
- * @export
- * @interface BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest
- */
-export interface BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterEntityControllerApiDeleteItemResourceBookmasterDelete
-     */
-    readonly id: string
 }
 
 /**
@@ -4549,93 +4146,12 @@ export interface BookMasterEntityControllerApiGetCollectionResourceBookmasterGet
 }
 
 /**
- * Request parameters for getItemResourceBookmasterGet operation in BookMasterEntityControllerApi.
- * @export
- * @interface BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest
- */
-export interface BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterEntityControllerApiGetItemResourceBookmasterGet
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for patchItemResourceBookmasterPatch operation in BookMasterEntityControllerApi.
- * @export
- * @interface BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest
- */
-export interface BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterEntityControllerApiPatchItemResourceBookmasterPatch
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {BookMasterRequestBody}
-     * @memberof BookMasterEntityControllerApiPatchItemResourceBookmasterPatch
-     */
-    readonly bookMasterRequestBody: BookMasterRequestBody
-}
-
-/**
- * Request parameters for postCollectionResourceBookmasterPost operation in BookMasterEntityControllerApi.
- * @export
- * @interface BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest
- */
-export interface BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest {
-    /**
-     * 
-     * @type {BookMasterRequestBody}
-     * @memberof BookMasterEntityControllerApiPostCollectionResourceBookmasterPost
-     */
-    readonly bookMasterRequestBody: BookMasterRequestBody
-}
-
-/**
- * Request parameters for putItemResourceBookmasterPut operation in BookMasterEntityControllerApi.
- * @export
- * @interface BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest
- */
-export interface BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterEntityControllerApiPutItemResourceBookmasterPut
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {BookMasterRequestBody}
-     * @memberof BookMasterEntityControllerApiPutItemResourceBookmasterPut
-     */
-    readonly bookMasterRequestBody: BookMasterRequestBody
-}
-
-/**
  * BookMasterEntityControllerApi - object-oriented interface
  * @export
  * @class BookMasterEntityControllerApi
  * @extends {BaseAPI}
  */
 export class BookMasterEntityControllerApi extends BaseAPI implements BookMasterEntityControllerApiInterface {
-    /**
-     * delete-bookmaster
-     * @param {BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApi
-     */
-    public deleteItemResourceBookmasterDelete(requestParameters: BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterEntityControllerApiFp(this.configuration).deleteItemResourceBookmasterDelete(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
     /**
      * get-bookmaster
      * @param {BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest} requestParameters Request parameters.
@@ -4646,367 +4162,31 @@ export class BookMasterEntityControllerApi extends BaseAPI implements BookMaster
     public getCollectionResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest = {}, options?: RawAxiosRequestConfig) {
         return BookMasterEntityControllerApiFp(this.configuration).getCollectionResourceBookmasterGet(requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
     }
-
-    /**
-     * get-bookmaster
-     * @param {BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApi
-     */
-    public getItemResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterEntityControllerApiFp(this.configuration).getItemResourceBookmasterGet(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * patch-bookmaster
-     * @param {BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApi
-     */
-    public patchItemResourceBookmasterPatch(requestParameters: BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterEntityControllerApiFp(this.configuration).patchItemResourceBookmasterPatch(requestParameters.id, requestParameters.bookMasterRequestBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * create-bookmaster
-     * @param {BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApi
-     */
-    public postCollectionResourceBookmasterPost(requestParameters: BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterEntityControllerApiFp(this.configuration).postCollectionResourceBookmasterPost(requestParameters.bookMasterRequestBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * update-bookmaster
-     * @param {BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterEntityControllerApi
-     */
-    public putItemResourceBookmasterPut(requestParameters: BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterEntityControllerApiFp(this.configuration).putItemResourceBookmasterPut(requestParameters.id, requestParameters.bookMasterRequestBody, options).then((request) => request(this.axios, this.basePath));
-    }
 }
 
 
 
 /**
- * BookMasterPropertyReferenceControllerApi - axios parameter creator
+ * BookMasterSearchControllerApi - axios parameter creator
  * @export
  */
-export const BookMasterPropertyReferenceControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+export const BookMasterSearchControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * patch-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
+         * 
+         * @param {number} [id] 
+         * @param {string} [name] 
+         * @param {string} [publicationDateBegin] 
+         * @param {string} [publicationDateEnd] 
+         * @param {string} [ndcCategoryName] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPropertyReferenceBookmasterPatch: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceBookmasterPatch', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceBookmasterPatch', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/bookMasters/{id}/author`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * patch-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceBookmasterPatch1: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceBookmasterPatch1', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceBookmasterPatch1', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/bookMasters/{id}/ndcCategory`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * update-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceBookmasterPut: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceBookmasterPut', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceBookmasterPut', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/bookMasters/{id}/author`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * update-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceBookmasterPut1: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceBookmasterPut1', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceBookmasterPut1', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/bookMasters/{id}/ndcCategory`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceBookmasterDelete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceBookmasterDelete', 'id', id)
-            const localVarPath = `/bookMasters/{id}/author`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceBookmasterDelete1: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceBookmasterDelete1', 'id', id)
-            const localVarPath = `/bookMasters/{id}/ndcCategory`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdBookmasterDelete: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdBookmasterDelete', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdBookmasterDelete', 'propertyId', propertyId)
-            const localVarPath = `/bookMasters/{id}/author/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdBookmasterDelete1: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdBookmasterDelete1', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdBookmasterDelete1', 'propertyId', propertyId)
-            const localVarPath = `/bookMasters/{id}/ndcCategory/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceBookmasterGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceBookmasterGet', 'id', id)
-            const localVarPath = `/bookMasters/{id}/author`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+        executeSearchBookmasterGet: async (id?: number, name?: string, publicationDateBegin?: string, publicationDateEnd?: string, ndcCategoryName?: string, page?: number, size?: number, sort?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/bookMasters/search/searchBookMaster`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5018,112 +4198,41 @@ export const BookMasterPropertyReferenceControllerApiAxiosParamCreator = functio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceBookmasterGet1: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceBookmasterGet1', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('followPropertyReferenceBookmasterGet1', 'propertyId', propertyId)
-            const localVarPath = `/bookMasters/{id}/author/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceBookmasterGet2: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceBookmasterGet2', 'id', id)
-            const localVarPath = `/bookMasters/{id}/ndcCategory`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceBookmasterGet3: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceBookmasterGet3', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('followPropertyReferenceBookmasterGet3', 'propertyId', propertyId)
-            const localVarPath = `/bookMasters/{id}/ndcCategory/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (publicationDateBegin !== undefined) {
+                localVarQueryParameter['publicationDateBegin'] = (publicationDateBegin as any instanceof Date) ?
+                    (publicationDateBegin as any).toISOString().substring(0,10) :
+                    publicationDateBegin;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+            if (publicationDateEnd !== undefined) {
+                localVarQueryParameter['publicationDateEnd'] = (publicationDateEnd as any instanceof Date) ?
+                    (publicationDateEnd as any).toISOString().substring(0,10) :
+                    publicationDateEnd;
+            }
+
+            if (ndcCategoryName !== undefined) {
+                localVarQueryParameter['ndcCategoryName'] = ndcCategoryName;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
 
 
     
@@ -5140,762 +4249,149 @@ export const BookMasterPropertyReferenceControllerApiAxiosParamCreator = functio
 };
 
 /**
- * BookMasterPropertyReferenceControllerApi - functional programming interface
+ * BookMasterSearchControllerApi - functional programming interface
  * @export
  */
-export const BookMasterPropertyReferenceControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = BookMasterPropertyReferenceControllerApiAxiosParamCreator(configuration)
+export const BookMasterSearchControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = BookMasterSearchControllerApiAxiosParamCreator(configuration)
     return {
         /**
-         * patch-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
+         * 
+         * @param {number} [id] 
+         * @param {string} [name] 
+         * @param {string} [publicationDateBegin] 
+         * @param {string} [publicationDateEnd] 
+         * @param {string} [ndcCategoryName] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createPropertyReferenceBookmasterPatch(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelAuthor>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceBookmasterPatch(id, collectionModelObject, options);
+        async executeSearchBookmasterGet(id?: number, name?: string, publicationDateBegin?: string, publicationDateEnd?: string, ndcCategoryName?: string, page?: number, size?: number, sort?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagedModelEntityModelBookMaster>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.executeSearchBookmasterGet(id, name, publicationDateBegin, publicationDateEnd, ndcCategoryName, page, size, sort, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.createPropertyReferenceBookmasterPatch']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * patch-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createPropertyReferenceBookmasterPatch1(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelNdcCategory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceBookmasterPatch1(id, collectionModelObject, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.createPropertyReferenceBookmasterPatch1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * update-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createPropertyReferenceBookmasterPut(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelAuthor>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceBookmasterPut(id, collectionModelObject, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.createPropertyReferenceBookmasterPut']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * update-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createPropertyReferenceBookmasterPut1(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelNdcCategory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceBookmasterPut1(id, collectionModelObject, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.createPropertyReferenceBookmasterPut1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceBookmasterDelete(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceBookmasterDelete(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.deletePropertyReferenceBookmasterDelete']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceBookmasterDelete1(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceBookmasterDelete1(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.deletePropertyReferenceBookmasterDelete1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceIdBookmasterDelete(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceIdBookmasterDelete(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.deletePropertyReferenceIdBookmasterDelete']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceIdBookmasterDelete1(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceIdBookmasterDelete1(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.deletePropertyReferenceIdBookmasterDelete1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceBookmasterGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelAuthor>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceBookmasterGet(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.followPropertyReferenceBookmasterGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-author-by-bookmaster-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceBookmasterGet1(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelAuthor>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceBookmasterGet1(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.followPropertyReferenceBookmasterGet1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceBookmasterGet2(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelNdcCategory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceBookmasterGet2(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.followPropertyReferenceBookmasterGet2']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-ndccategory-by-bookmaster-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceBookmasterGet3(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelNdcCategory>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceBookmasterGet3(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.followPropertyReferenceBookmasterGet3']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterSearchControllerApi.executeSearchBookmasterGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * BookMasterPropertyReferenceControllerApi - factory interface
+ * BookMasterSearchControllerApi - factory interface
  * @export
  */
-export const BookMasterPropertyReferenceControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = BookMasterPropertyReferenceControllerApiFp(configuration)
+export const BookMasterSearchControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = BookMasterSearchControllerApiFp(configuration)
     return {
         /**
-         * patch-author-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest} requestParameters Request parameters.
+         * 
+         * @param {BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPropertyReferenceBookmasterPatch(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor> {
-            return localVarFp.createPropertyReferenceBookmasterPatch(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * patch-ndccategory-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceBookmasterPatch1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory> {
-            return localVarFp.createPropertyReferenceBookmasterPatch1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * update-author-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceBookmasterPut(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor> {
-            return localVarFp.createPropertyReferenceBookmasterPut(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * update-ndccategory-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceBookmasterPut1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory> {
-            return localVarFp.createPropertyReferenceBookmasterPut1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-author-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceBookmasterDelete(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-ndccategory-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceBookmasterDelete1(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-author-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceIdBookmasterDelete(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-ndccategory-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceIdBookmasterDelete1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-author-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceBookmasterGet(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor> {
-            return localVarFp.followPropertyReferenceBookmasterGet(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-author-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceBookmasterGet1(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor> {
-            return localVarFp.followPropertyReferenceBookmasterGet1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-ndccategory-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceBookmasterGet2(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory> {
-            return localVarFp.followPropertyReferenceBookmasterGet2(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-ndccategory-by-bookmaster-Id
-         * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceBookmasterGet3(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory> {
-            return localVarFp.followPropertyReferenceBookmasterGet3(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
+        executeSearchBookmasterGet(requestParameters: BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelBookMaster> {
+            return localVarFp.executeSearchBookmasterGet(requestParameters.id, requestParameters.name, requestParameters.publicationDateBegin, requestParameters.publicationDateEnd, requestParameters.ndcCategoryName, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * BookMasterPropertyReferenceControllerApi - interface
+ * BookMasterSearchControllerApi - interface
  * @export
- * @interface BookMasterPropertyReferenceControllerApi
+ * @interface BookMasterSearchControllerApi
  */
-export interface BookMasterPropertyReferenceControllerApiInterface {
+export interface BookMasterSearchControllerApiInterface {
     /**
-     * patch-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest} requestParameters Request parameters.
+     * 
+     * @param {BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     * @memberof BookMasterSearchControllerApiInterface
      */
-    createPropertyReferenceBookmasterPatch(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor>;
-
-    /**
-     * patch-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    createPropertyReferenceBookmasterPatch1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory>;
-
-    /**
-     * update-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    createPropertyReferenceBookmasterPut(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor>;
-
-    /**
-     * update-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    createPropertyReferenceBookmasterPut1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory>;
-
-    /**
-     * delete-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * delete-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * delete-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceIdBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * delete-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceIdBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * get-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceBookmasterGet(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor>;
-
-    /**
-     * get-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceBookmasterGet1(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor>;
-
-    /**
-     * get-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceBookmasterGet2(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory>;
-
-    /**
-     * get-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceBookmasterGet3(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory>;
+    executeSearchBookmasterGet(requestParameters?: BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelBookMaster>;
 
 }
 
 /**
- * Request parameters for createPropertyReferenceBookmasterPatch operation in BookMasterPropertyReferenceControllerApi.
+ * Request parameters for executeSearchBookmasterGet operation in BookMasterSearchControllerApi.
  * @export
- * @interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest
+ * @interface BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest
  */
-export interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest {
+export interface BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest {
     /**
      * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch
+     * @type {number}
+     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
      */
-    readonly id: string
+    readonly id?: number
 
     /**
      * 
-     * @type {CollectionModelObject}
-     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch
+     * @type {string}
+     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
      */
-    readonly collectionModelObject: CollectionModelObject
+    readonly name?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
+     */
+    readonly publicationDateBegin?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
+     */
+    readonly publicationDateEnd?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
+     */
+    readonly ndcCategoryName?: string
+
+    /**
+     * Zero-based page index (0..N)
+     * @type {number}
+     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
+     */
+    readonly page?: number
+
+    /**
+     * The size of the page to be returned
+     * @type {number}
+     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
+     */
+    readonly size?: number
+
+    /**
+     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @type {Array<string>}
+     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
+     */
+    readonly sort?: Array<string>
 }
 
 /**
- * Request parameters for createPropertyReferenceBookmasterPatch1 operation in BookMasterPropertyReferenceControllerApi.
+ * BookMasterSearchControllerApi - object-oriented interface
  * @export
- * @interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request
- */
-export interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {CollectionModelObject}
-     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1
-     */
-    readonly collectionModelObject: CollectionModelObject
-}
-
-/**
- * Request parameters for createPropertyReferenceBookmasterPut operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest
- */
-export interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {CollectionModelObject}
-     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut
-     */
-    readonly collectionModelObject: CollectionModelObject
-}
-
-/**
- * Request parameters for createPropertyReferenceBookmasterPut1 operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request
- */
-export interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {CollectionModelObject}
-     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1
-     */
-    readonly collectionModelObject: CollectionModelObject
-}
-
-/**
- * Request parameters for deletePropertyReferenceBookmasterDelete operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest
- */
-export interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for deletePropertyReferenceBookmasterDelete1 operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request
- */
-export interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for deletePropertyReferenceIdBookmasterDelete operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest
- */
-export interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete
-     */
-    readonly propertyId: string
-}
-
-/**
- * Request parameters for deletePropertyReferenceIdBookmasterDelete1 operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request
- */
-export interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1
-     */
-    readonly propertyId: string
-}
-
-/**
- * Request parameters for followPropertyReferenceBookmasterGet operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest
- */
-export interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for followPropertyReferenceBookmasterGet1 operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request
- */
-export interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1
-     */
-    readonly propertyId: string
-}
-
-/**
- * Request parameters for followPropertyReferenceBookmasterGet2 operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request
- */
-export interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for followPropertyReferenceBookmasterGet3 operation in BookMasterPropertyReferenceControllerApi.
- * @export
- * @interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request
- */
-export interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3
-     */
-    readonly propertyId: string
-}
-
-/**
- * BookMasterPropertyReferenceControllerApi - object-oriented interface
- * @export
- * @class BookMasterPropertyReferenceControllerApi
+ * @class BookMasterSearchControllerApi
  * @extends {BaseAPI}
  */
-export class BookMasterPropertyReferenceControllerApi extends BaseAPI implements BookMasterPropertyReferenceControllerApiInterface {
+export class BookMasterSearchControllerApi extends BaseAPI implements BookMasterSearchControllerApiInterface {
     /**
-     * patch-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest} requestParameters Request parameters.
+     * 
+     * @param {BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
+     * @memberof BookMasterSearchControllerApi
      */
-    public createPropertyReferenceBookmasterPatch(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceBookmasterPatch(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * patch-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public createPropertyReferenceBookmasterPatch1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceBookmasterPatch1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * update-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public createPropertyReferenceBookmasterPut(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceBookmasterPut(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * update-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public createPropertyReferenceBookmasterPut1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceBookmasterPut1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceBookmasterDelete(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceBookmasterDelete1(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceIdBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceIdBookmasterDelete(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceIdBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceIdBookmasterDelete1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceBookmasterGet(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceBookmasterGet(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-author-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceBookmasterGet1(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceBookmasterGet1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceBookmasterGet2(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceBookmasterGet2(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-ndccategory-by-bookmaster-Id
-     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BookMasterPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceBookmasterGet3(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request, options?: RawAxiosRequestConfig) {
-        return BookMasterPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceBookmasterGet3(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
+    public executeSearchBookmasterGet(requestParameters: BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest = {}, options?: RawAxiosRequestConfig) {
+        return BookMasterSearchControllerApiFp(this.configuration).executeSearchBookmasterGet(requestParameters.id, requestParameters.name, requestParameters.publicationDateBegin, requestParameters.publicationDateEnd, requestParameters.ndcCategoryName, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -6825,6 +5321,207 @@ export class NdcCategoryEntityControllerApi extends BaseAPI implements NdcCatego
      */
     public putItemResourceNdccategoryPut(requestParameters: NdcCategoryEntityControllerApiPutItemResourceNdccategoryPutRequest, options?: RawAxiosRequestConfig) {
         return NdcCategoryEntityControllerApiFp(this.configuration).putItemResourceNdccategoryPut(requestParameters.id, requestParameters.ndcCategoryRequestBody, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * NdcCategorySearchControllerApi - axios parameter creator
+ * @export
+ */
+export const NdcCategorySearchControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {number} [id] 
+         * @param {string} [name] 
+         * @param {string} [number] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        executeSearchNdccategoryGet: async (id?: number, name?: string, number?: string, page?: number, size?: number, sort?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ndcCategories/search/findByComplexConditions`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (number !== undefined) {
+                localVarQueryParameter['number'] = number;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * NdcCategorySearchControllerApi - functional programming interface
+ * @export
+ */
+export const NdcCategorySearchControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = NdcCategorySearchControllerApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {number} [id] 
+         * @param {string} [name] 
+         * @param {string} [number] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async executeSearchNdccategoryGet(id?: number, name?: string, number?: string, page?: number, size?: number, sort?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagedModelEntityModelNdcCategory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.executeSearchNdccategoryGet(id, name, number, page, size, sort, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['NdcCategorySearchControllerApi.executeSearchNdccategoryGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * NdcCategorySearchControllerApi - factory interface
+ * @export
+ */
+export const NdcCategorySearchControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = NdcCategorySearchControllerApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {NdcCategorySearchControllerApiExecuteSearchNdccategoryGetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        executeSearchNdccategoryGet(requestParameters: NdcCategorySearchControllerApiExecuteSearchNdccategoryGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelNdcCategory> {
+            return localVarFp.executeSearchNdccategoryGet(requestParameters.id, requestParameters.name, requestParameters.number, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * NdcCategorySearchControllerApi - interface
+ * @export
+ * @interface NdcCategorySearchControllerApi
+ */
+export interface NdcCategorySearchControllerApiInterface {
+    /**
+     * 
+     * @param {NdcCategorySearchControllerApiExecuteSearchNdccategoryGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NdcCategorySearchControllerApiInterface
+     */
+    executeSearchNdccategoryGet(requestParameters?: NdcCategorySearchControllerApiExecuteSearchNdccategoryGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelNdcCategory>;
+
+}
+
+/**
+ * Request parameters for executeSearchNdccategoryGet operation in NdcCategorySearchControllerApi.
+ * @export
+ * @interface NdcCategorySearchControllerApiExecuteSearchNdccategoryGetRequest
+ */
+export interface NdcCategorySearchControllerApiExecuteSearchNdccategoryGetRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof NdcCategorySearchControllerApiExecuteSearchNdccategoryGet
+     */
+    readonly id?: number
+
+    /**
+     * 
+     * @type {string}
+     * @memberof NdcCategorySearchControllerApiExecuteSearchNdccategoryGet
+     */
+    readonly name?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof NdcCategorySearchControllerApiExecuteSearchNdccategoryGet
+     */
+    readonly number?: string
+
+    /**
+     * Zero-based page index (0..N)
+     * @type {number}
+     * @memberof NdcCategorySearchControllerApiExecuteSearchNdccategoryGet
+     */
+    readonly page?: number
+
+    /**
+     * The size of the page to be returned
+     * @type {number}
+     * @memberof NdcCategorySearchControllerApiExecuteSearchNdccategoryGet
+     */
+    readonly size?: number
+
+    /**
+     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @type {Array<string>}
+     * @memberof NdcCategorySearchControllerApiExecuteSearchNdccategoryGet
+     */
+    readonly sort?: Array<string>
+}
+
+/**
+ * NdcCategorySearchControllerApi - object-oriented interface
+ * @export
+ * @class NdcCategorySearchControllerApi
+ * @extends {BaseAPI}
+ */
+export class NdcCategorySearchControllerApi extends BaseAPI implements NdcCategorySearchControllerApiInterface {
+    /**
+     * 
+     * @param {NdcCategorySearchControllerApiExecuteSearchNdccategoryGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NdcCategorySearchControllerApi
+     */
+    public executeSearchNdccategoryGet(requestParameters: NdcCategorySearchControllerApiExecuteSearchNdccategoryGetRequest = {}, options?: RawAxiosRequestConfig) {
+        return NdcCategorySearchControllerApiFp(this.configuration).executeSearchNdccategoryGet(requestParameters.id, requestParameters.name, requestParameters.number, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

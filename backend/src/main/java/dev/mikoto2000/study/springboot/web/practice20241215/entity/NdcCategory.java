@@ -20,5 +20,5 @@ public class NdcCategory {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
-  private Long number;
+  private String number;
 }

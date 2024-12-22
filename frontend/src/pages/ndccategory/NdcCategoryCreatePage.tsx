@@ -1,11 +1,11 @@
-import { AuthorEntityControllerApiFactory, Configuration } from "../../api";
+import { Configuration, NdcCategoryEntityControllerApiFactory } from "../../api";
 import { BASE_URL } from "../../config";
 import { Link, useNavigate } from "react-router";
 
-type AuthorCreatePageProps = {
+type NdcCategoryCreatePageProps = {
 };
 
-export const AuthorCreatePage: React.FC<AuthorCreatePageProps> = ({ }) => {
+export const NdcCategoryCreatePage: React.FC<NdcCategoryCreatePageProps> = ({ }) => {
 
   const navigate = useNavigate();
 
@@ -15,22 +15,25 @@ export const AuthorCreatePage: React.FC<AuthorCreatePageProps> = ({ }) => {
     const form: any = event.currentTarget.form;
     console.log(form);
     const name = form.name.value;
+    const number = form.number.value;
 
-    const api = AuthorEntityControllerApiFactory(new Configuration(), BASE_URL);
+    const api = NdcCategoryEntityControllerApiFactory(new Configuration(), BASE_URL);
 
     console.log(JSON.stringify({
-      authorRequestBody: {
+      ndcCategoryRequestBody: {
         name,
+        number,
       }
     }));
 
 
-    api.postCollectionResourceAuthorPost({
-      authorRequestBody: {
+    api.postCollectionResourceNdccategoryPost({
+      ndcCategoryRequestBody: {
         name,
+        number,
       }
     }).then((result) => {
-      navigate(`/authors/${(result.data as any).id}`);
+      navigate(`/ndcCategories/${(result.data as any).id}`);
     });
 
   }
@@ -44,11 +47,15 @@ export const AuthorCreatePage: React.FC<AuthorCreatePageProps> = ({ }) => {
             <input type="text" name="name"></input>
           </div>
           <div>
+            <label>Number:</label>
+            <input type="text" name="number"></input>
+          </div>
+          <div>
             <button type="submit" onClick={handleSubmitClick}>登録</button>
           </div>
         </div>
       </form>
-      <Link to="/authors">一覧に戻る</Link>
+      <Link to="/ndcCategories">一覧に戻る</Link>
     </>
   )
 }
