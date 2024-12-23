@@ -36,3 +36,12 @@ values
   (9, 5, 1),
   (10, 5, 5)
 ;
+
+insert into book_stock_status (id, name)
+values
+  (1, 'book_stock_status1'),
+  (2, 'book_stock_status2'),
+  (3, 'book_stock_status3'),
+  (4, 'book_stock_status4'),
+  (5, 'book_stock_status5')
+;

@@ -1,7 +1,3 @@
-drop table if exists book_master_authors;
-drop table if exists author;
-drop table if exists book_master;
-
 create table ndc_category (
   id bigserial primary key,
   name varchar(255),
@@ -27,4 +23,9 @@ create table book_master_author (
   author_id bigint,
   constraint bmar_bm foreign key (book_master_id) references book_master (id),
   constraint bmar_a foreign key (author_id) references author (id)
+);
+
+create table book_stock_status (
+  id bigserial primary key,
+  name varchar(255)
 );
