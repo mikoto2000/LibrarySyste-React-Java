@@ -9,6 +9,9 @@ import { BookMasterDetailPage } from './pages/bookmaster/BookMasterDetailPage'
 import { NdcCategoriesPage } from './pages/ndccategory/NdcCategoriesPage'
 import { NdcCategoryCreatePage } from './pages/ndccategory/NdcCategoryCreatePage'
 import { NdcCategoryDetailPage } from './pages/ndccategory/NdcCategoryDetailPage'
+import { BookStockStatusesPage } from './pages/bookstockstatus/BookStockStatusesPage'
+import { BookStockStatusDetailPage } from './pages/bookstockstatus/BookStockDetailPage'
+import { BookStockStatusCreatePage } from './pages/bookstockstatus/BookStockStatusCreatePage'
 
 function App() {
   return (
@@ -16,6 +19,7 @@ function App() {
       <Route path="/" element={
         <ul>
           <li><Link to="/ndcCategories">Ndc Categories</Link></li>
+          <li><Link to="/bookStockStatuses">Book Stock Statuses</Link></li>
           <li><Link to="/authors">Authors</Link></li>
           <li><Link to="/bookMasters">BookMasters</Link></li>
         </ul>
@@ -31,6 +35,18 @@ function App() {
       />
       < Route path="/ndcCategories/create" element={
         <NdcCategoryCreatePage />
+      }
+      />
+      < Route path="/bookStockStatuses" element={
+        <BookStockStatusesPage />
+      }
+      />
+      <Route path="/bookStockStatuses/:id" element={
+        <BookStockStatusDetailPage />
+      }
+      />
+      < Route path="/bookStockStatuses/create" element={
+        <BookStockStatusCreatePage />
       }
       />
       <Route path="/authors" element={
