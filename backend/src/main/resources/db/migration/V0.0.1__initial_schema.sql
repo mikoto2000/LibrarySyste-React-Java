@@ -29,3 +29,10 @@ create table book_stock_status (
   id bigserial primary key,
   name varchar(255)
 );
+
+create table book_stock (
+  id bigserial primary key,
+  book_stock_status_id bigint,
+  memo text,
+  constraint bs_bss foreign key (book_stock_status_id) references book_stock_status (id)
+);

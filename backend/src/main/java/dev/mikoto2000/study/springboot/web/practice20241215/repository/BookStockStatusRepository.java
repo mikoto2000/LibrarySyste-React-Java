@@ -27,4 +27,3 @@ public interface BookStockStatusRepository extends PagingAndSortingRepository<Bo
   Page<BookStockStatus> findByComplexConditions(Long id, String name, Pageable pageable);
 }
 
-

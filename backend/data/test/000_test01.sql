@@ -45,3 +45,12 @@ values
   (4, 'book_stock_status4'),
   (5, 'book_stock_status5')
 ;
+
+insert into book_stock (id, book_stock_status_id, memo)
+values
+  (1, 1, 'memo1'),
+  (2, 2, 'memo2'),
+  (3, 3, 'memo3'),
+  (4, 4, 'memo4'),
+  (5, 5, 'memo5')
+;

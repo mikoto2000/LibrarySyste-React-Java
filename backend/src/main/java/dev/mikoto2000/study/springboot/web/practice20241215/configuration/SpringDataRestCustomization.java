@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.Author;
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.BookMaster;
+import dev.mikoto2000.study.springboot.web.practice20241215.entity.BookStock;
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.BookStockStatus;
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.NdcCategory;
 
@@ -26,6 +27,7 @@ public class SpringDataRestCustomization implements RepositoryRestConfigurer {
     config.exposeIdsFor(
         Author.class,
         BookMaster.class,
+        BookStock.class,
         BookStockStatus.class,
         NdcCategory.class);
   }
