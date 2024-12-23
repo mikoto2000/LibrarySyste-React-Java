@@ -32,7 +32,9 @@ create table book_stock_status (
 
 create table book_stock (
   id bigserial primary key,
+  book_master_id bigint,
   book_stock_status_id bigint,
   memo text,
-  constraint bs_bss foreign key (book_stock_status_id) references book_stock_status (id)
+  constraint bs_bss foreign key (book_stock_status_id) references book_stock_status (id),
+  constraint bs_bm foreign key (book_master_id) references book_master (id)
 );

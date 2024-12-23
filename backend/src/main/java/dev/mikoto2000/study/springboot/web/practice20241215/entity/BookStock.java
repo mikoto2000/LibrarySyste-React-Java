@@ -25,5 +25,9 @@ public class BookStock {
 
   @NotNull
   @ManyToOne
+  private BookMaster bookMaster;
+
+  @NotNull
+  @ManyToOne
   private BookStockStatus bookStockStatus;
 }
