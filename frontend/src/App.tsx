@@ -12,6 +12,9 @@ import { NdcCategoryDetailPage } from './pages/ndccategory/NdcCategoryDetailPage
 import { BookStockStatusesPage } from './pages/bookstockstatus/BookStockStatusesPage'
 import { BookStockStatusDetailPage } from './pages/bookstockstatus/BookStockDetailPage'
 import { BookStockStatusCreatePage } from './pages/bookstockstatus/BookStockStatusCreatePage'
+import { BookStocksPage } from './pages/bookstock/BookStockPage'
+import { BookStockDetailPage } from './pages/bookstock/BookStockDetailPage'
+import { BookStockCreatePage } from './pages/bookstock/BookStockCreatePage'
 
 function App() {
   return (
@@ -21,7 +24,8 @@ function App() {
           <li><Link to="/ndcCategories">Ndc Categories</Link></li>
           <li><Link to="/bookStockStatuses">Book Stock Statuses</Link></li>
           <li><Link to="/authors">Authors</Link></li>
-          <li><Link to="/bookMasters">BookMasters</Link></li>
+          <li><Link to="/bookMasters">Book Masters</Link></li>
+          <li><Link to="/bookStocks">Book Stocks</Link></li>
         </ul>
       }
       />
@@ -33,11 +37,11 @@ function App() {
         <NdcCategoryDetailPage />
       }
       />
-      < Route path="/ndcCategories/create" element={
+      <Route path="/ndcCategories/create" element={
         <NdcCategoryCreatePage />
       }
       />
-      < Route path="/bookStockStatuses" element={
+      <Route path="/bookStockStatuses" element={
         <BookStockStatusesPage />
       }
       />
@@ -45,7 +49,7 @@ function App() {
         <BookStockStatusDetailPage />
       }
       />
-      < Route path="/bookStockStatuses/create" element={
+      <Route path="/bookStockStatuses/create" element={
         <BookStockStatusCreatePage />
       }
       />
@@ -57,11 +61,11 @@ function App() {
         <AuthorDetailPage />
       }
       />
-      < Route path="/authors/create" element={
+      <Route path="/authors/create" element={
         <AuthorCreatePage />
       }
       />
-      < Route path="/bookMasters" element={
+      <Route path="/bookMasters" element={
         <BookMastersPage />
       }
       />
@@ -69,8 +73,20 @@ function App() {
         <BookMasterDetailPage />
       }
       />
-      < Route path="/bookMasters/create" element={
+      <Route path="/bookMasters/create" element={
         <BookMasterCreatePage />
+      }
+      />
+      <Route path="/bookStocks" element={
+        <BookStocksPage />
+      }
+      />
+      <Route path="/bookStocks/:id" element={
+        <BookStockDetailPage />
+      }
+      />
+      <Route path="/bookStocks/create" element={
+        <BookStockCreatePage />
       }
       />
     </Routes>
