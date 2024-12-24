@@ -18,18 +18,34 @@ import { BookStockCreatePage } from './pages/bookstock/BookStockCreatePage'
 import { CustomersPage } from './pages/customer/CustomersPage'
 import { CustomerDetailPage } from './pages/customer/CustomerDetailPage'
 import { CustomerCreatePage } from './pages/customer/CustomerCreatePage'
+import { LendingStatusesPage } from './pages/lendingstatus/LendingStatusesPage'
+import { LendingStatusDetailPage } from './pages/lendingstatus/LendingStatusDetailPage'
+import { LendingStatusCreatePage } from './pages/lendingstatus/LendingStatusCreatePage'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={
         <ul>
-          <li><Link to="/ndcCategories">Ndc Categories</Link></li>
-          <li><Link to="/bookStockStatuses">Book Stock Statuses</Link></li>
-          <li><Link to="/authors">Authors</Link></li>
-          <li><Link to="/bookMasters">Book Masters</Link></li>
-          <li><Link to="/bookStocks">Book Stocks</Link></li>
-          <li><Link to="/customers">Customers</Link></li>
+          <li>マスタ管理
+            <ul>
+              <li><Link to="/ndcCategories">Ndc Categories</Link></li>
+              <li><Link to="/bookStockStatuses">Book Stock Statuses</Link></li>
+              <li><Link to="/lendingStatuses">Lending Statuses</Link></li>
+            </ul>
+          </li>
+          <li>書籍・在庫管理
+            <ul>
+              <li><Link to="/authors">Authors</Link></li>
+              <li><Link to="/bookMasters">Book Masters</Link></li>
+            </ul>
+          </li>
+          <li>貸出管理
+            <ul>
+              <li><Link to="/bookStocks">Book Stocks</Link></li>
+              <li><Link to="/customers">Customers</Link></li>
+            </ul>
+          </li>
         </ul>
       }
       />
@@ -55,6 +71,18 @@ function App() {
       />
       <Route path="/bookStockStatuses/create" element={
         <BookStockStatusCreatePage />
+      }
+      />
+      <Route path="/lendingStatuses" element={
+        <LendingStatusesPage />
+      }
+      />
+      <Route path="/lendingStatuses/:id" element={
+        <LendingStatusDetailPage />
+      }
+      />
+      <Route path="/lendingStatuses/create" element={
+        <LendingStatusCreatePage />
       }
       />
       <Route path="/authors" element={
