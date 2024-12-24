@@ -68,7 +68,6 @@ export const BookStocksPage: React.FC<BookStocksPageProps> = ({ }) => {
             <label>Id:</label>
             <input type="number" name="id" defaultValue={id}></input>
           </div>
-          {/* TODO:本の題名で検索 */}
           <div>
             <label>Name:</label>
             <input type="text" name="bookName" defaultValue={bookName}></input>

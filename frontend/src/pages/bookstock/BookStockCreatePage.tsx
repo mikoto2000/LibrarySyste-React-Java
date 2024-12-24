@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AuthorEntityControllerApiFactory, BookStockEntityControllerApiFactory, Configuration, EntityModelAuthor, EntityModelNdcCategory, NdcCategoryEntityControllerApiFactory } from "../../api";
+import { BookMasterEntityControllerApiFactory, BookStockEntityControllerApiFactory, BookStockStatusEntityControllerApiFactory, Configuration, EntityModelBookMaster, EntityModelBookStockStatus } from "../../api";
 import { BASE_URL } from "../../config";
 import { Link, useNavigate } from "react-router";
 
@@ -9,18 +9,20 @@ type BookStockCreatePageProps = {
 export const BookStockCreatePage: React.FC<BookStockCreatePageProps> = ({ }) => {
 
   const navigate = useNavigate();
-  const [author, setAuthor] = useState<EntityModelAuthor[] | undefined>([]);
-  const [ndcCategories, setNdcCategories] = useState<EntityModelNdcCategory[] | undefined>([]);
+  const [bookMasters, setBookMasters] = useState<EntityModelBookMaster[] | undefined>([]);
+  const [bookStockStatuses, setBookStockStatuses] = useState<EntityModelBookStockStatus[] | undefined>([]);
 
   useEffect(() => {
     (async () => {
-      const ndcCategoryApi = NdcCategoryEntityControllerApiFactory(new Configuration(), BASE_URL);
-      const ndcCategoryResult = await ndcCategoryApi.getCollectionResourceNdccategoryGet({});
-      setNdcCategories(ndcCategoryResult.data._embedded?.ndcCategories);
+      // BookMaster の一覧取得
+      const bookMasterControllerApiFactory = BookMasterEntityControllerApiFactory(new Configuration(), BASE_URL);
+      const bookMastersResult = await bookMasterControllerApiFactory.getCollectionResourceBookmasterGet();
+      setBookMasters(bookMastersResult.data._embedded?.bookMasters);
 
-      const authorApi = AuthorEntityControllerApiFactory(new Configuration(), BASE_URL);
-      const authorResult = await authorApi.getCollectionResourceAuthorGet({});
-      setAuthor(authorResult.data._embedded?.authors);
+      // BookStockStatus の一覧取得
+      const bookStockStatusControllerApiFactory = BookStockStatusEntityControllerApiFactory(new Configuration(), BASE_URL);
+      const bookStockStatussResult = await bookStockStatusControllerApiFactory.getCollectionResourceBookstockstatusGet();
+      setBookStockStatuses(bookStockStatussResult.data._embedded?.bookStockStatuses);
     })();
   }, []);
 
@@ -29,37 +31,26 @@ export const BookStockCreatePage: React.FC<BookStockCreatePageProps> = ({ }) => 
     console.log(event);
     const form: any = event.currentTarget.form;
     console.log(form);
-    const name = form.name.value;
-    const authorOptions = form.author.options
-    const authors = [];
-    for (var i = 0; i < authorOptions.length; i++) {
-      console.log(authorOptions[i].selected);
-      if (authorOptions[i].selected === true) {
-        authors.push(authorOptions[i].value)
-      }
-    }
-    console.log(authors);
-    const publicationDate = form.publicationDate.value;
-    const ndcCategory = form.ndcCategory.value;
+    const bookMaster = form.bookMaster.value
+    const bookStockStatus = form.bookStockStatus.value
+    const memo = form.memo.value
 
     const api = BookStockEntityControllerApiFactory(new Configuration(), BASE_URL);
 
     console.log(JSON.stringify({
       bookStockRequestBody: {
-        name,
-        publicationDate,
-        authors,
-        ndcCategory
+        bookMaster,
+        bookStockStatus,
+        memo,
       }
     }));
 
 
     api.postCollectionResourceBookstockPost({
       bookStockRequestBody: {
-        name,
-        publicationDate,
-        author: authors,
-        ndcCategory
+        bookMaster,
+        bookStockStatus,
+        memo,
       }
     }).then((result) => {
       navigate(`/bookStocks/${(result.data as any).id}`);
@@ -72,36 +63,32 @@ export const BookStockCreatePage: React.FC<BookStockCreatePageProps> = ({ }) => 
       <form name="register">
         <div>
           <div>
-            <label>Name:</label>
-            <input type="text" name="name"></input>
-          </div>
-          <div>
-            <label>Publication Date:</label>
-            <input type="date" name="publicationDate"></input>
-          </div>
-          <div>
-            <label>Author:</label>
-            <select name="author" multiple>
+            <label>Book Master:</label>
+            <select name="bookMaster">
               {
-                author
+                bookMasters
                   ?
-                  author.map((e: any) => <option value={"/author/" + e.id}>{e.name}</option>)
+                  bookMasters.map((e: any) => <option value={"/bookMaster/" + e.id}>{e.name}</option>)
                   :
                   <></>
               }
             </select>
           </div>
           <div>
-            <label>NdcCategory:</label>
-            <select name="ndcCategory">
+            <label>Book Master:</label>
+            <select name="bookStockStatus">
               {
-                ndcCategories
+                bookStockStatuses
                   ?
-                  ndcCategories.map((e: any) => <option value={"/ndcCategory/" + e.id}>{e.name}</option>)
+                  bookStockStatuses.map((e: any) => <option value={"/bookStockStatus/" + e.id}>{e.name}</option>)
                   :
                   <></>
               }
             </select>
+          </div>
+          <div>
+            <label>Memo:</label>
+            <input type="text" name="memo"></input>
           </div>
           <div>
             <button type="submit" onClick={handleSubmitClick}>登録</button>
