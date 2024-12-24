@@ -45,3 +45,9 @@ create table book_stock (
   constraint bs_bss foreign key (book_stock_status_id) references book_stock_status (id),
   constraint bs_bm foreign key (book_master_id) references book_master (id)
 );
+
+create table lending_status (
+  id bigserial primary key,
+  name varchar(255) not null
+);
+

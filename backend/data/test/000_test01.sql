@@ -50,3 +50,9 @@ values
   (4, 3, 1, ''),
   (5, 3, 1, '傷あり、まだ貸せる')
 ;
+
+insert into lending_status (id, name)
+values
+  (1, '貸出中'),
+  (2, '返却済み')
+;
