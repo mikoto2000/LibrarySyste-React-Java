@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../config";
-import { Configuration, BookStockSearchControllerApiFactory } from "../../api";
+import { Configuration, BookStockSearchControllerApiFactory, BookStockEntityControllerApiFactory, BookStockStatusEntityControllerApiFactory } from "../../api";
 import { Table } from "../../components/Table/Table";
 import { Link, useLocation, useNavigate } from "react-router";
 import queryString from "query-string";
@@ -12,6 +12,7 @@ type BookStocksPageProps = {
 export const BookStocksPage: React.FC<BookStocksPageProps> = ({ }) => {
 
   const [bookStocks, setBookStocks] = useState<any[] | undefined>([])
+  const [bookStockStatuses, setBookStockStatuses] = useState<any[] | undefined>([])
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -45,6 +46,14 @@ export const BookStocksPage: React.FC<BookStocksPageProps> = ({ }) => {
 
       setBookStocks(bookStocksData?._embedded?.bookStocks);
 
+
+      const bookStockStatusApiFactory = BookStockStatusEntityControllerApiFactory(new Configuration(), BASE_URL);
+
+      const bookStockStatusResult = await bookStockStatusApiFactory.getCollectionResourceBookstockstatusGet();
+
+      setBookStockStatuses(bookStockStatusResult.data._embedded?.bookStockStatuses)
+
+
     })();
   }, [search]);
 
@@ -64,10 +73,17 @@ export const BookStocksPage: React.FC<BookStocksPageProps> = ({ }) => {
             <label>Name:</label>
             <input type="text" name="bookName" defaultValue={bookName}></input>
           </div>
-          {/* TODO:マルチセレクト化 */}
           <div>
             <label>Status:</label>
-            <input type="text" name="bookStockStatusIds" defaultValue={bookStockStatusIds}></input>
+            <select name="bookStockStatusIds" multiple defaultValue={bookStockStatusIds}>
+              {
+                bookStockStatuses
+                  ?
+                  bookStockStatuses.map((e: any) => <option selected={bookStockStatusIds.includes(e.id.toString())} value={e.id}>{e.name}</option>)
+                  :
+                  <></>
+              }
+            </select>
           </div>
           <div>
             <label>memo:</label>
