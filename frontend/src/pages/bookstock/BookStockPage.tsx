@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../config";
-import { Configuration, BookStockSearchControllerApiFactory, BookStockEntityControllerApiFactory, BookStockStatusEntityControllerApiFactory } from "../../api";
+import { Configuration, BookStockSearchControllerApiFactory, BookStockStatusEntityControllerApiFactory } from "../../api";
 import { Table } from "../../components/Table/Table";
 import { Link, useLocation, useNavigate } from "react-router";
 import queryString from "query-string";
@@ -79,7 +79,7 @@ export const BookStocksPage: React.FC<BookStocksPageProps> = ({ }) => {
               {
                 bookStockStatuses
                   ?
-                  bookStockStatuses.map((e: any) => <option selected={bookStockStatusIds.includes(e.id.toString())} value={e.id}>{e.name}</option>)
+                  bookStockStatuses.map((e: any) => <option selected={bookStockStatusIds ? bookStockStatusIds.includes(e.id.toString()) : false} value={e.id}>{e.name}</option>)
                   :
                   <></>
               }
