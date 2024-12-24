@@ -1,9 +1,12 @@
 package dev.mikoto2000.study.springboot.web.practice20241215.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -22,6 +25,9 @@ public class BookStock {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String memo;
+
+  @ManyToMany
+  List<LendingSet> lendingSet;
 
   @NotNull
   @ManyToOne
