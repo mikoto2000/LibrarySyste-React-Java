@@ -4,6 +4,12 @@ create table ndc_category (
   number varchar(20)
 );
 
+create table customer (
+  id bigserial primary key,
+  name varchar(255),
+  email_address varchar(255)
+);
+
 create table book_master (
   id bigserial primary key,
   name varchar(128),

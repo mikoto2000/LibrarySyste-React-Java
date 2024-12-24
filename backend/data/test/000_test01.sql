@@ -5,6 +5,13 @@ values
   (3, 'category3')
 ;
 
+insert into customer (id, name, email_address)
+values
+  (1, 'customer1', 'customer1@example.com'),
+  (2, 'customer2', 'customer2@example.com'),
+  (3, 'customer3', 'customer3@example.com')
+;
+
 insert into author (id, name)
 values
   (1, 'author1'),

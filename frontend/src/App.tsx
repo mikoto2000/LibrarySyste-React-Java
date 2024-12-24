@@ -15,6 +15,9 @@ import { BookStockStatusCreatePage } from './pages/bookstockstatus/BookStockStat
 import { BookStocksPage } from './pages/bookstock/BookStockPage'
 import { BookStockDetailPage } from './pages/bookstock/BookStockDetailPage'
 import { BookStockCreatePage } from './pages/bookstock/BookStockCreatePage'
+import { CustomersPage } from './pages/customer/CustomersPage'
+import { CustomerDetailPage } from './pages/customer/CustomerDetailPage'
+import { CustomerCreatePage } from './pages/customer/CustomerCreatePage'
 
 function App() {
   return (
@@ -26,6 +29,7 @@ function App() {
           <li><Link to="/authors">Authors</Link></li>
           <li><Link to="/bookMasters">Book Masters</Link></li>
           <li><Link to="/bookStocks">Book Stocks</Link></li>
+          <li><Link to="/customers">Customers</Link></li>
         </ul>
       }
       />
@@ -87,6 +91,18 @@ function App() {
       />
       <Route path="/bookStocks/create" element={
         <BookStockCreatePage />
+      }
+      />
+      <Route path="/customers" element={
+        <CustomersPage />
+      }
+      />
+      <Route path="/customers/:id" element={
+        <CustomerDetailPage />
+      }
+      />
+      <Route path="/customers/create" element={
+        <CustomerCreatePage />
       }
       />
     </Routes>
