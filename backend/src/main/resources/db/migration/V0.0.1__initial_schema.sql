@@ -14,7 +14,7 @@ create table book_master (
   id bigserial primary key,
   isbn varchar(20) unique not null,
   name varchar(128) not null,
-  publication_date timestamp with time zone not null,
+  publication_date date not null,
   ndc_category_id bigint not null,
   constraint bm_nc foreign key (ndc_category_id) references ndc_category (id)
 );
@@ -49,5 +49,17 @@ create table book_stock (
 create table lending_status (
   id bigserial primary key,
   name varchar(255) not null
+);
+
+create table lending_set (
+  id bigserial primary key,
+  customer_id bigint not null,
+  lending_status_id bigint not null,
+  lend_start_date date not null,
+  lend_deadline_date date not null,
+  return_date date,
+  memo text,
+  constraint ls_ls foreign key (lending_status_id) references lending_status (id),
+  constraint ls_cu foreign key (customer_id) references customer (id)
 );
 

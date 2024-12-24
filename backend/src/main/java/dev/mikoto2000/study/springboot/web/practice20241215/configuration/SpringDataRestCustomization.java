@@ -10,6 +10,7 @@ import dev.mikoto2000.study.springboot.web.practice20241215.entity.BookMaster;
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.BookStock;
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.BookStockStatus;
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.Customer;
+import dev.mikoto2000.study.springboot.web.practice20241215.entity.LendingSet;
 import dev.mikoto2000.study.springboot.web.practice20241215.entity.NdcCategory;
 
 @Component
@@ -31,6 +32,7 @@ public class SpringDataRestCustomization implements RepositoryRestConfigurer {
         BookStock.class,
         BookStockStatus.class,
         Customer.class,
+        LendingSet.class,
         NdcCategory.class);
   }
 }
