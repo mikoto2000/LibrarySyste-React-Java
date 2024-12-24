@@ -19,7 +19,9 @@ export const BookStocksPage: React.FC<BookStocksPageProps> = ({ }) => {
   const search = location.search;
   const queryParams = queryString.parse(search);
   const id: any = queryParams['id'];
-  const status: any = queryParams['status'];
+  const bookName: any = queryParams['bookName'];
+  const memo: any = queryParams['memo'];
+  const bookStockStatusIds: any = queryParams['bookStockStatusIds'];
   const sort: any = queryParams['sort'];
   const page: any = queryParams['page'];
   const size: any = queryParams['size'];
@@ -30,6 +32,9 @@ export const BookStocksPage: React.FC<BookStocksPageProps> = ({ }) => {
       const bookStockApiFactory = BookStockSearchControllerApiFactory(new Configuration(), BASE_URL);
       const bookStocksResult = await bookStockApiFactory.executeSearchBookstockGet({
         id: id ? id : undefined,
+        bookName: bookName ? bookName : undefined,
+        memo: memo ? memo : undefined,
+        bookStockStatusIds: bookStockStatusIds ? bookStockStatusIds : undefined,
         page: page ? page : undefined,
         size: size ? size : undefined,
         sort: sort ? sort : undefined,
@@ -54,10 +59,19 @@ export const BookStocksPage: React.FC<BookStocksPageProps> = ({ }) => {
             <label>Id:</label>
             <input type="number" name="id" defaultValue={id}></input>
           </div>
-          {/* 本の題名で検索 */}
+          {/* TODO:本の題名で検索 */}
+          <div>
+            <label>Name:</label>
+            <input type="text" name="bookName" defaultValue={bookName}></input>
+          </div>
+          {/* TODO:マルチセレクト化 */}
           <div>
             <label>Status:</label>
-            <input type="text" name="status" defaultValue={status}></input>
+            <input type="text" name="bookStockStatusIds" defaultValue={bookStockStatusIds}></input>
+          </div>
+          <div>
+            <label>memo:</label>
+            <input type="text" name="memo" defaultValue={memo}></input>
           </div>
           <div>
             <button type="submit">検索</button>
@@ -88,11 +102,19 @@ export const BookStocksPage: React.FC<BookStocksPageProps> = ({ }) => {
               navigate(newUrl)
             }
           },
+          {
+            name: "Memo",
+            onClick: () => {
+              const newUrl = updateOrder(currentPath, queryParams, sort, "book_master.memo")
+              navigate(newUrl)
+            }
+          },
         ]}
         contentInfo={[
           { getValueFunc: (row: any) => row.id },
           { getValueFunc: (row: any) => row.bookMaster.name },
           { getValueFunc: (row: any) => row.bookStockStatus.name },
+          { getValueFunc: (row: any) => row.memo },
         ]}
         content={bookStocks}
       />

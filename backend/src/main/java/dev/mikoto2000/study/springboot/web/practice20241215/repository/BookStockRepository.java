@@ -23,13 +23,19 @@ public interface BookStockRepository extends PagingAndSortingRepository<BookStoc
       where
         (a.id = :id or :id is null)
         and
+        (a.bookMaster.name like %:bookName% or :bookName is null)
+        and
         (a.memo like %:memo% or :memo is null)
         and
         (:bookStockStatusIds is null or a.bookStockStatus.id in :bookStockStatusIds)
   """
   )
-  Page<BookStock> findByComplexConditions(Long id, String memo, List<Long> bookStockStatusIds, Pageable pageable);
-
+  Page<BookStock> findByComplexConditions(
+      Long id,
+      String bookName,
+      String memo,
+      List<Long> bookStockStatusIds,
+      Pageable pageable);
 }
 
 
