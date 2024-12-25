@@ -147,7 +147,7 @@ export const LendingSetsPage: React.FC<LendingSetsPageProps> = ({ }) => {
           {
             name: "Lending Status",
             onClick: () => {
-              const newUrl = updateOrder(currentPath, queryParams, sort, "lending_status")
+              const newUrl = updateOrder(currentPath, queryParams, sort, "status.name")
               navigate(newUrl)
             }
           },

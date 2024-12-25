@@ -1,7 +1,7 @@
 package dev.mikoto2000.study.springboot.web.practice20241215.controller;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springdoc.core.annotations.ParameterObject;
@@ -9,14 +9,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.mikoto2000.study.springboot.web.practice20241215.service.SearchService;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * EchoController
  */
 @RestController
+@Slf4j
 public class EchoController {
 
   private SearchService searchService;
@@ -48,7 +51,7 @@ public class EchoController {
   @GetMapping(path = "/searchLendingSet")
   public Page<Map<String, Object>> searchLendingSet(
       @Nullable Long id,
-      @Nullable ArrayList<Long> lendingStatusIds,
+      @RequestParam("lendingStatusIds") @Nullable List<Long> lendingStatusIds,
       @Nullable String bookName,
       @Nullable String customerName,
       @Nullable String memo,
@@ -59,6 +62,7 @@ public class EchoController {
       @Nullable LocalDate returnDateBegin,
       @Nullable LocalDate returnDateEnd,
       @Nullable @ParameterObject Pageable pageable) {
+      log.debug("lendingStatusIds: {}", lendingStatusIds);
     return this.searchService.searchLendingSet(
         id,
         lendingStatusIds,
