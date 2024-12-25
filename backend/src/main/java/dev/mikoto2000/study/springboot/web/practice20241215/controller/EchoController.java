@@ -47,7 +47,8 @@ public class EchoController {
   @GetMapping(path = "/searchLendingSet")
   public Page<Map<String, Object>> searchLendingSet(
       @Nullable Long id,
-      @Nullable String name,
+      @Nullable String bookName,
+      @Nullable String customerName,
       @Nullable String memo,
       @Nullable LocalDate lendStartDateBegin,
       @Nullable LocalDate lendStartDateEnd,
@@ -58,7 +59,8 @@ public class EchoController {
       @Nullable @ParameterObject Pageable pageable) {
     return this.searchService.searchLendingSet(
         id,
-        name,
+        bookName,
+        customerName,
         memo,
         lendStartDateBegin,
         lendStartDateEnd,

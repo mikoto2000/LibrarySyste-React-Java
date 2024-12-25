@@ -41,7 +41,8 @@ public class SearchService {
 
   public Page<Map<String, Object>> searchLendingSet(
       Long id,
-      String name,
+      String bookName,
+      String customerName,
       String memo,
       LocalDate lendStartDateBegin,
       LocalDate lendStartDateEnd,
@@ -52,7 +53,8 @@ public class SearchService {
       Pageable pageable) {
     return this.lendingSetSearchRepository.searchLendingSet(
         id,
-        name,
+        bookName,
+        customerName,
         memo,
         lendStartDateBegin,
         lendStartDateEnd,

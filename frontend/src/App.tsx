@@ -21,6 +21,7 @@ import { CustomerCreatePage } from './pages/customer/CustomerCreatePage'
 import { LendingStatusesPage } from './pages/lendingstatus/LendingStatusesPage'
 import { LendingStatusDetailPage } from './pages/lendingstatus/LendingStatusDetailPage'
 import { LendingStatusCreatePage } from './pages/lendingstatus/LendingStatusCreatePage'
+import { LendingSetsPage } from './pages/lendingset/LendingSetsPage'
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
             <ul>
               <li><Link to="/bookStocks">Book Stocks</Link></li>
               <li><Link to="/customers">Customers</Link></li>
+              <li><Link to="/lendingSets">Lending Sets</Link></li>
             </ul>
           </li>
         </ul>
@@ -131,6 +133,18 @@ function App() {
       />
       <Route path="/customers/create" element={
         <CustomerCreatePage />
+      }
+      />
+      <Route path="/lendingSets" element={
+        <LendingSetsPage />
+      }
+      />
+      <Route path="/lendingSets/:id" element={
+        <LendingStatusDetailPage />
+      }
+      />
+      <Route path="/lendingSets/create" element={
+        <LendingStatusCreatePage />
       }
       />
     </Routes>
