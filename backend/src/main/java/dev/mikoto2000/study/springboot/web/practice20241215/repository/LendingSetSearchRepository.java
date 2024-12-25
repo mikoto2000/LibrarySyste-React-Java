@@ -36,7 +36,7 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
         where
           (ls.id = :id or :id is null)
           and
-          (bs.memo like %:memo% or cast(:memo as varchar) is null)
+          (ls.memo like %:memo% or cast(:memo as varchar) is null)
           and
           (bm.name like %:bookName% or cast(:bookName as varchar) is null)
           and
@@ -70,7 +70,7 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
         where
           (ls.id = :id or :id is null)
           and
-          (bs.memo like %:memo% or cast(:memo as varchar) is null)
+          (ls.memo like %:memo% or cast(:memo as varchar) is null)
           and
           (bm.name like %:bookName% or cast(:bookName as varchar) is null)
           and
