@@ -1,6 +1,7 @@
 package dev.mikoto2000.study.springboot.web.practice20241215.repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
@@ -36,6 +37,8 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
         where
           (ls.id = :id or :id is null)
           and
+          (:lendingStatusIds is null or status.id in :lendingStatusIds)
+          and
           (ls.memo like %:memo% or cast(:memo as varchar) is null)
           and
           (bm.name like %:bookName% or cast(:bookName as varchar) is null)
@@ -70,6 +73,8 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
         where
           (ls.id = :id or :id is null)
           and
+          (:lendingStatusIds is null or status.id in :lendingStatusIds)
+          and
           (ls.memo like %:memo% or cast(:memo as varchar) is null)
           and
           (bm.name like %:bookName% or cast(:bookName as varchar) is null)
@@ -95,6 +100,7 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
       nativeQuery = true)
   Page<Map<String, Object>> searchLendingSet(
       Long id,
+      List<Long> lendingStatusIds,
       String bookName,
       String customerName,
       String memo,

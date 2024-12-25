@@ -1,6 +1,7 @@
 package dev.mikoto2000.study.springboot.web.practice20241215.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
@@ -41,6 +42,7 @@ public class SearchService {
 
   public Page<Map<String, Object>> searchLendingSet(
       Long id,
+      List<Long> lendingStatusIds,
       String bookName,
       String customerName,
       String memo,
@@ -53,6 +55,7 @@ public class SearchService {
       Pageable pageable) {
     return this.lendingSetSearchRepository.searchLendingSet(
         id,
+        lendingStatusIds,
         bookName,
         customerName,
         memo,

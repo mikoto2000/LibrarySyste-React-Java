@@ -1,6 +1,7 @@
 package dev.mikoto2000.study.springboot.web.practice20241215.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springdoc.core.annotations.ParameterObject;
@@ -47,6 +48,7 @@ public class EchoController {
   @GetMapping(path = "/searchLendingSet")
   public Page<Map<String, Object>> searchLendingSet(
       @Nullable Long id,
+      @Nullable ArrayList<Long> lendingStatusIds,
       @Nullable String bookName,
       @Nullable String customerName,
       @Nullable String memo,
@@ -59,6 +61,7 @@ public class EchoController {
       @Nullable @ParameterObject Pageable pageable) {
     return this.searchService.searchLendingSet(
         id,
+        lendingStatusIds,
         bookName,
         customerName,
         memo,

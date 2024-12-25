@@ -95,6 +95,31 @@ export interface AuthorRequestBody {
 /**
  * 
  * @export
+ * @interface AuthorResponse
+ */
+export interface AuthorResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof AuthorResponse
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof AuthorResponse
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {Array<BookMaster>}
+     * @memberof AuthorResponse
+     */
+    'bookMaster'?: Array<BookMaster>;
+}
+/**
+ * 
+ * @export
  * @interface BookMaster
  */
 export interface BookMaster {
@@ -153,6 +178,43 @@ export interface BookMasterAuthorRelationshipRequestBody {
      * @memberof BookMasterAuthorRelationshipRequestBody
      */
     'author'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface BookMasterRequestBody
+ */
+export interface BookMasterRequestBody {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterRequestBody
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterRequestBody
+     */
+    'publicationDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterRequestBody
+     */
+    'ndcCategory': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof BookMasterRequestBody
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof BookMasterRequestBody
+     */
+    'author'?: Array<string>;
 }
 /**
  * 
@@ -268,25 +330,6 @@ export interface BookStockRequestBody {
 /**
  * 
  * @export
- * @interface BookStockResponse
- */
-export interface BookStockResponse {
-    /**
-     * 
-     * @type {number}
-     * @memberof BookStockResponse
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof BookStockResponse
-     */
-    'memo'?: string;
-}
-/**
- * 
- * @export
  * @interface BookStockStatus
  */
 export interface BookStockStatus {
@@ -325,6 +368,38 @@ export interface BookStockStatusRequestBody {
 /**
  * 
  * @export
+ * @interface CollectionModelAuthor
+ */
+export interface CollectionModelAuthor {
+    /**
+     * 
+     * @type {CollectionModelAuthorEmbedded}
+     * @memberof CollectionModelAuthor
+     */
+    '_embedded'?: CollectionModelAuthorEmbedded;
+    /**
+     * 
+     * @type {{ [key: string]: Link; }}
+     * @memberof CollectionModelAuthor
+     */
+    '_links'?: { [key: string]: Link; };
+}
+/**
+ * 
+ * @export
+ * @interface CollectionModelAuthorEmbedded
+ */
+export interface CollectionModelAuthorEmbedded {
+    /**
+     * 
+     * @type {Array<AuthorResponse>}
+     * @memberof CollectionModelAuthorEmbedded
+     */
+    'authors'?: Array<AuthorResponse>;
+}
+/**
+ * 
+ * @export
  * @interface CollectionModelBookMaster
  */
 export interface CollectionModelBookMaster {
@@ -353,38 +428,6 @@ export interface CollectionModelBookMasterEmbedded {
      * @memberof CollectionModelBookMasterEmbedded
      */
     'bookMasters'?: Array<BookMasterResponse>;
-}
-/**
- * 
- * @export
- * @interface CollectionModelBookStock
- */
-export interface CollectionModelBookStock {
-    /**
-     * 
-     * @type {CollectionModelBookStockEmbedded}
-     * @memberof CollectionModelBookStock
-     */
-    '_embedded'?: CollectionModelBookStockEmbedded;
-    /**
-     * 
-     * @type {{ [key: string]: Link; }}
-     * @memberof CollectionModelBookStock
-     */
-    '_links'?: { [key: string]: Link; };
-}
-/**
- * 
- * @export
- * @interface CollectionModelBookStockEmbedded
- */
-export interface CollectionModelBookStockEmbedded {
-    /**
-     * 
-     * @type {Array<BookStockResponse>}
-     * @memberof CollectionModelBookStockEmbedded
-     */
-    'bookStocks'?: Array<BookStockResponse>;
 }
 /**
  * 
@@ -720,6 +763,24 @@ export interface EntityModelLendingSet {
     'memo'?: string;
     /**
      * 
+     * @type {Array<BookStock>}
+     * @memberof EntityModelLendingSet
+     */
+    'bookStock'?: Array<BookStock>;
+    /**
+     * 
+     * @type {LendingStatus}
+     * @memberof EntityModelLendingSet
+     */
+    'lendingStatus'?: LendingStatus;
+    /**
+     * 
+     * @type {Customer}
+     * @memberof EntityModelLendingSet
+     */
+    'customer'?: Customer;
+    /**
+     * 
      * @type {{ [key: string]: Link; }}
      * @memberof EntityModelLendingSet
      */
@@ -907,61 +968,6 @@ export interface LendingSet {
 /**
  * 
  * @export
- * @interface LendingSetRequestBody
- */
-export interface LendingSetRequestBody {
-    /**
-     * 
-     * @type {number}
-     * @memberof LendingSetRequestBody
-     */
-    'id'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetRequestBody
-     */
-    'lendStartDate'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetRequestBody
-     */
-    'lendDeadlineDate'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetRequestBody
-     */
-    'returnDate'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetRequestBody
-     */
-    'memo'?: string;
-    /**
-     * 
-     * @type {Array<string>}
-     * @memberof LendingSetRequestBody
-     */
-    'bookStock'?: Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetRequestBody
-     */
-    'lendingStatus'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetRequestBody
-     */
-    'customer'?: string;
-}
-/**
- * 
- * @export
  * @interface LendingSetResponse
  */
 export interface LendingSetResponse {
@@ -995,24 +1001,6 @@ export interface LendingSetResponse {
      * @memberof LendingSetResponse
      */
     'memo'?: string;
-    /**
-     * 
-     * @type {Array<BookStock>}
-     * @memberof LendingSetResponse
-     */
-    'bookStock'?: Array<BookStock>;
-    /**
-     * 
-     * @type {LendingStatus}
-     * @memberof LendingSetResponse
-     */
-    'lendingStatus'?: LendingStatus;
-    /**
-     * 
-     * @type {Customer}
-     * @memberof LendingSetResponse
-     */
-    'customer'?: Customer;
 }
 /**
  * 
@@ -4891,6 +4879,39 @@ export class BookMasterAuthorRelationshipPropertyReferenceControllerApi extends 
 export const BookMasterEntityControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * delete-bookmaster
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteItemResourceBookmasterDelete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deleteItemResourceBookmasterDelete', 'id', id)
+            const localVarPath = `/bookMasters/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * get-bookmaster
          * @param {number} [page] Zero-based page index (0..N)
          * @param {number} [size] The size of the page to be returned
@@ -4934,6 +4955,152 @@ export const BookMasterEntityControllerApiAxiosParamCreator = function (configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * get-bookmaster
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getItemResourceBookmasterGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getItemResourceBookmasterGet', 'id', id)
+            const localVarPath = `/bookMasters/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * patch-bookmaster
+         * @param {string} id 
+         * @param {BookMasterRequestBody} bookMasterRequestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        patchItemResourceBookmasterPatch: async (id: string, bookMasterRequestBody: BookMasterRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('patchItemResourceBookmasterPatch', 'id', id)
+            // verify required parameter 'bookMasterRequestBody' is not null or undefined
+            assertParamExists('patchItemResourceBookmasterPatch', 'bookMasterRequestBody', bookMasterRequestBody)
+            const localVarPath = `/bookMasters/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(bookMasterRequestBody, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * create-bookmaster
+         * @param {BookMasterRequestBody} bookMasterRequestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postCollectionResourceBookmasterPost: async (bookMasterRequestBody: BookMasterRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'bookMasterRequestBody' is not null or undefined
+            assertParamExists('postCollectionResourceBookmasterPost', 'bookMasterRequestBody', bookMasterRequestBody)
+            const localVarPath = `/bookMasters`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(bookMasterRequestBody, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * update-bookmaster
+         * @param {string} id 
+         * @param {BookMasterRequestBody} bookMasterRequestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putItemResourceBookmasterPut: async (id: string, bookMasterRequestBody: BookMasterRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('putItemResourceBookmasterPut', 'id', id)
+            // verify required parameter 'bookMasterRequestBody' is not null or undefined
+            assertParamExists('putItemResourceBookmasterPut', 'bookMasterRequestBody', bookMasterRequestBody)
+            const localVarPath = `/bookMasters/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(bookMasterRequestBody, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -4944,6 +5111,18 @@ export const BookMasterEntityControllerApiAxiosParamCreator = function (configur
 export const BookMasterEntityControllerApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BookMasterEntityControllerApiAxiosParamCreator(configuration)
     return {
+        /**
+         * delete-bookmaster
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteItemResourceBookmasterDelete(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteItemResourceBookmasterDelete(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.deleteItemResourceBookmasterDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
         /**
          * get-bookmaster
          * @param {number} [page] Zero-based page index (0..N)
@@ -4958,6 +5137,56 @@ export const BookMasterEntityControllerApiFp = function(configuration?: Configur
             const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.getCollectionResourceBookmasterGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * get-bookmaster
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getItemResourceBookmasterGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelBookMaster>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getItemResourceBookmasterGet(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.getItemResourceBookmasterGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * patch-bookmaster
+         * @param {string} id 
+         * @param {BookMasterRequestBody} bookMasterRequestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async patchItemResourceBookmasterPatch(id: string, bookMasterRequestBody: BookMasterRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelBookMaster>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.patchItemResourceBookmasterPatch(id, bookMasterRequestBody, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.patchItemResourceBookmasterPatch']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * create-bookmaster
+         * @param {BookMasterRequestBody} bookMasterRequestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async postCollectionResourceBookmasterPost(bookMasterRequestBody: BookMasterRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelBookMaster>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.postCollectionResourceBookmasterPost(bookMasterRequestBody, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.postCollectionResourceBookmasterPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * update-bookmaster
+         * @param {string} id 
+         * @param {BookMasterRequestBody} bookMasterRequestBody 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async putItemResourceBookmasterPut(id: string, bookMasterRequestBody: BookMasterRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelBookMaster>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.putItemResourceBookmasterPut(id, bookMasterRequestBody, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterEntityControllerApi.putItemResourceBookmasterPut']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -4969,6 +5198,15 @@ export const BookMasterEntityControllerApiFactory = function (configuration?: Co
     const localVarFp = BookMasterEntityControllerApiFp(configuration)
     return {
         /**
+         * delete-bookmaster
+         * @param {BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteItemResourceBookmasterDelete(requestParameters: BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteItemResourceBookmasterDelete(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
          * get-bookmaster
          * @param {BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -4976,6 +5214,42 @@ export const BookMasterEntityControllerApiFactory = function (configuration?: Co
          */
         getCollectionResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelBookMaster> {
             return localVarFp.getCollectionResourceBookmasterGet(requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * get-bookmaster
+         * @param {BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getItemResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster> {
+            return localVarFp.getItemResourceBookmasterGet(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * patch-bookmaster
+         * @param {BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        patchItemResourceBookmasterPatch(requestParameters: BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster> {
+            return localVarFp.patchItemResourceBookmasterPatch(requestParameters.id, requestParameters.bookMasterRequestBody, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * create-bookmaster
+         * @param {BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        postCollectionResourceBookmasterPost(requestParameters: BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster> {
+            return localVarFp.postCollectionResourceBookmasterPost(requestParameters.bookMasterRequestBody, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * update-bookmaster
+         * @param {BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        putItemResourceBookmasterPut(requestParameters: BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster> {
+            return localVarFp.putItemResourceBookmasterPut(requestParameters.id, requestParameters.bookMasterRequestBody, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -4987,6 +5261,15 @@ export const BookMasterEntityControllerApiFactory = function (configuration?: Co
  */
 export interface BookMasterEntityControllerApiInterface {
     /**
+     * delete-bookmaster
+     * @param {BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApiInterface
+     */
+    deleteItemResourceBookmasterDelete(requestParameters: BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+
+    /**
      * get-bookmaster
      * @param {BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4995,6 +5278,56 @@ export interface BookMasterEntityControllerApiInterface {
      */
     getCollectionResourceBookmasterGet(requestParameters?: BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelBookMaster>;
 
+    /**
+     * get-bookmaster
+     * @param {BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApiInterface
+     */
+    getItemResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster>;
+
+    /**
+     * patch-bookmaster
+     * @param {BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApiInterface
+     */
+    patchItemResourceBookmasterPatch(requestParameters: BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster>;
+
+    /**
+     * create-bookmaster
+     * @param {BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApiInterface
+     */
+    postCollectionResourceBookmasterPost(requestParameters: BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster>;
+
+    /**
+     * update-bookmaster
+     * @param {BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApiInterface
+     */
+    putItemResourceBookmasterPut(requestParameters: BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelBookMaster>;
+
+}
+
+/**
+ * Request parameters for deleteItemResourceBookmasterDelete operation in BookMasterEntityControllerApi.
+ * @export
+ * @interface BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest
+ */
+export interface BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterEntityControllerApiDeleteItemResourceBookmasterDelete
+     */
+    readonly id: string
 }
 
 /**
@@ -5026,12 +5359,93 @@ export interface BookMasterEntityControllerApiGetCollectionResourceBookmasterGet
 }
 
 /**
+ * Request parameters for getItemResourceBookmasterGet operation in BookMasterEntityControllerApi.
+ * @export
+ * @interface BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest
+ */
+export interface BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterEntityControllerApiGetItemResourceBookmasterGet
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for patchItemResourceBookmasterPatch operation in BookMasterEntityControllerApi.
+ * @export
+ * @interface BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest
+ */
+export interface BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterEntityControllerApiPatchItemResourceBookmasterPatch
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {BookMasterRequestBody}
+     * @memberof BookMasterEntityControllerApiPatchItemResourceBookmasterPatch
+     */
+    readonly bookMasterRequestBody: BookMasterRequestBody
+}
+
+/**
+ * Request parameters for postCollectionResourceBookmasterPost operation in BookMasterEntityControllerApi.
+ * @export
+ * @interface BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest
+ */
+export interface BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest {
+    /**
+     * 
+     * @type {BookMasterRequestBody}
+     * @memberof BookMasterEntityControllerApiPostCollectionResourceBookmasterPost
+     */
+    readonly bookMasterRequestBody: BookMasterRequestBody
+}
+
+/**
+ * Request parameters for putItemResourceBookmasterPut operation in BookMasterEntityControllerApi.
+ * @export
+ * @interface BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest
+ */
+export interface BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterEntityControllerApiPutItemResourceBookmasterPut
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {BookMasterRequestBody}
+     * @memberof BookMasterEntityControllerApiPutItemResourceBookmasterPut
+     */
+    readonly bookMasterRequestBody: BookMasterRequestBody
+}
+
+/**
  * BookMasterEntityControllerApi - object-oriented interface
  * @export
  * @class BookMasterEntityControllerApi
  * @extends {BaseAPI}
  */
 export class BookMasterEntityControllerApi extends BaseAPI implements BookMasterEntityControllerApiInterface {
+    /**
+     * delete-bookmaster
+     * @param {BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApi
+     */
+    public deleteItemResourceBookmasterDelete(requestParameters: BookMasterEntityControllerApiDeleteItemResourceBookmasterDeleteRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterEntityControllerApiFp(this.configuration).deleteItemResourceBookmasterDelete(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * get-bookmaster
      * @param {BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest} requestParameters Request parameters.
@@ -5042,31 +5456,367 @@ export class BookMasterEntityControllerApi extends BaseAPI implements BookMaster
     public getCollectionResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetCollectionResourceBookmasterGetRequest = {}, options?: RawAxiosRequestConfig) {
         return BookMasterEntityControllerApiFp(this.configuration).getCollectionResourceBookmasterGet(requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
     }
+
+    /**
+     * get-bookmaster
+     * @param {BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApi
+     */
+    public getItemResourceBookmasterGet(requestParameters: BookMasterEntityControllerApiGetItemResourceBookmasterGetRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterEntityControllerApiFp(this.configuration).getItemResourceBookmasterGet(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * patch-bookmaster
+     * @param {BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApi
+     */
+    public patchItemResourceBookmasterPatch(requestParameters: BookMasterEntityControllerApiPatchItemResourceBookmasterPatchRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterEntityControllerApiFp(this.configuration).patchItemResourceBookmasterPatch(requestParameters.id, requestParameters.bookMasterRequestBody, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * create-bookmaster
+     * @param {BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApi
+     */
+    public postCollectionResourceBookmasterPost(requestParameters: BookMasterEntityControllerApiPostCollectionResourceBookmasterPostRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterEntityControllerApiFp(this.configuration).postCollectionResourceBookmasterPost(requestParameters.bookMasterRequestBody, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * update-bookmaster
+     * @param {BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterEntityControllerApi
+     */
+    public putItemResourceBookmasterPut(requestParameters: BookMasterEntityControllerApiPutItemResourceBookmasterPutRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterEntityControllerApiFp(this.configuration).putItemResourceBookmasterPut(requestParameters.id, requestParameters.bookMasterRequestBody, options).then((request) => request(this.axios, this.basePath));
+    }
 }
 
 
 
 /**
- * BookMasterSearchControllerApi - axios parameter creator
+ * BookMasterPropertyReferenceControllerApi - axios parameter creator
  * @export
  */
-export const BookMasterSearchControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+export const BookMasterPropertyReferenceControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
-         * @param {number} [id] 
-         * @param {string} [name] 
-         * @param {string} [publicationDateBegin] 
-         * @param {string} [publicationDateEnd] 
-         * @param {string} [ndcCategoryName] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * patch-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {CollectionModelObject} collectionModelObject 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        executeSearchBookmasterGet: async (id?: number, name?: string, publicationDateBegin?: string, publicationDateEnd?: string, ndcCategoryName?: string, page?: number, size?: number, sort?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/bookMasters/search/searchBookMaster`;
+        createPropertyReferenceBookmasterPatch: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('createPropertyReferenceBookmasterPatch', 'id', id)
+            // verify required parameter 'collectionModelObject' is not null or undefined
+            assertParamExists('createPropertyReferenceBookmasterPatch', 'collectionModelObject', collectionModelObject)
+            const localVarPath = `/bookMasters/{id}/author`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * patch-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {CollectionModelObject} collectionModelObject 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPropertyReferenceBookmasterPatch1: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('createPropertyReferenceBookmasterPatch1', 'id', id)
+            // verify required parameter 'collectionModelObject' is not null or undefined
+            assertParamExists('createPropertyReferenceBookmasterPatch1', 'collectionModelObject', collectionModelObject)
+            const localVarPath = `/bookMasters/{id}/ndcCategory`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * update-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {CollectionModelObject} collectionModelObject 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPropertyReferenceBookmasterPut: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('createPropertyReferenceBookmasterPut', 'id', id)
+            // verify required parameter 'collectionModelObject' is not null or undefined
+            assertParamExists('createPropertyReferenceBookmasterPut', 'collectionModelObject', collectionModelObject)
+            const localVarPath = `/bookMasters/{id}/author`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * update-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {CollectionModelObject} collectionModelObject 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPropertyReferenceBookmasterPut1: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('createPropertyReferenceBookmasterPut1', 'id', id)
+            // verify required parameter 'collectionModelObject' is not null or undefined
+            assertParamExists('createPropertyReferenceBookmasterPut1', 'collectionModelObject', collectionModelObject)
+            const localVarPath = `/bookMasters/{id}/ndcCategory`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * delete-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deletePropertyReferenceBookmasterDelete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deletePropertyReferenceBookmasterDelete', 'id', id)
+            const localVarPath = `/bookMasters/{id}/author`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * delete-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deletePropertyReferenceBookmasterDelete1: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deletePropertyReferenceBookmasterDelete1', 'id', id)
+            const localVarPath = `/bookMasters/{id}/ndcCategory`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * delete-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {string} propertyId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deletePropertyReferenceIdBookmasterDelete: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deletePropertyReferenceIdBookmasterDelete', 'id', id)
+            // verify required parameter 'propertyId' is not null or undefined
+            assertParamExists('deletePropertyReferenceIdBookmasterDelete', 'propertyId', propertyId)
+            const localVarPath = `/bookMasters/{id}/author/{propertyId}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * delete-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {string} propertyId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deletePropertyReferenceIdBookmasterDelete1: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('deletePropertyReferenceIdBookmasterDelete1', 'id', id)
+            // verify required parameter 'propertyId' is not null or undefined
+            assertParamExists('deletePropertyReferenceIdBookmasterDelete1', 'propertyId', propertyId)
+            const localVarPath = `/bookMasters/{id}/ndcCategory/{propertyId}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * get-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followPropertyReferenceBookmasterGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('followPropertyReferenceBookmasterGet', 'id', id)
+            const localVarPath = `/bookMasters/{id}/author`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5078,41 +5828,112 @@ export const BookMasterSearchControllerApiAxiosParamCreator = function (configur
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (id !== undefined) {
-                localVarQueryParameter['id'] = id;
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * get-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {string} propertyId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followPropertyReferenceBookmasterGet1: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('followPropertyReferenceBookmasterGet1', 'id', id)
+            // verify required parameter 'propertyId' is not null or undefined
+            assertParamExists('followPropertyReferenceBookmasterGet1', 'propertyId', propertyId)
+            const localVarPath = `/bookMasters/{id}/author/{propertyId}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            if (name !== undefined) {
-                localVarQueryParameter['name'] = name;
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * get-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followPropertyReferenceBookmasterGet2: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('followPropertyReferenceBookmasterGet2', 'id', id)
+            const localVarPath = `/bookMasters/{id}/ndcCategory`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            if (publicationDateBegin !== undefined) {
-                localVarQueryParameter['publicationDateBegin'] = (publicationDateBegin as any instanceof Date) ?
-                    (publicationDateBegin as any).toISOString().substring(0,10) :
-                    publicationDateBegin;
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * get-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {string} propertyId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followPropertyReferenceBookmasterGet3: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('followPropertyReferenceBookmasterGet3', 'id', id)
+            // verify required parameter 'propertyId' is not null or undefined
+            assertParamExists('followPropertyReferenceBookmasterGet3', 'propertyId', propertyId)
+            const localVarPath = `/bookMasters/{id}/ndcCategory/{propertyId}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            if (publicationDateEnd !== undefined) {
-                localVarQueryParameter['publicationDateEnd'] = (publicationDateEnd as any instanceof Date) ?
-                    (publicationDateEnd as any).toISOString().substring(0,10) :
-                    publicationDateEnd;
-            }
-
-            if (ndcCategoryName !== undefined) {
-                localVarQueryParameter['ndcCategoryName'] = ndcCategoryName;
-            }
-
-            if (page !== undefined) {
-                localVarQueryParameter['page'] = page;
-            }
-
-            if (size !== undefined) {
-                localVarQueryParameter['size'] = size;
-            }
-
-            if (sort) {
-                localVarQueryParameter['sort'] = sort;
-            }
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
 
     
@@ -5129,149 +5950,762 @@ export const BookMasterSearchControllerApiAxiosParamCreator = function (configur
 };
 
 /**
- * BookMasterSearchControllerApi - functional programming interface
+ * BookMasterPropertyReferenceControllerApi - functional programming interface
  * @export
  */
-export const BookMasterSearchControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = BookMasterSearchControllerApiAxiosParamCreator(configuration)
+export const BookMasterPropertyReferenceControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = BookMasterPropertyReferenceControllerApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
-         * @param {number} [id] 
-         * @param {string} [name] 
-         * @param {string} [publicationDateBegin] 
-         * @param {string} [publicationDateEnd] 
-         * @param {string} [ndcCategoryName] 
-         * @param {number} [page] Zero-based page index (0..N)
-         * @param {number} [size] The size of the page to be returned
-         * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+         * patch-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {CollectionModelObject} collectionModelObject 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async executeSearchBookmasterGet(id?: number, name?: string, publicationDateBegin?: string, publicationDateEnd?: string, ndcCategoryName?: string, page?: number, size?: number, sort?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagedModelEntityModelBookMaster>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.executeSearchBookmasterGet(id, name, publicationDateBegin, publicationDateEnd, ndcCategoryName, page, size, sort, options);
+        async createPropertyReferenceBookmasterPatch(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelAuthor>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceBookmasterPatch(id, collectionModelObject, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['BookMasterSearchControllerApi.executeSearchBookmasterGet']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.createPropertyReferenceBookmasterPatch']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * patch-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {CollectionModelObject} collectionModelObject 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createPropertyReferenceBookmasterPatch1(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelNdcCategory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceBookmasterPatch1(id, collectionModelObject, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.createPropertyReferenceBookmasterPatch1']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * update-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {CollectionModelObject} collectionModelObject 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createPropertyReferenceBookmasterPut(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelAuthor>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceBookmasterPut(id, collectionModelObject, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.createPropertyReferenceBookmasterPut']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * update-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {CollectionModelObject} collectionModelObject 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createPropertyReferenceBookmasterPut1(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelNdcCategory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceBookmasterPut1(id, collectionModelObject, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.createPropertyReferenceBookmasterPut1']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * delete-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deletePropertyReferenceBookmasterDelete(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceBookmasterDelete(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.deletePropertyReferenceBookmasterDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * delete-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deletePropertyReferenceBookmasterDelete1(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceBookmasterDelete1(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.deletePropertyReferenceBookmasterDelete1']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * delete-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {string} propertyId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deletePropertyReferenceIdBookmasterDelete(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceIdBookmasterDelete(id, propertyId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.deletePropertyReferenceIdBookmasterDelete']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * delete-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {string} propertyId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deletePropertyReferenceIdBookmasterDelete1(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceIdBookmasterDelete1(id, propertyId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.deletePropertyReferenceIdBookmasterDelete1']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * get-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async followPropertyReferenceBookmasterGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelAuthor>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceBookmasterGet(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.followPropertyReferenceBookmasterGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * get-author-by-bookmaster-Id
+         * @param {string} id 
+         * @param {string} propertyId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async followPropertyReferenceBookmasterGet1(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelAuthor>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceBookmasterGet1(id, propertyId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.followPropertyReferenceBookmasterGet1']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * get-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async followPropertyReferenceBookmasterGet2(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelNdcCategory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceBookmasterGet2(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.followPropertyReferenceBookmasterGet2']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * get-ndccategory-by-bookmaster-Id
+         * @param {string} id 
+         * @param {string} propertyId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async followPropertyReferenceBookmasterGet3(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelNdcCategory>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceBookmasterGet3(id, propertyId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['BookMasterPropertyReferenceControllerApi.followPropertyReferenceBookmasterGet3']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * BookMasterSearchControllerApi - factory interface
+ * BookMasterPropertyReferenceControllerApi - factory interface
  * @export
  */
-export const BookMasterSearchControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = BookMasterSearchControllerApiFp(configuration)
+export const BookMasterPropertyReferenceControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = BookMasterPropertyReferenceControllerApiFp(configuration)
     return {
         /**
-         * 
-         * @param {BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest} requestParameters Request parameters.
+         * patch-author-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        executeSearchBookmasterGet(requestParameters: BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelBookMaster> {
-            return localVarFp.executeSearchBookmasterGet(requestParameters.id, requestParameters.name, requestParameters.publicationDateBegin, requestParameters.publicationDateEnd, requestParameters.ndcCategoryName, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(axios, basePath));
+        createPropertyReferenceBookmasterPatch(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor> {
+            return localVarFp.createPropertyReferenceBookmasterPatch(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * patch-ndccategory-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPropertyReferenceBookmasterPatch1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory> {
+            return localVarFp.createPropertyReferenceBookmasterPatch1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * update-author-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPropertyReferenceBookmasterPut(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor> {
+            return localVarFp.createPropertyReferenceBookmasterPut(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * update-ndccategory-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPropertyReferenceBookmasterPut1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory> {
+            return localVarFp.createPropertyReferenceBookmasterPut1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * delete-author-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deletePropertyReferenceBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deletePropertyReferenceBookmasterDelete(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * delete-ndccategory-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deletePropertyReferenceBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deletePropertyReferenceBookmasterDelete1(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * delete-author-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deletePropertyReferenceIdBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deletePropertyReferenceIdBookmasterDelete(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * delete-ndccategory-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deletePropertyReferenceIdBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deletePropertyReferenceIdBookmasterDelete1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * get-author-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followPropertyReferenceBookmasterGet(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor> {
+            return localVarFp.followPropertyReferenceBookmasterGet(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * get-author-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followPropertyReferenceBookmasterGet1(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor> {
+            return localVarFp.followPropertyReferenceBookmasterGet1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * get-ndccategory-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followPropertyReferenceBookmasterGet2(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory> {
+            return localVarFp.followPropertyReferenceBookmasterGet2(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * get-ndccategory-by-bookmaster-Id
+         * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        followPropertyReferenceBookmasterGet3(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory> {
+            return localVarFp.followPropertyReferenceBookmasterGet3(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * BookMasterSearchControllerApi - interface
+ * BookMasterPropertyReferenceControllerApi - interface
  * @export
- * @interface BookMasterSearchControllerApi
+ * @interface BookMasterPropertyReferenceControllerApi
  */
-export interface BookMasterSearchControllerApiInterface {
+export interface BookMasterPropertyReferenceControllerApiInterface {
     /**
-     * 
-     * @param {BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest} requestParameters Request parameters.
+     * patch-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BookMasterSearchControllerApiInterface
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
      */
-    executeSearchBookmasterGet(requestParameters?: BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelBookMaster>;
+    createPropertyReferenceBookmasterPatch(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor>;
+
+    /**
+     * patch-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    createPropertyReferenceBookmasterPatch1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory>;
+
+    /**
+     * update-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    createPropertyReferenceBookmasterPut(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor>;
+
+    /**
+     * update-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    createPropertyReferenceBookmasterPut1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory>;
+
+    /**
+     * delete-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    deletePropertyReferenceBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+
+    /**
+     * delete-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    deletePropertyReferenceBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+
+    /**
+     * delete-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    deletePropertyReferenceIdBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+
+    /**
+     * delete-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    deletePropertyReferenceIdBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+
+    /**
+     * get-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    followPropertyReferenceBookmasterGet(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor>;
+
+    /**
+     * get-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    followPropertyReferenceBookmasterGet1(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelAuthor>;
+
+    /**
+     * get-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    followPropertyReferenceBookmasterGet2(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory>;
+
+    /**
+     * get-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApiInterface
+     */
+    followPropertyReferenceBookmasterGet3(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelNdcCategory>;
 
 }
 
 /**
- * Request parameters for executeSearchBookmasterGet operation in BookMasterSearchControllerApi.
+ * Request parameters for createPropertyReferenceBookmasterPatch operation in BookMasterPropertyReferenceControllerApi.
  * @export
- * @interface BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest
+ * @interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest
  */
-export interface BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest {
-    /**
-     * 
-     * @type {number}
-     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
-     */
-    readonly id?: number
-
+export interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest {
     /**
      * 
      * @type {string}
-     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
+     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch
      */
-    readonly name?: string
+    readonly id: string
 
     /**
      * 
-     * @type {string}
-     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
+     * @type {CollectionModelObject}
+     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch
      */
-    readonly publicationDateBegin?: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
-     */
-    readonly publicationDateEnd?: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
-     */
-    readonly ndcCategoryName?: string
-
-    /**
-     * Zero-based page index (0..N)
-     * @type {number}
-     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
-     */
-    readonly page?: number
-
-    /**
-     * The size of the page to be returned
-     * @type {number}
-     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
-     */
-    readonly size?: number
-
-    /**
-     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
-     * @type {Array<string>}
-     * @memberof BookMasterSearchControllerApiExecuteSearchBookmasterGet
-     */
-    readonly sort?: Array<string>
+    readonly collectionModelObject: CollectionModelObject
 }
 
 /**
- * BookMasterSearchControllerApi - object-oriented interface
+ * Request parameters for createPropertyReferenceBookmasterPatch1 operation in BookMasterPropertyReferenceControllerApi.
  * @export
- * @class BookMasterSearchControllerApi
+ * @interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request
+ */
+export interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {CollectionModelObject}
+     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1
+     */
+    readonly collectionModelObject: CollectionModelObject
+}
+
+/**
+ * Request parameters for createPropertyReferenceBookmasterPut operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest
+ */
+export interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {CollectionModelObject}
+     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut
+     */
+    readonly collectionModelObject: CollectionModelObject
+}
+
+/**
+ * Request parameters for createPropertyReferenceBookmasterPut1 operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request
+ */
+export interface BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {CollectionModelObject}
+     * @memberof BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1
+     */
+    readonly collectionModelObject: CollectionModelObject
+}
+
+/**
+ * Request parameters for deletePropertyReferenceBookmasterDelete operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest
+ */
+export interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for deletePropertyReferenceBookmasterDelete1 operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request
+ */
+export interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for deletePropertyReferenceIdBookmasterDelete operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest
+ */
+export interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete
+     */
+    readonly propertyId: string
+}
+
+/**
+ * Request parameters for deletePropertyReferenceIdBookmasterDelete1 operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request
+ */
+export interface BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1
+     */
+    readonly propertyId: string
+}
+
+/**
+ * Request parameters for followPropertyReferenceBookmasterGet operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest
+ */
+export interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for followPropertyReferenceBookmasterGet1 operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request
+ */
+export interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1
+     */
+    readonly propertyId: string
+}
+
+/**
+ * Request parameters for followPropertyReferenceBookmasterGet2 operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request
+ */
+export interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for followPropertyReferenceBookmasterGet3 operation in BookMasterPropertyReferenceControllerApi.
+ * @export
+ * @interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request
+ */
+export interface BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request {
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3
+     */
+    readonly propertyId: string
+}
+
+/**
+ * BookMasterPropertyReferenceControllerApi - object-oriented interface
+ * @export
+ * @class BookMasterPropertyReferenceControllerApi
  * @extends {BaseAPI}
  */
-export class BookMasterSearchControllerApi extends BaseAPI implements BookMasterSearchControllerApiInterface {
+export class BookMasterPropertyReferenceControllerApi extends BaseAPI implements BookMasterPropertyReferenceControllerApiInterface {
     /**
-     * 
-     * @param {BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest} requestParameters Request parameters.
+     * patch-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BookMasterSearchControllerApi
+     * @memberof BookMasterPropertyReferenceControllerApi
      */
-    public executeSearchBookmasterGet(requestParameters: BookMasterSearchControllerApiExecuteSearchBookmasterGetRequest = {}, options?: RawAxiosRequestConfig) {
-        return BookMasterSearchControllerApiFp(this.configuration).executeSearchBookmasterGet(requestParameters.id, requestParameters.name, requestParameters.publicationDateBegin, requestParameters.publicationDateEnd, requestParameters.ndcCategoryName, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
+    public createPropertyReferenceBookmasterPatch(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatchRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceBookmasterPatch(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * patch-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public createPropertyReferenceBookmasterPatch1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPatch1Request, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceBookmasterPatch1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * update-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public createPropertyReferenceBookmasterPut(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPutRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceBookmasterPut(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * update-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public createPropertyReferenceBookmasterPut1(requestParameters: BookMasterPropertyReferenceControllerApiCreatePropertyReferenceBookmasterPut1Request, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceBookmasterPut1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * delete-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public deletePropertyReferenceBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDeleteRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceBookmasterDelete(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * delete-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public deletePropertyReferenceBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceBookmasterDelete1Request, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceBookmasterDelete1(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * delete-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public deletePropertyReferenceIdBookmasterDelete(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDeleteRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceIdBookmasterDelete(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * delete-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public deletePropertyReferenceIdBookmasterDelete1(requestParameters: BookMasterPropertyReferenceControllerApiDeletePropertyReferenceIdBookmasterDelete1Request, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceIdBookmasterDelete1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * get-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public followPropertyReferenceBookmasterGet(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGetRequest, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceBookmasterGet(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * get-author-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public followPropertyReferenceBookmasterGet1(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet1Request, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceBookmasterGet1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * get-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public followPropertyReferenceBookmasterGet2(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet2Request, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceBookmasterGet2(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * get-ndccategory-by-bookmaster-Id
+     * @param {BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BookMasterPropertyReferenceControllerApi
+     */
+    public followPropertyReferenceBookmasterGet3(requestParameters: BookMasterPropertyReferenceControllerApiFollowPropertyReferenceBookmasterGet3Request, options?: RawAxiosRequestConfig) {
+        return BookMasterPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceBookmasterGet3(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -9674,6 +11108,7 @@ export const EchoControllerApiAxiosParamCreator = function (configuration?: Conf
         /**
          * 
          * @param {number} [id] 
+         * @param {Array<number>} [lendingStatusIds] 
          * @param {string} [bookName] 
          * @param {string} [customerName] 
          * @param {string} [memo] 
@@ -9689,7 +11124,7 @@ export const EchoControllerApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchLendingSet: async (id?: number, bookName?: string, customerName?: string, memo?: string, lendStartDateBegin?: string, lendStartDateEnd?: string, lendDeadlineDateBegin?: string, lendDeadlineDateEnd?: string, returnDateBegin?: string, returnDateEnd?: string, page?: number, size?: number, sort?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        searchLendingSet: async (id?: number, lendingStatusIds?: Array<number>, bookName?: string, customerName?: string, memo?: string, lendStartDateBegin?: string, lendStartDateEnd?: string, lendDeadlineDateBegin?: string, lendDeadlineDateEnd?: string, returnDateBegin?: string, returnDateEnd?: string, page?: number, size?: number, sort?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/searchLendingSet`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -9704,6 +11139,10 @@ export const EchoControllerApiAxiosParamCreator = function (configuration?: Conf
 
             if (id !== undefined) {
                 localVarQueryParameter['id'] = id;
+            }
+
+            if (lendingStatusIds) {
+                localVarQueryParameter['lendingStatusIds'] = lendingStatusIds;
             }
 
             if (bookName !== undefined) {
@@ -9820,6 +11259,7 @@ export const EchoControllerApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {number} [id] 
+         * @param {Array<number>} [lendingStatusIds] 
          * @param {string} [bookName] 
          * @param {string} [customerName] 
          * @param {string} [memo] 
@@ -9835,8 +11275,8 @@ export const EchoControllerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchLendingSet(id?: number, bookName?: string, customerName?: string, memo?: string, lendStartDateBegin?: string, lendStartDateEnd?: string, lendDeadlineDateBegin?: string, lendDeadlineDateEnd?: string, returnDateBegin?: string, returnDateEnd?: string, page?: number, size?: number, sort?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageMapStringObject>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.searchLendingSet(id, bookName, customerName, memo, lendStartDateBegin, lendStartDateEnd, lendDeadlineDateBegin, lendDeadlineDateEnd, returnDateBegin, returnDateEnd, page, size, sort, options);
+        async searchLendingSet(id?: number, lendingStatusIds?: Array<number>, bookName?: string, customerName?: string, memo?: string, lendStartDateBegin?: string, lendStartDateEnd?: string, lendDeadlineDateBegin?: string, lendDeadlineDateEnd?: string, returnDateBegin?: string, returnDateEnd?: string, page?: number, size?: number, sort?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageMapStringObject>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.searchLendingSet(id, lendingStatusIds, bookName, customerName, memo, lendStartDateBegin, lendStartDateEnd, lendDeadlineDateBegin, lendDeadlineDateEnd, returnDateBegin, returnDateEnd, page, size, sort, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EchoControllerApi.searchLendingSet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -9875,7 +11315,7 @@ export const EchoControllerApiFactory = function (configuration?: Configuration,
          * @throws {RequiredError}
          */
         searchLendingSet(requestParameters: EchoControllerApiSearchLendingSetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PageMapStringObject> {
-            return localVarFp.searchLendingSet(requestParameters.id, requestParameters.bookName, requestParameters.customerName, requestParameters.memo, requestParameters.lendStartDateBegin, requestParameters.lendStartDateEnd, requestParameters.lendDeadlineDateBegin, requestParameters.lendDeadlineDateEnd, requestParameters.returnDateBegin, requestParameters.returnDateEnd, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(axios, basePath));
+            return localVarFp.searchLendingSet(requestParameters.id, requestParameters.lendingStatusIds, requestParameters.bookName, requestParameters.customerName, requestParameters.memo, requestParameters.lendStartDateBegin, requestParameters.lendStartDateEnd, requestParameters.lendDeadlineDateBegin, requestParameters.lendDeadlineDateEnd, requestParameters.returnDateBegin, requestParameters.returnDateEnd, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -9989,6 +11429,13 @@ export interface EchoControllerApiSearchLendingSetRequest {
      * @memberof EchoControllerApiSearchLendingSet
      */
     readonly id?: number
+
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof EchoControllerApiSearchLendingSet
+     */
+    readonly lendingStatusIds?: Array<number>
 
     /**
      * 
@@ -10111,7 +11558,7 @@ export class EchoControllerApi extends BaseAPI implements EchoControllerApiInter
      * @memberof EchoControllerApi
      */
     public searchLendingSet(requestParameters: EchoControllerApiSearchLendingSetRequest = {}, options?: RawAxiosRequestConfig) {
-        return EchoControllerApiFp(this.configuration).searchLendingSet(requestParameters.id, requestParameters.bookName, requestParameters.customerName, requestParameters.memo, requestParameters.lendStartDateBegin, requestParameters.lendStartDateEnd, requestParameters.lendDeadlineDateBegin, requestParameters.lendDeadlineDateEnd, requestParameters.returnDateBegin, requestParameters.returnDateEnd, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
+        return EchoControllerApiFp(this.configuration).searchLendingSet(requestParameters.id, requestParameters.lendingStatusIds, requestParameters.bookName, requestParameters.customerName, requestParameters.memo, requestParameters.lendStartDateBegin, requestParameters.lendStartDateEnd, requestParameters.lendDeadlineDateBegin, requestParameters.lendDeadlineDateEnd, requestParameters.returnDateBegin, requestParameters.returnDateEnd, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -10123,39 +11570,6 @@ export class EchoControllerApi extends BaseAPI implements EchoControllerApiInter
  */
 export const LendingSetEntityControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
-        /**
-         * delete-lendingset
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteItemResourceLendingsetDelete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deleteItemResourceLendingsetDelete', 'id', id)
-            const localVarPath = `/lendingSets/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * get-lendingset
          * @param {number} [page] Zero-based page index (0..N)
@@ -10200,152 +11614,6 @@ export const LendingSetEntityControllerApiAxiosParamCreator = function (configur
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * get-lendingset
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemResourceLendingsetGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('getItemResourceLendingsetGet', 'id', id)
-            const localVarPath = `/lendingSets/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * patch-lendingset
-         * @param {string} id 
-         * @param {LendingSetRequestBody} lendingSetRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        patchItemResourceLendingsetPatch: async (id: string, lendingSetRequestBody: LendingSetRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('patchItemResourceLendingsetPatch', 'id', id)
-            // verify required parameter 'lendingSetRequestBody' is not null or undefined
-            assertParamExists('patchItemResourceLendingsetPatch', 'lendingSetRequestBody', lendingSetRequestBody)
-            const localVarPath = `/lendingSets/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(lendingSetRequestBody, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * create-lendingset
-         * @param {LendingSetRequestBody} lendingSetRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postCollectionResourceLendingsetPost: async (lendingSetRequestBody: LendingSetRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'lendingSetRequestBody' is not null or undefined
-            assertParamExists('postCollectionResourceLendingsetPost', 'lendingSetRequestBody', lendingSetRequestBody)
-            const localVarPath = `/lendingSets`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(lendingSetRequestBody, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * update-lendingset
-         * @param {string} id 
-         * @param {LendingSetRequestBody} lendingSetRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        putItemResourceLendingsetPut: async (id: string, lendingSetRequestBody: LendingSetRequestBody, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('putItemResourceLendingsetPut', 'id', id)
-            // verify required parameter 'lendingSetRequestBody' is not null or undefined
-            assertParamExists('putItemResourceLendingsetPut', 'lendingSetRequestBody', lendingSetRequestBody)
-            const localVarPath = `/lendingSets/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(lendingSetRequestBody, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -10356,18 +11624,6 @@ export const LendingSetEntityControllerApiAxiosParamCreator = function (configur
 export const LendingSetEntityControllerApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = LendingSetEntityControllerApiAxiosParamCreator(configuration)
     return {
-        /**
-         * delete-lendingset
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteItemResourceLendingsetDelete(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteItemResourceLendingsetDelete(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetEntityControllerApi.deleteItemResourceLendingsetDelete']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
         /**
          * get-lendingset
          * @param {number} [page] Zero-based page index (0..N)
@@ -10382,56 +11638,6 @@ export const LendingSetEntityControllerApiFp = function(configuration?: Configur
             const localVarOperationServerBasePath = operationServerMap['LendingSetEntityControllerApi.getCollectionResourceLendingsetGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
-        /**
-         * get-lendingset
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getItemResourceLendingsetGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelLendingSet>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getItemResourceLendingsetGet(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetEntityControllerApi.getItemResourceLendingsetGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * patch-lendingset
-         * @param {string} id 
-         * @param {LendingSetRequestBody} lendingSetRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async patchItemResourceLendingsetPatch(id: string, lendingSetRequestBody: LendingSetRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelLendingSet>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.patchItemResourceLendingsetPatch(id, lendingSetRequestBody, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetEntityControllerApi.patchItemResourceLendingsetPatch']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * create-lendingset
-         * @param {LendingSetRequestBody} lendingSetRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async postCollectionResourceLendingsetPost(lendingSetRequestBody: LendingSetRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelLendingSet>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.postCollectionResourceLendingsetPost(lendingSetRequestBody, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetEntityControllerApi.postCollectionResourceLendingsetPost']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * update-lendingset
-         * @param {string} id 
-         * @param {LendingSetRequestBody} lendingSetRequestBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async putItemResourceLendingsetPut(id: string, lendingSetRequestBody: LendingSetRequestBody, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelLendingSet>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.putItemResourceLendingsetPut(id, lendingSetRequestBody, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetEntityControllerApi.putItemResourceLendingsetPut']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
     }
 };
 
@@ -10443,15 +11649,6 @@ export const LendingSetEntityControllerApiFactory = function (configuration?: Co
     const localVarFp = LendingSetEntityControllerApiFp(configuration)
     return {
         /**
-         * delete-lendingset
-         * @param {LendingSetEntityControllerApiDeleteItemResourceLendingsetDeleteRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteItemResourceLendingsetDelete(requestParameters: LendingSetEntityControllerApiDeleteItemResourceLendingsetDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deleteItemResourceLendingsetDelete(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
          * get-lendingset
          * @param {LendingSetEntityControllerApiGetCollectionResourceLendingsetGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -10459,42 +11656,6 @@ export const LendingSetEntityControllerApiFactory = function (configuration?: Co
          */
         getCollectionResourceLendingsetGet(requestParameters: LendingSetEntityControllerApiGetCollectionResourceLendingsetGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelLendingSet> {
             return localVarFp.getCollectionResourceLendingsetGet(requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-lendingset
-         * @param {LendingSetEntityControllerApiGetItemResourceLendingsetGetRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getItemResourceLendingsetGet(requestParameters: LendingSetEntityControllerApiGetItemResourceLendingsetGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingSet> {
-            return localVarFp.getItemResourceLendingsetGet(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * patch-lendingset
-         * @param {LendingSetEntityControllerApiPatchItemResourceLendingsetPatchRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        patchItemResourceLendingsetPatch(requestParameters: LendingSetEntityControllerApiPatchItemResourceLendingsetPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingSet> {
-            return localVarFp.patchItemResourceLendingsetPatch(requestParameters.id, requestParameters.lendingSetRequestBody, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * create-lendingset
-         * @param {LendingSetEntityControllerApiPostCollectionResourceLendingsetPostRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        postCollectionResourceLendingsetPost(requestParameters: LendingSetEntityControllerApiPostCollectionResourceLendingsetPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingSet> {
-            return localVarFp.postCollectionResourceLendingsetPost(requestParameters.lendingSetRequestBody, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * update-lendingset
-         * @param {LendingSetEntityControllerApiPutItemResourceLendingsetPutRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        putItemResourceLendingsetPut(requestParameters: LendingSetEntityControllerApiPutItemResourceLendingsetPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingSet> {
-            return localVarFp.putItemResourceLendingsetPut(requestParameters.id, requestParameters.lendingSetRequestBody, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -10506,15 +11667,6 @@ export const LendingSetEntityControllerApiFactory = function (configuration?: Co
  */
 export interface LendingSetEntityControllerApiInterface {
     /**
-     * delete-lendingset
-     * @param {LendingSetEntityControllerApiDeleteItemResourceLendingsetDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApiInterface
-     */
-    deleteItemResourceLendingsetDelete(requestParameters: LendingSetEntityControllerApiDeleteItemResourceLendingsetDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
      * get-lendingset
      * @param {LendingSetEntityControllerApiGetCollectionResourceLendingsetGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -10523,56 +11675,6 @@ export interface LendingSetEntityControllerApiInterface {
      */
     getCollectionResourceLendingsetGet(requestParameters?: LendingSetEntityControllerApiGetCollectionResourceLendingsetGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelLendingSet>;
 
-    /**
-     * get-lendingset
-     * @param {LendingSetEntityControllerApiGetItemResourceLendingsetGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApiInterface
-     */
-    getItemResourceLendingsetGet(requestParameters: LendingSetEntityControllerApiGetItemResourceLendingsetGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingSet>;
-
-    /**
-     * patch-lendingset
-     * @param {LendingSetEntityControllerApiPatchItemResourceLendingsetPatchRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApiInterface
-     */
-    patchItemResourceLendingsetPatch(requestParameters: LendingSetEntityControllerApiPatchItemResourceLendingsetPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingSet>;
-
-    /**
-     * create-lendingset
-     * @param {LendingSetEntityControllerApiPostCollectionResourceLendingsetPostRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApiInterface
-     */
-    postCollectionResourceLendingsetPost(requestParameters: LendingSetEntityControllerApiPostCollectionResourceLendingsetPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingSet>;
-
-    /**
-     * update-lendingset
-     * @param {LendingSetEntityControllerApiPutItemResourceLendingsetPutRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApiInterface
-     */
-    putItemResourceLendingsetPut(requestParameters: LendingSetEntityControllerApiPutItemResourceLendingsetPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingSet>;
-
-}
-
-/**
- * Request parameters for deleteItemResourceLendingsetDelete operation in LendingSetEntityControllerApi.
- * @export
- * @interface LendingSetEntityControllerApiDeleteItemResourceLendingsetDeleteRequest
- */
-export interface LendingSetEntityControllerApiDeleteItemResourceLendingsetDeleteRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetEntityControllerApiDeleteItemResourceLendingsetDelete
-     */
-    readonly id: string
 }
 
 /**
@@ -10604,93 +11706,12 @@ export interface LendingSetEntityControllerApiGetCollectionResourceLendingsetGet
 }
 
 /**
- * Request parameters for getItemResourceLendingsetGet operation in LendingSetEntityControllerApi.
- * @export
- * @interface LendingSetEntityControllerApiGetItemResourceLendingsetGetRequest
- */
-export interface LendingSetEntityControllerApiGetItemResourceLendingsetGetRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetEntityControllerApiGetItemResourceLendingsetGet
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for patchItemResourceLendingsetPatch operation in LendingSetEntityControllerApi.
- * @export
- * @interface LendingSetEntityControllerApiPatchItemResourceLendingsetPatchRequest
- */
-export interface LendingSetEntityControllerApiPatchItemResourceLendingsetPatchRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetEntityControllerApiPatchItemResourceLendingsetPatch
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {LendingSetRequestBody}
-     * @memberof LendingSetEntityControllerApiPatchItemResourceLendingsetPatch
-     */
-    readonly lendingSetRequestBody: LendingSetRequestBody
-}
-
-/**
- * Request parameters for postCollectionResourceLendingsetPost operation in LendingSetEntityControllerApi.
- * @export
- * @interface LendingSetEntityControllerApiPostCollectionResourceLendingsetPostRequest
- */
-export interface LendingSetEntityControllerApiPostCollectionResourceLendingsetPostRequest {
-    /**
-     * 
-     * @type {LendingSetRequestBody}
-     * @memberof LendingSetEntityControllerApiPostCollectionResourceLendingsetPost
-     */
-    readonly lendingSetRequestBody: LendingSetRequestBody
-}
-
-/**
- * Request parameters for putItemResourceLendingsetPut operation in LendingSetEntityControllerApi.
- * @export
- * @interface LendingSetEntityControllerApiPutItemResourceLendingsetPutRequest
- */
-export interface LendingSetEntityControllerApiPutItemResourceLendingsetPutRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetEntityControllerApiPutItemResourceLendingsetPut
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {LendingSetRequestBody}
-     * @memberof LendingSetEntityControllerApiPutItemResourceLendingsetPut
-     */
-    readonly lendingSetRequestBody: LendingSetRequestBody
-}
-
-/**
  * LendingSetEntityControllerApi - object-oriented interface
  * @export
  * @class LendingSetEntityControllerApi
  * @extends {BaseAPI}
  */
 export class LendingSetEntityControllerApi extends BaseAPI implements LendingSetEntityControllerApiInterface {
-    /**
-     * delete-lendingset
-     * @param {LendingSetEntityControllerApiDeleteItemResourceLendingsetDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApi
-     */
-    public deleteItemResourceLendingsetDelete(requestParameters: LendingSetEntityControllerApiDeleteItemResourceLendingsetDeleteRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetEntityControllerApiFp(this.configuration).deleteItemResourceLendingsetDelete(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
     /**
      * get-lendingset
      * @param {LendingSetEntityControllerApiGetCollectionResourceLendingsetGetRequest} requestParameters Request parameters.
@@ -10701,515 +11722,37 @@ export class LendingSetEntityControllerApi extends BaseAPI implements LendingSet
     public getCollectionResourceLendingsetGet(requestParameters: LendingSetEntityControllerApiGetCollectionResourceLendingsetGetRequest = {}, options?: RawAxiosRequestConfig) {
         return LendingSetEntityControllerApiFp(this.configuration).getCollectionResourceLendingsetGet(requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
     }
-
-    /**
-     * get-lendingset
-     * @param {LendingSetEntityControllerApiGetItemResourceLendingsetGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApi
-     */
-    public getItemResourceLendingsetGet(requestParameters: LendingSetEntityControllerApiGetItemResourceLendingsetGetRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetEntityControllerApiFp(this.configuration).getItemResourceLendingsetGet(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * patch-lendingset
-     * @param {LendingSetEntityControllerApiPatchItemResourceLendingsetPatchRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApi
-     */
-    public patchItemResourceLendingsetPatch(requestParameters: LendingSetEntityControllerApiPatchItemResourceLendingsetPatchRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetEntityControllerApiFp(this.configuration).patchItemResourceLendingsetPatch(requestParameters.id, requestParameters.lendingSetRequestBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * create-lendingset
-     * @param {LendingSetEntityControllerApiPostCollectionResourceLendingsetPostRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApi
-     */
-    public postCollectionResourceLendingsetPost(requestParameters: LendingSetEntityControllerApiPostCollectionResourceLendingsetPostRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetEntityControllerApiFp(this.configuration).postCollectionResourceLendingsetPost(requestParameters.lendingSetRequestBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * update-lendingset
-     * @param {LendingSetEntityControllerApiPutItemResourceLendingsetPutRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetEntityControllerApi
-     */
-    public putItemResourceLendingsetPut(requestParameters: LendingSetEntityControllerApiPutItemResourceLendingsetPutRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetEntityControllerApiFp(this.configuration).putItemResourceLendingsetPut(requestParameters.id, requestParameters.lendingSetRequestBody, options).then((request) => request(this.axios, this.basePath));
-    }
 }
 
 
 
 /**
- * LendingSetPropertyReferenceControllerApi - axios parameter creator
+ * LendingSetSearchControllerApi - axios parameter creator
  * @export
  */
-export const LendingSetPropertyReferenceControllerApiAxiosParamCreator = function (configuration?: Configuration) {
+export const LendingSetSearchControllerApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * patch-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
+         * 
+         * @param {number} [id] 
+         * @param {Array<number>} [lendingStatusIds] 
+         * @param {string} [bookName] 
+         * @param {string} [customerName] 
+         * @param {string} [memo] 
+         * @param {string} [lendStartDateBegin] 
+         * @param {string} [lendStartDateEnd] 
+         * @param {string} [lendDeadlineDateBegin] 
+         * @param {string} [lendDeadlineDateEnd] 
+         * @param {string} [returnDateBegin] 
+         * @param {string} [returnDateEnd] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPropertyReferenceLendingsetPatch: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPatch', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPatch', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/lendingSets/{id}/bookStock`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * patch-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPatch1: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPatch1', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPatch1', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/lendingSets/{id}/customer`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * patch-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPatch2: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPatch2', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPatch2', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/lendingSets/{id}/lendingStatus`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * update-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPut: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPut', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPut', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/lendingSets/{id}/bookStock`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * update-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPut1: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPut1', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPut1', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/lendingSets/{id}/customer`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * update-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPut2: async (id: string, collectionModelObject: CollectionModelObject, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPut2', 'id', id)
-            // verify required parameter 'collectionModelObject' is not null or undefined
-            assertParamExists('createPropertyReferenceLendingsetPut2', 'collectionModelObject', collectionModelObject)
-            const localVarPath = `/lendingSets/{id}/lendingStatus`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(collectionModelObject, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdLendingsetDelete: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdLendingsetDelete', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdLendingsetDelete', 'propertyId', propertyId)
-            const localVarPath = `/lendingSets/{id}/bookStock/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdLendingsetDelete1: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdLendingsetDelete1', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdLendingsetDelete1', 'propertyId', propertyId)
-            const localVarPath = `/lendingSets/{id}/customer/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdLendingsetDelete2: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdLendingsetDelete2', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('deletePropertyReferenceIdLendingsetDelete2', 'propertyId', propertyId)
-            const localVarPath = `/lendingSets/{id}/lendingStatus/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceLendingsetDelete: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceLendingsetDelete', 'id', id)
-            const localVarPath = `/lendingSets/{id}/bookStock`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceLendingsetDelete1: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceLendingsetDelete1', 'id', id)
-            const localVarPath = `/lendingSets/{id}/customer`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * delete-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceLendingsetDelete2: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deletePropertyReferenceLendingsetDelete2', 'id', id)
-            const localVarPath = `/lendingSets/{id}/lendingStatus`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceLendingsetGet', 'id', id)
-            const localVarPath = `/lendingSets/{id}/bookStock`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+        executeSearchLendingsetGet: async (id?: number, lendingStatusIds?: Array<number>, bookName?: string, customerName?: string, memo?: string, lendStartDateBegin?: string, lendStartDateEnd?: string, lendDeadlineDateBegin?: string, lendDeadlineDateEnd?: string, returnDateBegin?: string, returnDateEnd?: string, page?: number, size?: number, sort?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/lendingSets/search/searchLendingSet`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -11221,182 +11764,73 @@ export const LendingSetPropertyReferenceControllerApiAxiosParamCreator = functio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet1: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceLendingsetGet1', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('followPropertyReferenceLendingsetGet1', 'propertyId', propertyId)
-            const localVarPath = `/lendingSets/{id}/bookStock/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet2: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceLendingsetGet2', 'id', id)
-            const localVarPath = `/lendingSets/{id}/customer`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (lendingStatusIds) {
+                localVarQueryParameter['lendingStatusIds'] = lendingStatusIds;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet3: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceLendingsetGet3', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('followPropertyReferenceLendingsetGet3', 'propertyId', propertyId)
-            const localVarPath = `/lendingSets/{id}/customer/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (bookName !== undefined) {
+                localVarQueryParameter['bookName'] = bookName;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet4: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceLendingsetGet4', 'id', id)
-            const localVarPath = `/lendingSets/{id}/lendingStatus`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (customerName !== undefined) {
+                localVarQueryParameter['customerName'] = customerName;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * get-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet5: async (id: string, propertyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('followPropertyReferenceLendingsetGet5', 'id', id)
-            // verify required parameter 'propertyId' is not null or undefined
-            assertParamExists('followPropertyReferenceLendingsetGet5', 'propertyId', propertyId)
-            const localVarPath = `/lendingSets/{id}/lendingStatus/{propertyId}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
-                .replace(`{${"propertyId"}}`, encodeURIComponent(String(propertyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
+            if (memo !== undefined) {
+                localVarQueryParameter['memo'] = memo;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
+            if (lendStartDateBegin !== undefined) {
+                localVarQueryParameter['lendStartDateBegin'] = (lendStartDateBegin as any instanceof Date) ?
+                    (lendStartDateBegin as any).toISOString().substring(0,10) :
+                    lendStartDateBegin;
+            }
+
+            if (lendStartDateEnd !== undefined) {
+                localVarQueryParameter['lendStartDateEnd'] = (lendStartDateEnd as any instanceof Date) ?
+                    (lendStartDateEnd as any).toISOString().substring(0,10) :
+                    lendStartDateEnd;
+            }
+
+            if (lendDeadlineDateBegin !== undefined) {
+                localVarQueryParameter['lendDeadlineDateBegin'] = (lendDeadlineDateBegin as any instanceof Date) ?
+                    (lendDeadlineDateBegin as any).toISOString().substring(0,10) :
+                    lendDeadlineDateBegin;
+            }
+
+            if (lendDeadlineDateEnd !== undefined) {
+                localVarQueryParameter['lendDeadlineDateEnd'] = (lendDeadlineDateEnd as any instanceof Date) ?
+                    (lendDeadlineDateEnd as any).toISOString().substring(0,10) :
+                    lendDeadlineDateEnd;
+            }
+
+            if (returnDateBegin !== undefined) {
+                localVarQueryParameter['returnDateBegin'] = (returnDateBegin as any instanceof Date) ?
+                    (returnDateBegin as any).toISOString().substring(0,10) :
+                    returnDateBegin;
+            }
+
+            if (returnDateEnd !== undefined) {
+                localVarQueryParameter['returnDateEnd'] = (returnDateEnd as any instanceof Date) ?
+                    (returnDateEnd as any).toISOString().substring(0,10) :
+                    returnDateEnd;
+            }
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
 
 
     
@@ -11413,1124 +11847,197 @@ export const LendingSetPropertyReferenceControllerApiAxiosParamCreator = functio
 };
 
 /**
- * LendingSetPropertyReferenceControllerApi - functional programming interface
+ * LendingSetSearchControllerApi - functional programming interface
  * @export
  */
-export const LendingSetPropertyReferenceControllerApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = LendingSetPropertyReferenceControllerApiAxiosParamCreator(configuration)
+export const LendingSetSearchControllerApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = LendingSetSearchControllerApiAxiosParamCreator(configuration)
     return {
         /**
-         * patch-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
+         * 
+         * @param {number} [id] 
+         * @param {Array<number>} [lendingStatusIds] 
+         * @param {string} [bookName] 
+         * @param {string} [customerName] 
+         * @param {string} [memo] 
+         * @param {string} [lendStartDateBegin] 
+         * @param {string} [lendStartDateEnd] 
+         * @param {string} [lendDeadlineDateBegin] 
+         * @param {string} [lendDeadlineDateEnd] 
+         * @param {string} [returnDateBegin] 
+         * @param {string} [returnDateEnd] 
+         * @param {number} [page] Zero-based page index (0..N)
+         * @param {number} [size] The size of the page to be returned
+         * @param {Array<string>} [sort] Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createPropertyReferenceLendingsetPatch(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelBookStock>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceLendingsetPatch(id, collectionModelObject, options);
+        async executeSearchLendingsetGet(id?: number, lendingStatusIds?: Array<number>, bookName?: string, customerName?: string, memo?: string, lendStartDateBegin?: string, lendStartDateEnd?: string, lendDeadlineDateBegin?: string, lendDeadlineDateEnd?: string, returnDateBegin?: string, returnDateEnd?: string, page?: number, size?: number, sort?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PagedModelEntityModelLendingSet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.executeSearchLendingsetGet(id, lendingStatusIds, bookName, customerName, memo, lendStartDateBegin, lendStartDateEnd, lendDeadlineDateBegin, lendDeadlineDateEnd, returnDateBegin, returnDateEnd, page, size, sort, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.createPropertyReferenceLendingsetPatch']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * patch-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createPropertyReferenceLendingsetPatch1(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelCustomer>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceLendingsetPatch1(id, collectionModelObject, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.createPropertyReferenceLendingsetPatch1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * patch-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createPropertyReferenceLendingsetPatch2(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelLendingStatus>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceLendingsetPatch2(id, collectionModelObject, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.createPropertyReferenceLendingsetPatch2']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * update-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createPropertyReferenceLendingsetPut(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelBookStock>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceLendingsetPut(id, collectionModelObject, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.createPropertyReferenceLendingsetPut']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * update-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createPropertyReferenceLendingsetPut1(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelCustomer>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceLendingsetPut1(id, collectionModelObject, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.createPropertyReferenceLendingsetPut1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * update-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {CollectionModelObject} collectionModelObject 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createPropertyReferenceLendingsetPut2(id: string, collectionModelObject: CollectionModelObject, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelLendingStatus>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPropertyReferenceLendingsetPut2(id, collectionModelObject, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.createPropertyReferenceLendingsetPut2']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceIdLendingsetDelete(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceIdLendingsetDelete(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.deletePropertyReferenceIdLendingsetDelete']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceIdLendingsetDelete1(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceIdLendingsetDelete1(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.deletePropertyReferenceIdLendingsetDelete1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceIdLendingsetDelete2(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceIdLendingsetDelete2(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.deletePropertyReferenceIdLendingsetDelete2']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceLendingsetDelete(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceLendingsetDelete(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.deletePropertyReferenceLendingsetDelete']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceLendingsetDelete1(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceLendingsetDelete1(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.deletePropertyReferenceLendingsetDelete1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * delete-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deletePropertyReferenceLendingsetDelete2(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deletePropertyReferenceLendingsetDelete2(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.deletePropertyReferenceLendingsetDelete2']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceLendingsetGet(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelBookStock>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceLendingsetGet(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.followPropertyReferenceLendingsetGet']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-bookstock-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceLendingsetGet1(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionModelBookStock>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceLendingsetGet1(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.followPropertyReferenceLendingsetGet1']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceLendingsetGet2(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelCustomer>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceLendingsetGet2(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.followPropertyReferenceLendingsetGet2']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-customer-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceLendingsetGet3(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelCustomer>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceLendingsetGet3(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.followPropertyReferenceLendingsetGet3']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceLendingsetGet4(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelLendingStatus>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceLendingsetGet4(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.followPropertyReferenceLendingsetGet4']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * get-lendingstatus-by-lendingset-Id
-         * @param {string} id 
-         * @param {string} propertyId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async followPropertyReferenceLendingsetGet5(id: string, propertyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EntityModelLendingStatus>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.followPropertyReferenceLendingsetGet5(id, propertyId, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['LendingSetPropertyReferenceControllerApi.followPropertyReferenceLendingsetGet5']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['LendingSetSearchControllerApi.executeSearchLendingsetGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * LendingSetPropertyReferenceControllerApi - factory interface
+ * LendingSetSearchControllerApi - factory interface
  * @export
  */
-export const LendingSetPropertyReferenceControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = LendingSetPropertyReferenceControllerApiFp(configuration)
+export const LendingSetSearchControllerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LendingSetSearchControllerApiFp(configuration)
     return {
         /**
-         * patch-bookstock-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatchRequest} requestParameters Request parameters.
+         * 
+         * @param {LendingSetSearchControllerApiExecuteSearchLendingsetGetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPropertyReferenceLendingsetPatch(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelBookStock> {
-            return localVarFp.createPropertyReferenceLendingsetPatch(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * patch-customer-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPatch1(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelCustomer> {
-            return localVarFp.createPropertyReferenceLendingsetPatch1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * patch-lendingstatus-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPatch2(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingStatus> {
-            return localVarFp.createPropertyReferenceLendingsetPatch2(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * update-bookstock-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPutRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPut(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelBookStock> {
-            return localVarFp.createPropertyReferenceLendingsetPut(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * update-customer-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPut1(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelCustomer> {
-            return localVarFp.createPropertyReferenceLendingsetPut1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * update-lendingstatus-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createPropertyReferenceLendingsetPut2(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingStatus> {
-            return localVarFp.createPropertyReferenceLendingsetPut2(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-bookstock-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDeleteRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdLendingsetDelete(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceIdLendingsetDelete(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-customer-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdLendingsetDelete1(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceIdLendingsetDelete1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-lendingstatus-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceIdLendingsetDelete2(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2Request, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceIdLendingsetDelete2(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-bookstock-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDeleteRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceLendingsetDelete(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceLendingsetDelete(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-customer-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceLendingsetDelete1(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceLendingsetDelete1(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * delete-lendingstatus-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete2Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deletePropertyReferenceLendingsetDelete2(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete2Request, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.deletePropertyReferenceLendingsetDelete2(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-bookstock-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGetRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelBookStock> {
-            return localVarFp.followPropertyReferenceLendingsetGet(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-bookstock-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet1(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1Request, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelBookStock> {
-            return localVarFp.followPropertyReferenceLendingsetGet1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-customer-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet2Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet2(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelCustomer> {
-            return localVarFp.followPropertyReferenceLendingsetGet2(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-customer-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet3(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelCustomer> {
-            return localVarFp.followPropertyReferenceLendingsetGet3(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-lendingstatus-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet4Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet4(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet4Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingStatus> {
-            return localVarFp.followPropertyReferenceLendingsetGet4(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * get-lendingstatus-by-lendingset-Id
-         * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5Request} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        followPropertyReferenceLendingsetGet5(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingStatus> {
-            return localVarFp.followPropertyReferenceLendingsetGet5(requestParameters.id, requestParameters.propertyId, options).then((request) => request(axios, basePath));
+        executeSearchLendingsetGet(requestParameters: LendingSetSearchControllerApiExecuteSearchLendingsetGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelLendingSet> {
+            return localVarFp.executeSearchLendingsetGet(requestParameters.id, requestParameters.lendingStatusIds, requestParameters.bookName, requestParameters.customerName, requestParameters.memo, requestParameters.lendStartDateBegin, requestParameters.lendStartDateEnd, requestParameters.lendDeadlineDateBegin, requestParameters.lendDeadlineDateEnd, requestParameters.returnDateBegin, requestParameters.returnDateEnd, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * LendingSetPropertyReferenceControllerApi - interface
+ * LendingSetSearchControllerApi - interface
  * @export
- * @interface LendingSetPropertyReferenceControllerApi
+ * @interface LendingSetSearchControllerApi
  */
-export interface LendingSetPropertyReferenceControllerApiInterface {
+export interface LendingSetSearchControllerApiInterface {
     /**
-     * patch-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatchRequest} requestParameters Request parameters.
+     * 
+     * @param {LendingSetSearchControllerApiExecuteSearchLendingsetGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
+     * @memberof LendingSetSearchControllerApiInterface
      */
-    createPropertyReferenceLendingsetPatch(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatchRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelBookStock>;
-
-    /**
-     * patch-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    createPropertyReferenceLendingsetPatch1(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelCustomer>;
-
-    /**
-     * patch-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    createPropertyReferenceLendingsetPatch2(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingStatus>;
-
-    /**
-     * update-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPutRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    createPropertyReferenceLendingsetPut(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelBookStock>;
-
-    /**
-     * update-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    createPropertyReferenceLendingsetPut1(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelCustomer>;
-
-    /**
-     * update-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    createPropertyReferenceLendingsetPut2(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingStatus>;
-
-    /**
-     * delete-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceIdLendingsetDelete(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * delete-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceIdLendingsetDelete1(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * delete-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceIdLendingsetDelete2(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2Request, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * delete-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceLendingsetDelete(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDeleteRequest, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * delete-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceLendingsetDelete1(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete1Request, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * delete-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    deletePropertyReferenceLendingsetDelete2(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete2Request, options?: RawAxiosRequestConfig): AxiosPromise<void>;
-
-    /**
-     * get-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceLendingsetGet(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelBookStock>;
-
-    /**
-     * get-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceLendingsetGet1(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1Request, options?: RawAxiosRequestConfig): AxiosPromise<CollectionModelBookStock>;
-
-    /**
-     * get-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceLendingsetGet2(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet2Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelCustomer>;
-
-    /**
-     * get-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceLendingsetGet3(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelCustomer>;
-
-    /**
-     * get-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet4Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceLendingsetGet4(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet4Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingStatus>;
-
-    /**
-     * get-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApiInterface
-     */
-    followPropertyReferenceLendingsetGet5(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5Request, options?: RawAxiosRequestConfig): AxiosPromise<EntityModelLendingStatus>;
+    executeSearchLendingsetGet(requestParameters?: LendingSetSearchControllerApiExecuteSearchLendingsetGetRequest, options?: RawAxiosRequestConfig): AxiosPromise<PagedModelEntityModelLendingSet>;
 
 }
 
 /**
- * Request parameters for createPropertyReferenceLendingsetPatch operation in LendingSetPropertyReferenceControllerApi.
+ * Request parameters for executeSearchLendingsetGet operation in LendingSetSearchControllerApi.
  * @export
- * @interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatchRequest
+ * @interface LendingSetSearchControllerApiExecuteSearchLendingsetGetRequest
  */
-export interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatchRequest {
+export interface LendingSetSearchControllerApiExecuteSearchLendingsetGetRequest {
     /**
      * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch
+     * @type {number}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
      */
-    readonly id: string
+    readonly id?: number
 
     /**
      * 
-     * @type {CollectionModelObject}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch
+     * @type {Array<number>}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
      */
-    readonly collectionModelObject: CollectionModelObject
+    readonly lendingStatusIds?: Array<number>
+
+    /**
+     * 
+     * @type {string}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly bookName?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly customerName?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly memo?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly lendStartDateBegin?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly lendStartDateEnd?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly lendDeadlineDateBegin?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly lendDeadlineDateEnd?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly returnDateBegin?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly returnDateEnd?: string
+
+    /**
+     * Zero-based page index (0..N)
+     * @type {number}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly page?: number
+
+    /**
+     * The size of the page to be returned
+     * @type {number}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly size?: number
+
+    /**
+     * Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.
+     * @type {Array<string>}
+     * @memberof LendingSetSearchControllerApiExecuteSearchLendingsetGet
+     */
+    readonly sort?: Array<string>
 }
 
 /**
- * Request parameters for createPropertyReferenceLendingsetPatch1 operation in LendingSetPropertyReferenceControllerApi.
+ * LendingSetSearchControllerApi - object-oriented interface
  * @export
- * @interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1Request
- */
-export interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {CollectionModelObject}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1
-     */
-    readonly collectionModelObject: CollectionModelObject
-}
-
-/**
- * Request parameters for createPropertyReferenceLendingsetPatch2 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2Request
- */
-export interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {CollectionModelObject}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2
-     */
-    readonly collectionModelObject: CollectionModelObject
-}
-
-/**
- * Request parameters for createPropertyReferenceLendingsetPut operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPutRequest
- */
-export interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPutRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {CollectionModelObject}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut
-     */
-    readonly collectionModelObject: CollectionModelObject
-}
-
-/**
- * Request parameters for createPropertyReferenceLendingsetPut1 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1Request
- */
-export interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {CollectionModelObject}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1
-     */
-    readonly collectionModelObject: CollectionModelObject
-}
-
-/**
- * Request parameters for createPropertyReferenceLendingsetPut2 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2Request
- */
-export interface LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {CollectionModelObject}
-     * @memberof LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2
-     */
-    readonly collectionModelObject: CollectionModelObject
-}
-
-/**
- * Request parameters for deletePropertyReferenceIdLendingsetDelete operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDeleteRequest
- */
-export interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDeleteRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete
-     */
-    readonly propertyId: string
-}
-
-/**
- * Request parameters for deletePropertyReferenceIdLendingsetDelete1 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1Request
- */
-export interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1
-     */
-    readonly propertyId: string
-}
-
-/**
- * Request parameters for deletePropertyReferenceIdLendingsetDelete2 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2Request
- */
-export interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2
-     */
-    readonly propertyId: string
-}
-
-/**
- * Request parameters for deletePropertyReferenceLendingsetDelete operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDeleteRequest
- */
-export interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDeleteRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for deletePropertyReferenceLendingsetDelete1 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete1Request
- */
-export interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete1
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for deletePropertyReferenceLendingsetDelete2 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete2Request
- */
-export interface LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete2Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete2
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for followPropertyReferenceLendingsetGet operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGetRequest
- */
-export interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGetRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for followPropertyReferenceLendingsetGet1 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1Request
- */
-export interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1
-     */
-    readonly propertyId: string
-}
-
-/**
- * Request parameters for followPropertyReferenceLendingsetGet2 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet2Request
- */
-export interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet2Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet2
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for followPropertyReferenceLendingsetGet3 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3Request
- */
-export interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3
-     */
-    readonly propertyId: string
-}
-
-/**
- * Request parameters for followPropertyReferenceLendingsetGet4 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet4Request
- */
-export interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet4Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet4
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for followPropertyReferenceLendingsetGet5 operation in LendingSetPropertyReferenceControllerApi.
- * @export
- * @interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5Request
- */
-export interface LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5Request {
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5
-     */
-    readonly propertyId: string
-}
-
-/**
- * LendingSetPropertyReferenceControllerApi - object-oriented interface
- * @export
- * @class LendingSetPropertyReferenceControllerApi
+ * @class LendingSetSearchControllerApi
  * @extends {BaseAPI}
  */
-export class LendingSetPropertyReferenceControllerApi extends BaseAPI implements LendingSetPropertyReferenceControllerApiInterface {
+export class LendingSetSearchControllerApi extends BaseAPI implements LendingSetSearchControllerApiInterface {
     /**
-     * patch-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatchRequest} requestParameters Request parameters.
+     * 
+     * @param {LendingSetSearchControllerApiExecuteSearchLendingsetGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
+     * @memberof LendingSetSearchControllerApi
      */
-    public createPropertyReferenceLendingsetPatch(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatchRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceLendingsetPatch(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * patch-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public createPropertyReferenceLendingsetPatch1(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch1Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceLendingsetPatch1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * patch-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public createPropertyReferenceLendingsetPatch2(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPatch2Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceLendingsetPatch2(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * update-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPutRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public createPropertyReferenceLendingsetPut(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPutRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceLendingsetPut(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * update-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public createPropertyReferenceLendingsetPut1(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut1Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceLendingsetPut1(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * update-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public createPropertyReferenceLendingsetPut2(requestParameters: LendingSetPropertyReferenceControllerApiCreatePropertyReferenceLendingsetPut2Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).createPropertyReferenceLendingsetPut2(requestParameters.id, requestParameters.collectionModelObject, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceIdLendingsetDelete(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDeleteRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceIdLendingsetDelete(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceIdLendingsetDelete1(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete1Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceIdLendingsetDelete1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceIdLendingsetDelete2(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceIdLendingsetDelete2Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceIdLendingsetDelete2(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDeleteRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceLendingsetDelete(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDeleteRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceLendingsetDelete(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceLendingsetDelete1(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete1Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceLendingsetDelete1(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * delete-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public deletePropertyReferenceLendingsetDelete2(requestParameters: LendingSetPropertyReferenceControllerApiDeletePropertyReferenceLendingsetDelete2Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).deletePropertyReferenceLendingsetDelete2(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceLendingsetGet(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGetRequest, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceLendingsetGet(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-bookstock-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceLendingsetGet1(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet1Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceLendingsetGet1(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet2Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceLendingsetGet2(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet2Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceLendingsetGet2(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-customer-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceLendingsetGet3(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet3Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceLendingsetGet3(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet4Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceLendingsetGet4(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet4Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceLendingsetGet4(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * get-lendingstatus-by-lendingset-Id
-     * @param {LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5Request} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof LendingSetPropertyReferenceControllerApi
-     */
-    public followPropertyReferenceLendingsetGet5(requestParameters: LendingSetPropertyReferenceControllerApiFollowPropertyReferenceLendingsetGet5Request, options?: RawAxiosRequestConfig) {
-        return LendingSetPropertyReferenceControllerApiFp(this.configuration).followPropertyReferenceLendingsetGet5(requestParameters.id, requestParameters.propertyId, options).then((request) => request(this.axios, this.basePath));
+    public executeSearchLendingsetGet(requestParameters: LendingSetSearchControllerApiExecuteSearchLendingsetGetRequest = {}, options?: RawAxiosRequestConfig) {
+        return LendingSetSearchControllerApiFp(this.configuration).executeSearchLendingsetGet(requestParameters.id, requestParameters.lendingStatusIds, requestParameters.bookName, requestParameters.customerName, requestParameters.memo, requestParameters.lendStartDateBegin, requestParameters.lendStartDateEnd, requestParameters.lendDeadlineDateBegin, requestParameters.lendDeadlineDateEnd, requestParameters.returnDateBegin, requestParameters.returnDateEnd, requestParameters.page, requestParameters.size, requestParameters.sort, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

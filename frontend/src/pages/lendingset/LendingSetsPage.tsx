@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../config";
-import { EchoControllerApiFactory, Configuration } from "../../api";
+import { EchoControllerApiFactory, Configuration, LendingStatusEntityControllerApiFactory } from "../../api";
 import { Table } from "../../components/Table/Table";
 import { Link, useLocation, useNavigate } from "react-router";
 import queryString from "query-string";
@@ -12,6 +12,7 @@ type LendingSetsPageProps = {
 export const LendingSetsPage: React.FC<LendingSetsPageProps> = ({ }) => {
 
   const [lendingSets, setLendingSets] = useState<any[] | undefined>([])
+  const [lendingStatuses, setLendingStatuses] = useState<any[] | undefined>([])
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,6 +20,7 @@ export const LendingSetsPage: React.FC<LendingSetsPageProps> = ({ }) => {
   const search = location.search;
   const queryParams = queryString.parse(search);
   const id: any = queryParams['id'];
+  const lendingStatusIds: any = queryParams['lendingStatusIds'];
   const bookName: any = queryParams['bookName'];
   const customerName: any = queryParams['customerName'];
   const lendStartDateBegin: any = queryParams['lendStartDateBegin'];
@@ -38,6 +40,7 @@ export const LendingSetsPage: React.FC<LendingSetsPageProps> = ({ }) => {
       const lendingSetApiFactory = EchoControllerApiFactory(new Configuration(), BASE_URL);
       const lendingSetsResult = await lendingSetApiFactory.searchLendingSet({
         id: id ? id : undefined,
+        lendingStatusIds: lendingStatusIds ? lendingStatusIds : undefined,
         bookName: bookName ? bookName : undefined,
         customerName: customerName ? customerName : undefined,
         lendStartDateBegin: lendStartDateBegin ? lendStartDateBegin : undefined,
@@ -58,6 +61,10 @@ export const LendingSetsPage: React.FC<LendingSetsPageProps> = ({ }) => {
       setLendingSets(lendingSetsData?.content);
 
       console.log(lendingSetsData?.content);
+
+      const lendingStatusApi = LendingStatusEntityControllerApiFactory(new Configuration(), BASE_URL);
+      const lendingStatusResult = await lendingStatusApi.getCollectionResourceLendingstatusGet({});
+      setLendingStatuses(lendingStatusResult.data._embedded?.lendingStatuses);
 
     })();
   }, [search]);
@@ -81,6 +88,18 @@ export const LendingSetsPage: React.FC<LendingSetsPageProps> = ({ }) => {
           <label>Customer Name:</label>
           <input type="text" name="customer_name" defaultValue={customerName}></input>
         </div>
+          <div>
+            <label>Status:</label>
+            <select name="lendingStatusIds" multiple defaultValue={lendingStatusIds}>
+              {
+                lendingStatuses
+                  ?
+                  lendingStatuses.map((e: any) => <option selected={lendingStatusIds ? lendingStatusIds.includes(e.id.toString()) : false} value={e.id}>{e.name}</option>)
+                  :
+                  <></>
+              }
+            </select>
+          </div>
         <div>
           <label>Lend Start Date:</label>
           <input type="date" name="lendStartDateBegin" defaultValue={lendStartDateBegin}></input>

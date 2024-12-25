@@ -54,7 +54,7 @@ export const BookMasterCreatePage: React.FC<BookMasterCreatePageProps> = ({ }) =
     }));
 
 
-    api.postCollectionResourceBookmasterPost({
+    api.postCollectionResourceLendingsetPost({
       bookMasterRequestBody: {
         name,
         publicationDate,
