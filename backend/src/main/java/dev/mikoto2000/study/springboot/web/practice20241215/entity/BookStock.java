@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
@@ -27,6 +29,7 @@ public class BookStock {
   private String memo;
 
   @ManyToMany
+  @JoinTable(name = "lending_set_book_stock", joinColumns = @JoinColumn(name = "book_stock_id"), inverseJoinColumns = @JoinColumn(name = "lending_set_id"))
   List<LendingSet> lendingSet;
 
   @NotNull

@@ -40,6 +40,32 @@ public class EchoController {
       @Nullable LocalDate publicationDateEnd,
       @Nullable String ndcCategoryName,
       @Nullable @ParameterObject Pageable pageable) {
-    return this.searchService.searchBookMaster(id, name, publicationDateBegin, publicationDateEnd, ndcCategoryName, pageable);
+    return this.searchService.searchBookMaster(id, name, publicationDateBegin, publicationDateEnd, ndcCategoryName,
+        pageable);
+  }
+
+  @GetMapping(path = "/searchLendingSet")
+  public Page<Map<String, Object>> searchLendingSet(
+      @Nullable Long id,
+      @Nullable String name,
+      @Nullable String memo,
+      @Nullable LocalDate lendStartDateBegin,
+      @Nullable LocalDate lendStartDateEnd,
+      @Nullable LocalDate lendDeadlineDateBegin,
+      @Nullable LocalDate lendDeadlineDateEnd,
+      @Nullable LocalDate returnDateBegin,
+      @Nullable LocalDate returnDateEnd,
+      @Nullable @ParameterObject Pageable pageable) {
+    return this.searchService.searchLendingSet(
+        id,
+        name,
+        memo,
+        lendStartDateBegin,
+        lendStartDateEnd,
+        lendDeadlineDateBegin,
+        lendDeadlineDateEnd,
+        returnDateBegin,
+        returnDateEnd,
+        pageable);
   }
 }
