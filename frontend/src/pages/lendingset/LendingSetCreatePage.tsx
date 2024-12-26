@@ -1,26 +1,33 @@
 import { useEffect, useState } from "react";
-import { AuthorEntityControllerApiFactory, BookMasterEntityControllerApiFactory, Configuration, EntityModelAuthor, EntityModelNdcCategory, NdcCategoryEntityControllerApiFactory } from "../../api";
+import { LendingStatusEntityControllerApiFactory, LendingSetEntityControllerApiFactory, Configuration, EntityModelCustomer, CustomerEntityControllerApiFactory, EntityModelLendingStatus, BookStockSearchControllerApiFactory, EntityModelBookStock } from "../../api";
 import { BASE_URL } from "../../config";
 import { Link, useNavigate } from "react-router";
 
-type BookMasterCreatePageProps = {
+type LendingSetCreatePageProps = {
 };
 
-export const BookMasterCreatePage: React.FC<BookMasterCreatePageProps> = ({ }) => {
+export const LendingSetCreatePage: React.FC<LendingSetCreatePageProps> = ({ }) => {
 
   const navigate = useNavigate();
-  const [author, setAuthor] = useState<EntityModelAuthor[] | undefined>([]);
-  const [ndcCategories, setNdcCategories] = useState<EntityModelNdcCategory[] | undefined>([]);
+  const [lendingStatuses, setLendingStatuses] = useState<EntityModelLendingStatus[] | undefined>([]);
+  const [customers, setNdcCategories] = useState<EntityModelCustomer[] | undefined>([]);
+  const [bookStock, setBookStock] = useState<EntityModelBookStock[] | undefined>([]);
 
   useEffect(() => {
     (async () => {
-      const ndcCategoryApi = NdcCategoryEntityControllerApiFactory(new Configuration(), BASE_URL);
-      const ndcCategoryResult = await ndcCategoryApi.getCollectionResourceNdccategoryGet({});
-      setNdcCategories(ndcCategoryResult.data._embedded?.ndcCategories);
+      const customerApi = CustomerEntityControllerApiFactory(new Configuration(), BASE_URL);
+      const customerResult = await customerApi.getCollectionResourceCustomerGet({});
+      setNdcCategories(customerResult.data._embedded?.customers);
 
-      const authorApi = AuthorEntityControllerApiFactory(new Configuration(), BASE_URL);
-      const authorResult = await authorApi.getCollectionResourceAuthorGet({});
-      setAuthor(authorResult.data._embedded?.authors);
+      const lendingStatusApi = LendingStatusEntityControllerApiFactory(new Configuration(), BASE_URL);
+      const lendingStatusResult = await lendingStatusApi.getCollectionResourceLendingstatusGet({});
+      setLendingStatuses(lendingStatusResult.data._embedded?.lendingStatuses);
+
+      const bookStockSearchApi = BookStockSearchControllerApiFactory(new Configuration(), BASE_URL);
+      const bookStockResult = await bookStockSearchApi.executeSearchBookstockGet({
+        bookStockStatusIds: [1]
+      });
+      setBookStock(bookStockResult.data._embedded?.bookStocks);
     })();
   }, []);
 
@@ -29,40 +36,39 @@ export const BookMasterCreatePage: React.FC<BookMasterCreatePageProps> = ({ }) =
     console.log(event);
     const form: any = event.currentTarget.form;
     console.log(form);
-    const name = form.name.value;
-    const authorOptions = form.author.options
-    const authors = [];
-    for (var i = 0; i < authorOptions.length; i++) {
-      console.log(authorOptions[i].selected);
-      if (authorOptions[i].selected === true) {
-        authors.push(authorOptions[i].value)
-      }
-    }
-    console.log(authors);
-    const publicationDate = form.publicationDate.value;
-    const ndcCategory = form.ndcCategory.value;
+    const lendStartDate = form.lendStartDate.value
+    const lendDeadlineDate = form.lendDeadlineDate.value
+    const returnDate = form.returnDate.value
+    const lendingStatus = form.lendingStatus.value
+    const memo = form.memo.value
+    console.log(lendingStatus);
+    const customer = form.customer.value;
 
-    const api = BookMasterEntityControllerApiFactory(new Configuration(), BASE_URL);
+    const api = LendingSetEntityControllerApiFactory(new Configuration(), BASE_URL);
 
     console.log(JSON.stringify({
-      bookMasterRequestBody: {
-        name,
-        publicationDate,
-        authors,
-        ndcCategory
+      lendingSetRequestBody: {
+        lendStartDate,
+        lendDeadlineDate,
+        returnDate,
+        lendingStatus,
+        customer,
+        memo
       }
     }));
 
 
     api.postCollectionResourceLendingsetPost({
-      bookMasterRequestBody: {
-        name,
-        publicationDate,
-        author: authors,
-        ndcCategory
+      lendingSetRequestBody: {
+        lendStartDate,
+        lendDeadlineDate,
+        returnDate,
+        lendingStatus,
+        customer,
+        memo
       }
     }).then((result) => {
-      navigate(`/bookMasters/${(result.data as any).id}`);
+      navigate(`/lendingSets/${(result.data as any).id}`);
     });
 
   }
@@ -72,43 +78,63 @@ export const BookMasterCreatePage: React.FC<BookMasterCreatePageProps> = ({ }) =
       <form name="register">
         <div>
           <div>
-            <label>Name:</label>
-            <input type="text" name="name"></input>
-          </div>
-          <div>
-            <label>Publication Date:</label>
-            <input type="date" name="publicationDate"></input>
-          </div>
-          <div>
-            <label>Author:</label>
-            <select name="author" multiple>
+            <label>Customer:</label>
+            <select name="customer">
               {
-                author
+                customers
                   ?
-                  author.map((e: any) => <option value={"/author/" + e.id}>{e.name}</option>)
+                  customers.map((e: any) => <option value={"/customer/" + e.id}>{e.name}</option>)
                   :
                   <></>
               }
             </select>
           </div>
           <div>
-            <label>NdcCategory:</label>
-            <select name="ndcCategory">
+            <label>Book Stock:</label>
+            <select name="bookStock" multiple>
               {
-                ndcCategories
+                bookStock
                   ?
-                  ndcCategories.map((e: any) => <option value={"/ndcCategory/" + e.id}>{e.name}</option>)
+                  bookStock.map((e: any) => <option value={"/bookStock/" + e.id}>{e.bookMaster.name}</option>)
                   :
                   <></>
               }
             </select>
+          </div>
+          <div>
+            <label>Lending Start Date:</label>
+            <input type="date" name="lendStartDate"></input>
+          </div>
+          <div>
+            <label>Lending Deadline Date:</label>
+            <input type="date" name="lendDeadlineDate"></input>
+          </div>
+          <div>
+            <label>Return Date:</label>
+            <input type="date" name="returnDate"></input>
+          </div>
+          <div>
+            <label>LendingStatus:</label>
+            <select name="lendingStatus">
+              {
+                lendingStatuses
+                  ?
+                  lendingStatuses.map((e: any) => <option value={"/LendingStatus/" + e.id}>{e.name}</option>)
+                  :
+                  <></>
+              }
+            </select>
+          </div>
+          <div>
+            <label>Memo:</label>
+            <input type="text" name="memo"></input>
           </div>
           <div>
             <button type="submit" onClick={handleSubmitClick}>登録</button>
           </div>
         </div>
       </form>
-      <Link to="/bookMasters">一覧に戻る</Link>
+      <Link to="/lendingSets">一覧に戻る</Link>
     </>
   )
 }

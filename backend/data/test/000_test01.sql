@@ -54,5 +54,6 @@ values
 insert into lending_status (id, name)
 values
   (1, '貸出中'),
-  (2, '返却済み')
+  (2, '返却済み'),
+  (3, '貸出期限超過')
 ;

@@ -37,7 +37,7 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
         where
           (ls.id = :id or :id is null)
           and
-          (:lendingStatusIds is null or status.id in :lendingStatusIds)
+          (cast(:lendingStatusIds as bigint[]) is null or status.id in(:lendingStatusIds))
           and
           (ls.memo like %:memo% or cast(:memo as varchar) is null)
           and
@@ -73,7 +73,7 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
         where
           (ls.id = :id or :id is null)
           and
-          (:lendingStatusIds is null or status.id in :lendingStatusIds)
+          (cast(:lendingStatusIds as bigint[]) is null or status.id in(:lendingStatusIds))
           and
           (ls.memo like %:memo% or cast(:memo as varchar) is null)
           and

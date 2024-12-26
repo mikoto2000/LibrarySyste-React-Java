@@ -22,6 +22,8 @@ import { LendingStatusesPage } from './pages/lendingstatus/LendingStatusesPage'
 import { LendingStatusDetailPage } from './pages/lendingstatus/LendingStatusDetailPage'
 import { LendingStatusCreatePage } from './pages/lendingstatus/LendingStatusCreatePage'
 import { LendingSetsPage } from './pages/lendingset/LendingSetsPage'
+import { LendingSetCreatePage } from './pages/lendingset/LendingSetCreatePage'
+import { LendingSetDetailPage } from './pages/lendingset/LendingSetDetailPage'
 
 function App() {
   return (
@@ -140,11 +142,11 @@ function App() {
       }
       />
       <Route path="/lendingSets/:id" element={
-        <LendingStatusDetailPage />
+        <LendingSetDetailPage />
       }
       />
       <Route path="/lendingSets/create" element={
-        <LendingStatusCreatePage />
+        <LendingSetCreatePage />
       }
       />
     </Routes>

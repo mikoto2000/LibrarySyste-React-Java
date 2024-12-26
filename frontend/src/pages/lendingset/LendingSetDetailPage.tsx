@@ -1,31 +1,31 @@
 import { useEffect, useMemo, useState } from "react";
-import { BookMasterEntityControllerApiFactory, Configuration, EntityModelBookMaster } from "../../api";
+import { LendingSetEntityControllerApiFactory, Configuration, EntityModelLendingSet } from "../../api";
 import { BASE_URL } from "../../config";
 import { Link, useNavigate, useParams } from "react-router";
 
-type BookMasterDetailPageProps = {
+type LendingSetDetailPageProps = {
 };
 
-export const BookMasterDetailPage: React.FC<BookMasterDetailPageProps> = ({ }) => {
+export const LendingSetDetailPage: React.FC<LendingSetDetailPageProps> = ({ }) => {
 
   const { id } = useParams();
 
   const navigate = useNavigate();
 
-  const api = useMemo(() => BookMasterEntityControllerApiFactory(new Configuration(), BASE_URL), []);
+  const api = useMemo(() => LendingSetEntityControllerApiFactory(new Configuration(), BASE_URL), []);
 
-  const [bookMaster, setBookMaster] = useState<EntityModelBookMaster | undefined>(undefined);
+  const [lendingSet, setLendingSet] = useState<EntityModelLendingSet | undefined>(undefined);
   useEffect(() => {
     (async () => {
       if (id) {
 
         console.log(api);
 
-        const bookMasterResult = await api.getItemResourceBookmasterGet({
+        const lendingSetResult = await api.getItemResourceBookmasterGet({
           id
         });
 
-        setBookMaster(bookMasterResult.data);
+        setLendingSet(lendingSetResult.data);
       }
     })();
   }, []);
@@ -33,36 +33,36 @@ export const BookMasterDetailPage: React.FC<BookMasterDetailPageProps> = ({ }) =
   const handleDelete = () => {
     if (id) {
       api.deleteItemResourceBookmasterDelete({ id }).finally(() => {
-        navigate("/bookMasters");
+        navigate("/lendingSets");
       });
     }
   }
 
   return (
-    bookMaster
+    lendingSet
       ?
       <>
         <table>
           <tbody>
             <tr>
               <td>Id:</td>
-              <td>{(bookMaster as any).id}</td>
+              <td>{(lendingSet as any).id}</td>
             </tr>
             <tr>
               <td>Name:</td>
-              <td>{bookMaster.name}</td>
+              <td>{lendingSet.name}</td>
             </tr>
             <tr>
               <td>Publication Date:</td>
-              <td>{bookMaster.publicationDate}</td>
+              <td>{lendingSet.publicationDate}</td>
             </tr>
             <tr>
               <td>authors:</td>
               <td>
                 {
-                  (bookMaster as any)._embedded.author
+                  (lendingSet as any)._embedded.author
                     ?
-                    (bookMaster as any)._embedded.author.map((e: any) => e.name).join(", ")
+                    (lendingSet as any)._embedded.author.map((e: any) => e.name).join(", ")
                     :
                     <></>
                 }
@@ -70,12 +70,12 @@ export const BookMasterDetailPage: React.FC<BookMasterDetailPageProps> = ({ }) =
             </tr>
             <tr>
               <td>Ndc Category:</td>
-              <td>{(bookMaster as any)._embedded.ndcCategory.name}</td>
+              <td>{(lendingSet as any)._embedded.ndcCategory.name}</td>
             </tr>
           </tbody>
         </table>
         <button onClick={handleDelete}>削除</button>
-        <Link to="/bookMasters">一覧に戻る</Link>
+        <Link to="/lendingSets">一覧に戻る</Link>
       </>
       :
       <></>
