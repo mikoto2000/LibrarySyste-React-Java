@@ -1,27 +1,27 @@
 import { useEffect, useMemo, useState } from "react";
-import { Configuration, EntityModelAuthor, AuthorEntityControllerApiFactory } from "../../api";
+import { Configuration, EntityModelLendingStatus, LendingStatusEntityControllerApiFactory } from "../../api";
 import { BASE_URL } from "../../config";
 import { Link, useNavigate, useParams } from "react-router";
 
-type AuthorEditPageProps = {
+type LendingStatusEditPageProps = {
 };
 
-export const AuthorEditPage: React.FC<AuthorEditPageProps> = ({ }) => {
+export const LendingStatusEditPage: React.FC<LendingStatusEditPageProps> = ({ }) => {
 
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [author, setAuthor] = useState<EntityModelAuthor | undefined>(undefined);
+  const [lendingStatus, setLendingStatus] = useState<EntityModelLendingStatus | undefined>(undefined);
 
-  const api = useMemo(() => AuthorEntityControllerApiFactory(new Configuration(), BASE_URL), []);
+  const api = useMemo(() => LendingStatusEntityControllerApiFactory(new Configuration(), BASE_URL), []);
 
   useEffect(() => {
     (async () => {
       if (id) {
-        const authorResult = await api.getItemResourceAuthorGet({
+        const lendingStatusResult = await api.getItemResourceLendingstatusGet({
           id
         });
-        setAuthor(authorResult.data)
+        setLendingStatus(lendingStatusResult.data)
       }
     })();
 
@@ -40,16 +40,16 @@ export const AuthorEditPage: React.FC<AuthorEditPageProps> = ({ }) => {
     const number = form.number.value;
 
     console.log(JSON.stringify({
-      authorRequestBody: {
+      lendingStatusRequestBody: {
         name,
         number,
       }
     }));
 
 
-    api.patchItemResourceAuthorPatch({
+    api.patchItemResourceLendingstatusPatch({
       id,
-      authorRequestBody: {
+      lendingStatusRequestBody: {
         id: Number(id),
         name,
       }
@@ -62,7 +62,7 @@ export const AuthorEditPage: React.FC<AuthorEditPageProps> = ({ }) => {
   return (
     <>
       {
-        author
+        lendingStatus
           ?
           <form name="register">
             <div>
@@ -72,7 +72,7 @@ export const AuthorEditPage: React.FC<AuthorEditPageProps> = ({ }) => {
               </div>
               <div>
                 <label>Name:</label>
-                <input type="text" name="name" defaultValue={author?.name}></input>
+                <input type="text" name="name" defaultValue={lendingStatus?.name}></input>
               </div>
               <div>
                 <button type="submit" onClick={handleSubmitClick}>変更</button>
@@ -82,8 +82,8 @@ export const AuthorEditPage: React.FC<AuthorEditPageProps> = ({ }) => {
           :
           <p>表示できるアイテムがありません。</p>
       }
-      <Link to={`/authors/${id}`}>詳細に戻る</Link>
-      <Link to="/authors">一覧に戻る</Link>
+      <Link to={`/lendingStatuses/${id}`}>詳細に戻る</Link>
+      <Link to="/lendingStatuses">一覧に戻る</Link>
     </>
   )
 }

@@ -53,6 +53,7 @@ export const LendingStatusDetailPage: React.FC<LendingStatusDetailPageProps> = (
           </tbody>
         </table>
         <button onClick={handleDelete}>削除</button>
+        <Link to={`/lendingStatuses/${id}/edit`}>編集する</Link>
         <Link to="/lendingStatuses">一覧に戻る</Link>
       </>
       :
