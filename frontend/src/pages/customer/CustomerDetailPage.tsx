@@ -57,6 +57,7 @@ export const CustomerDetailPage: React.FC<CustomerDetailPageProps> = ({ }) => {
           </tbody>
         </table>
         <button onClick={handleDelete}>削除</button>
+        <Link to={`/customers/${id}/edit`}>編集する</Link>
         <Link to="/customers">一覧に戻る</Link>
       </>
       :

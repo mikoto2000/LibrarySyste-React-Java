@@ -28,6 +28,7 @@ import { NdcCategoryEditPage } from './pages/ndccategory/NdcCategoryEditPage'
 import { BookStockStatusEditPage } from './pages/bookstockstatus/BookStockStatusEditPage'
 import { AuthorEditPage } from './pages/author/AuthorEditPage'
 import { LendingStatusEditPage } from './pages/lendingstatus/LendingStatusEditPage'
+import { CustomerEditPage } from './pages/customer/CustomerEditPage'
 
 function App() {
   return (
@@ -155,6 +156,10 @@ function App() {
       />
       <Route path="/customers/create" element={
         <CustomerCreatePage />
+      }
+      />
+      <Route path="/customers/:id/edit" element={
+        <CustomerEditPage />
       }
       />
       <Route path="/lendingSets" element={
