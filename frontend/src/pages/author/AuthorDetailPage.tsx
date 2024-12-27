@@ -53,6 +53,7 @@ export const AuthorDetailPage: React.FC<AuthorDetailPageProps> = ({ }) => {
           </tbody>
         </table>
         <button onClick={handleDelete}>削除</button>
+        <Link to={`/authors/${id}/edit`}>編集する</Link>
         <Link to="/authors">一覧に戻る</Link>
       </>
       :
