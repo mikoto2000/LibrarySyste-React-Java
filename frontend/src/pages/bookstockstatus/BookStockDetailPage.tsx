@@ -53,6 +53,7 @@ export const BookStockStatusDetailPage: React.FC<BookStockStatusDetailPageProps>
           </tbody>
         </table>
         <button onClick={handleDelete}>削除</button>
+        <Link to={`/bookStockStatuses/${id}/edit`}>編集する</Link>
         <Link to="/bookStockStatuses">一覧に戻る</Link>
       </>
       :

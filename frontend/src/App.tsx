@@ -25,6 +25,7 @@ import { LendingSetsPage } from './pages/lendingset/LendingSetsPage'
 import { LendingSetCreatePage } from './pages/lendingset/LendingSetCreatePage'
 import { LendingSetDetailPage } from './pages/lendingset/LendingSetDetailPage'
 import { NdcCategoryEditPage } from './pages/ndccategory/NdcCategoryEditPage'
+import { BookStockStatusEditPage } from './pages/bookstockstatus/BookStockStatusEditPage'
 
 function App() {
   return (
@@ -80,6 +81,10 @@ function App() {
       />
       <Route path="/bookStockStatuses/create" element={
         <BookStockStatusCreatePage />
+      }
+      />
+      <Route path="/bookStockStatuses/:id/edit" element={
+        <BookStockStatusEditPage />
       }
       />
       <Route path="/lendingStatuses" element={
