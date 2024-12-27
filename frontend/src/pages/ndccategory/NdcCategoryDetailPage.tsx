@@ -57,6 +57,7 @@ export const NdcCategoryDetailPage: React.FC<NdcCategoryDetailPageProps> = ({ })
           </tbody>
         </table>
         <button onClick={handleDelete}>削除</button>
+        <Link to={`/ndcCategories/${id}/edit`}>編集する</Link>
         <Link to="/ndcCategories">一覧に戻る</Link>
       </>
       :

@@ -24,6 +24,7 @@ import { LendingStatusCreatePage } from './pages/lendingstatus/LendingStatusCrea
 import { LendingSetsPage } from './pages/lendingset/LendingSetsPage'
 import { LendingSetCreatePage } from './pages/lendingset/LendingSetCreatePage'
 import { LendingSetDetailPage } from './pages/lendingset/LendingSetDetailPage'
+import { NdcCategoryEditPage } from './pages/ndccategory/NdcCategoryEditPage'
 
 function App() {
   return (
@@ -63,6 +64,10 @@ function App() {
       />
       <Route path="/ndcCategories/create" element={
         <NdcCategoryCreatePage />
+      }
+      />
+      <Route path="/ndcCategories/:id/edit" element={
+        <NdcCategoryEditPage />
       }
       />
       <Route path="/bookStockStatuses" element={
