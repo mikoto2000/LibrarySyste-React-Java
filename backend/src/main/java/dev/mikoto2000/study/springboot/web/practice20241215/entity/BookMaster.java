@@ -34,5 +34,7 @@ public class BookMaster {
   private NdcCategory ndcCategory;
   @ManyToMany
   private List<Author> author;
+  @ManyToMany
+  private List<BookStock> bookStock;
 }
 

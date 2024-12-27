@@ -22,6 +22,7 @@ public interface DefaultLendingSetProjection {
   LocalDate getLendDeadlineDate();
   LocalDate getreturnDate();
 
+  @Value("#{target.bookStock}")
   List<BookStock> getBookStock();
 
   Customer getCustomer();

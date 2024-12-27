@@ -36,6 +36,15 @@ export const LendingSetCreatePage: React.FC<LendingSetCreatePageProps> = ({ }) =
     console.log(event);
     const form: any = event.currentTarget.form;
     console.log(form);
+    const bookStockOptions = form.bookStock.options
+    const bookStocks = [];
+    for (var i = 0; i < bookStockOptions.length; i++) {
+      console.log(bookStockOptions[i].selected);
+      if (bookStockOptions[i].selected === true) {
+        bookStocks.push(bookStockOptions[i].value)
+      }
+    }
+    console.log(bookStocks);
     const lendStartDate = form.lendStartDate.value
     const lendDeadlineDate = form.lendDeadlineDate.value
     const returnDate = form.returnDate.value
@@ -48,6 +57,7 @@ export const LendingSetCreatePage: React.FC<LendingSetCreatePageProps> = ({ }) =
 
     console.log(JSON.stringify({
       lendingSetRequestBody: {
+        bookStock: bookStocks,
         lendStartDate,
         lendDeadlineDate,
         returnDate,
@@ -60,6 +70,7 @@ export const LendingSetCreatePage: React.FC<LendingSetCreatePageProps> = ({ }) =
 
     api.postCollectionResourceLendingsetPost({
       lendingSetRequestBody: {
+        bookStock: bookStocks,
         lendStartDate,
         lendDeadlineDate,
         returnDate,

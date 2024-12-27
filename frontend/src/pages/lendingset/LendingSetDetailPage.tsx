@@ -21,7 +21,7 @@ export const LendingSetDetailPage: React.FC<LendingSetDetailPageProps> = ({ }) =
 
         console.log(api);
 
-        const lendingSetResult = await api.getItemResourceBookmasterGet({
+        const lendingSetResult = await api.getItemResourceLendingsetGet({
           id
         });
 
@@ -32,7 +32,7 @@ export const LendingSetDetailPage: React.FC<LendingSetDetailPageProps> = ({ }) =
 
   const handleDelete = () => {
     if (id) {
-      api.deleteItemResourceBookmasterDelete({ id }).finally(() => {
+      api.deleteItemResourceLendingsetDelete({ id }).finally(() => {
         navigate("/lendingSets");
       });
     }
@@ -49,28 +49,20 @@ export const LendingSetDetailPage: React.FC<LendingSetDetailPageProps> = ({ }) =
               <td>{(lendingSet as any).id}</td>
             </tr>
             <tr>
-              <td>Name:</td>
-              <td>{lendingSet.name}</td>
+              <td>Books:</td>
+              <td>{(lendingSet as any)._embedded?.bookStock?.map((e: any) => e.bookMaster.name).join(", ")}</td>
             </tr>
             <tr>
-              <td>Publication Date:</td>
-              <td>{lendingSet.publicationDate}</td>
+              <td>Lend Start Date:</td>
+              <td>{lendingSet.lendStartDate}</td>
             </tr>
             <tr>
-              <td>authors:</td>
-              <td>
-                {
-                  (lendingSet as any)._embedded.author
-                    ?
-                    (lendingSet as any)._embedded.author.map((e: any) => e.name).join(", ")
-                    :
-                    <></>
-                }
-              </td>
+              <td>Lend Deadline Date:</td>
+              <td>{lendingSet.lendDeadlineDate}</td>
             </tr>
             <tr>
-              <td>Ndc Category:</td>
-              <td>{(lendingSet as any)._embedded.ndcCategory.name}</td>
+              <td>Return Date:</td>
+              <td>{lendingSet.returnDate}</td>
             </tr>
           </tbody>
         </table>
