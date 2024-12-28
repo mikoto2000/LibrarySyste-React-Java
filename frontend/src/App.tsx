@@ -31,6 +31,7 @@ import { BookMasterEditPage } from './pages/bookmaster/BookMasterEditPage'
 import { BookStockEditPage } from './pages/bookstock/BookStockEditPage'
 import { BookStocksPage } from './pages/bookstock/BookStocksPage'
 import { BookStockDetailPage } from './pages/bookstock/BookStockDetailPage'
+import { LendingSetEditPage } from './pages/lendingset/LendingSetEditPage'
 
 function App() {
   return (
@@ -182,6 +183,10 @@ function App() {
       />
       <Route path="/lendingSets/create" element={
         <LendingSetCreatePage />
+      }
+      />
+      <Route path="/lendingSets/:id/edit" element={
+        <LendingSetEditPage />
       }
       />
     </Routes>

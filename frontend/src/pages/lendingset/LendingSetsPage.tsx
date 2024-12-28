@@ -21,8 +21,8 @@ export const LendingSetsPage: React.FC<LendingSetsPageProps> = ({ }) => {
   const queryParams = queryString.parse(search);
   const id: any = queryParams['id'];
   const lendingStatusIds: any = queryParams['lendingStatusIds'];
-  const bookName: any = queryParams['bookName'];
-  const customerName: any = queryParams['customerName'];
+  const bookName: any = queryParams['book_name'];
+  const customerName: any = queryParams['customer_name'];
   const lendStartDateBegin: any = queryParams['lendStartDateBegin'];
   const lendStartDateEnd: any = queryParams['lendStartDateEnd'];
   const lendDeadlineDateBegin: any = queryParams['lendDeadlineBegin'];

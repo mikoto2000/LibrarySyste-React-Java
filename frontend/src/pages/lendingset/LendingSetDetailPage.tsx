@@ -64,9 +64,18 @@ export const LendingSetDetailPage: React.FC<LendingSetDetailPageProps> = ({ }) =
               <td>Return Date:</td>
               <td>{lendingSet.returnDate}</td>
             </tr>
+            <tr>
+              <td>Lending Status:</td>
+              <td>{(lendingSet as any)._embedded.lendingStatus.name}</td>
+            </tr>
+            <tr>
+              <td>Memo:</td>
+              <td>{lendingSet.memo}</td>
+            </tr>
           </tbody>
         </table>
         <button onClick={handleDelete}>削除</button>
+        <Link to={`/lendingSets/${id}/edit`}>編集する</Link>
         <Link to="/lendingSets">一覧に戻る</Link>
       </>
       :
