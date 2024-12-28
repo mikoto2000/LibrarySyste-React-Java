@@ -29,6 +29,7 @@ import { BookStockStatusEditPage } from './pages/bookstockstatus/BookStockStatus
 import { AuthorEditPage } from './pages/author/AuthorEditPage'
 import { LendingStatusEditPage } from './pages/lendingstatus/LendingStatusEditPage'
 import { CustomerEditPage } from './pages/customer/CustomerEditPage'
+import { BookMasterEditPage } from './pages/bookmaster/BookMasterEditPage'
 
 function App() {
   return (
@@ -132,6 +133,10 @@ function App() {
       />
       <Route path="/bookMasters/create" element={
         <BookMasterCreatePage />
+      }
+      />
+      <Route path="/bookMasters/:id/edit" element={
+        <BookMasterEditPage />
       }
       />
       <Route path="/bookStocks" element={

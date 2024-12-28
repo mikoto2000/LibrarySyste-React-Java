@@ -1,3 +1,5 @@
+drop table if exists lending_set_book_stock cascade;
+drop table if exists book_stock_book_master cascade;
 drop table if exists book_master_author cascade;
 drop table if exists author cascade;
 drop table if exists lending_set_bookstock cascade;

@@ -75,6 +75,7 @@ export const BookMasterDetailPage: React.FC<BookMasterDetailPageProps> = ({ }) =
           </tbody>
         </table>
         <button onClick={handleDelete}>削除</button>
+        <Link to={`/bookMasters/${id}/edit`}>編集する</Link>
         <Link to="/bookMasters">一覧に戻る</Link>
       </>
       :

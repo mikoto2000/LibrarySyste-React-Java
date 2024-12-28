@@ -63,6 +63,14 @@ create table lending_set (
   constraint ls_cu foreign key (customer_id) references customer (id)
 );
 
+create table book_stock_book_master (
+  id bigserial primary key,
+  book_stock_id bigint not null,
+  book_master_id bigint not null,
+  constraint bsbm_bs foreign key (book_stock_id) references book_stock (id),
+  constraint bsbm_bm foreign key (book_master_id) references book_master (id)
+);
+
 create table lending_set_book_stock (
   id bigserial primary key,
   lending_set_id bigint not null,
