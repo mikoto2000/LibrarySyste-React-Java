@@ -12,8 +12,6 @@ import { NdcCategoryDetailPage } from './pages/ndccategory/NdcCategoryDetailPage
 import { BookStockStatusesPage } from './pages/bookstockstatus/BookStockStatusesPage'
 import { BookStockStatusDetailPage } from './pages/bookstockstatus/BookStockDetailPage'
 import { BookStockStatusCreatePage } from './pages/bookstockstatus/BookStockStatusCreatePage'
-import { BookStocksPage } from './pages/bookstock/BookStockPage'
-import { BookStockDetailPage } from './pages/bookstock/BookStockDetailPage'
 import { BookStockCreatePage } from './pages/bookstock/BookStockCreatePage'
 import { CustomersPage } from './pages/customer/CustomersPage'
 import { CustomerDetailPage } from './pages/customer/CustomerDetailPage'
@@ -30,6 +28,9 @@ import { AuthorEditPage } from './pages/author/AuthorEditPage'
 import { LendingStatusEditPage } from './pages/lendingstatus/LendingStatusEditPage'
 import { CustomerEditPage } from './pages/customer/CustomerEditPage'
 import { BookMasterEditPage } from './pages/bookmaster/BookMasterEditPage'
+import { BookStockEditPage } from './pages/bookstock/BookStockEditPage'
+import { BookStocksPage } from './pages/bookstock/BookStocksPage'
+import { BookStockDetailPage } from './pages/bookstock/BookStockDetailPage'
 
 function App() {
   return (
@@ -149,6 +150,10 @@ function App() {
       />
       <Route path="/bookStocks/create" element={
         <BookStockCreatePage />
+      }
+      />
+      <Route path="/bookStocks/:id/edit" element={
+        <BookStockEditPage />
       }
       />
       <Route path="/customers" element={

@@ -53,7 +53,7 @@ export const BookStockDetailPage: React.FC<BookStockDetailPageProps> = ({ }) => 
               <td>{(bookStock as any)._embedded.bookMaster.name}</td>
             </tr>
             <tr>
-              <td>Publication Date:</td>
+              <td>Book Stock Status:</td>
               <td>{(bookStock as any)._embedded.bookStockStatus.name}</td>
             </tr>
             <tr>
@@ -63,6 +63,7 @@ export const BookStockDetailPage: React.FC<BookStockDetailPageProps> = ({ }) => 
           </tbody>
         </table>
         <button onClick={handleDelete}>削除</button>
+        <Link to={`/bookStocks/${id}/edit`}>編集する</Link>
         <Link to="/bookStocks">一覧に戻る</Link>
       </>
       :

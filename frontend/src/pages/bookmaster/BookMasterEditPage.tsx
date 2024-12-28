@@ -11,7 +11,7 @@ export const BookMasterEditPage: React.FC<BookMasterEditPageProps> = ({ }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [bookMaster, setBookMaster] = useState<EntityModelBookMaster | undefined>([]);
+  const [bookMaster, setBookMaster] = useState<EntityModelBookMaster | undefined>();
   const [author, setAuthor] = useState<EntityModelAuthor[] | undefined>([]);
   const [ndcCategories, setNdcCategories] = useState<EntityModelNdcCategory[] | undefined>([]);
 

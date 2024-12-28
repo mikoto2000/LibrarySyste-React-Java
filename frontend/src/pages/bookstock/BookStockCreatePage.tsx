@@ -75,7 +75,7 @@ export const BookStockCreatePage: React.FC<BookStockCreatePageProps> = ({ }) => 
             </select>
           </div>
           <div>
-            <label>Book Master:</label>
+            <label>Book Stock Status:</label>
             <select name="bookStockStatus">
               {
                 bookStockStatuses
