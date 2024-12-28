@@ -126,17 +126,18 @@ export const LendingSetEditPage: React.FC<LendingSetCreatePageProps> = ({ }) => 
               <div>
                 <label>Book Stock:</label>
                 <select name="bookStock" multiple>
+                  {/* TODO: 重複削除 */}
                   {
                     propertyBookStock?._embedded?.bookStocks
                       ?
-                      propertyBookStock?._embedded?.bookStocks.map((e: any) => <option selected value={"/bookStock/" + e.id}>{e.bookMaster.name}</option>)
+                      propertyBookStock?._embedded?.bookStocks.map((e: any) => <option selected value={"/bookStock/" + e.id}>{e.id}: {e.bookMaster.name}</option>)
                       :
                       <></>
                   }
                   {
                     bookStock
                       ?
-                      bookStock.map((e: any) => <option value={"/bookStock/" + e.id}>{e.bookMaster.name}</option>)
+                      bookStock.map((e: any) => <option value={"/bookStock/" + e.id}>{e.id}: {e.bookMaster.name}</option>)
                       :
                       <></>
                   }

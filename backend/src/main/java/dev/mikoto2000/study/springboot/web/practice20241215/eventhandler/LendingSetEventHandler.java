@@ -3,6 +3,7 @@ package dev.mikoto2000.study.springboot.web.practice20241215.eventhandler;
 import java.util.Optional;
 
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
+import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,22 @@ public class LendingSetEventHandler {
   }
 
   @HandleBeforeCreate
-  public void updateBookStatusBeforeLoan(LendingSet lendingSet) {
+  public void updateBookStatusBeforeLendCreate(LendingSet lendingSet) {
+    Optional<BookStockStatus> lendingAvailable = Optional.empty();
+    if (lendingSet.getLendingStatus().getId() == 1) {
+      // 貸出不可能にする
+      lendingAvailable = bookStockStatusRepository.findById(2L);
+    }
+    if (lendingSet.getBookStock() != null) {
+      for (BookStock bookStock : lendingSet.getBookStock()) {
+        log.debug("👺KITAYO: {}", bookStock.getBookMaster().getName());
+        lendingAvailable.ifPresent((e) -> bookStock.setBookStockStatus(e));
+      }
+    }
+  }
+
+  @HandleBeforeSave
+  public void updateBookStatusBeforeLendSave(LendingSet lendingSet) {
     Optional<BookStockStatus> lendingAvailable;
     if (lendingSet.getLendingStatus().getId() == 1) {
       // 貸出不可能にする
