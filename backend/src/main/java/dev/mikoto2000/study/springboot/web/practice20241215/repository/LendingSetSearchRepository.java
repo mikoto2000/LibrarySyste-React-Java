@@ -37,7 +37,7 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
         where
           (ls.id = :id or :id is null)
           and
-          (cast(:lendingStatusIds as bigint[]) is null or status.id in(:lendingStatusIds))
+          (cast(:lendingStatusIds as record) is null or status.id in(:lendingStatusIds))
           and
           (ls.memo like %:memo% or cast(:memo as varchar) is null)
           and
@@ -73,7 +73,7 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
         where
           (ls.id = :id or :id is null)
           and
-          (cast(:lendingStatusIds as bigint[]) is null or status.id in(:lendingStatusIds))
+          (cast(:lendingStatusIds as record) is null or status.id in(:lendingStatusIds))
           and
           (ls.memo like %:memo% or cast(:memo as varchar) is null)
           and
@@ -98,9 +98,103 @@ public interface LendingSetSearchRepository extends PagingAndSortingRepository<L
           status.name
       """,
       nativeQuery = true)
-  Page<Map<String, Object>> searchLendingSet(
+  Page<Map<String, Object>> searchLendingSetForMultiIds(
       Long id,
       List<Long> lendingStatusIds,
+      String bookName,
+      String customerName,
+      String memo,
+      LocalDate lendStartDateBegin,
+      LocalDate lendStartDateEnd,
+      LocalDate lendDeadlineDateBegin,
+      LocalDate lendDeadlineDateEnd,
+      LocalDate returnDateBegin,
+      LocalDate returnDateEnd,
+      Pageable pageable);
+
+  @Query(value = """
+        select
+          ls.id,
+          ls.lend_start_date,
+          ls.lend_deadline_date,
+          ls.return_date,
+          status.name as lending_status,
+          ls.memo,
+          c.name as customer_name,
+          string_agg(bm.name, ', ') as book_name
+        from lending_set as ls
+        left outer join customer as c on ls.customer_id = c.id
+        left outer join lending_set_book_stock as lsbs on ls.id = lsbs.lending_set_id
+        left outer join book_stock as bs on bs.id = lsbs.book_stock_id
+        left outer join book_master as bm on bm.id = bs.book_master_id
+        left outer join lending_status as status on ls.lending_status_id = status.id
+        where
+          (ls.id = :id or :id is null)
+          and
+          (cast(:lendingStatusIds as bigint) is null or status.id in(:lendingStatusIds))
+          and
+          (ls.memo like %:memo% or cast(:memo as varchar) is null)
+          and
+          (bm.name like %:bookName% or cast(:bookName as varchar) is null)
+          and
+          (c.name like %:customerName% or cast(:customerName as varchar) is null)
+          and
+          (ls.lend_start_date >= :lendStartDateBegin or cast(:lendStartDateBegin as date) is null)
+          and
+          (ls.lend_start_date <= :lendStartDateEnd or cast(:lendStartDateEnd as date) is null)
+          and
+          (ls.lend_deadline_date >= :lendDeadlineDateBegin or cast(:lendDeadlineDateBegin as date) is null)
+          and
+          (ls.lend_deadline_date <= :lendDeadlineDateEnd or cast(:lendDeadlineDateEnd as date) is null)
+          and
+          (ls.return_date >= :returnDateBegin or cast(:returnDateBegin as date) is null)
+          and
+          (ls.return_date <= :returnDateEnd or cast(:returnDateEnd as date) is null)
+        group by
+          ls.id,
+          c.name,
+          status.name
+      """,
+      countQuery = """
+        select
+          count(*)
+        from lending_set as ls
+        left outer join customer as c on ls.customer_id = c.id
+        left outer join lending_set_book_stock as lsbs on ls.id = lsbs.lending_set_id
+        left outer join book_stock as bs on bs.id = lsbs.book_stock_id
+        left outer join book_master as bm on bm.id = bs.book_master_id
+        left outer join lending_status as status on ls.lending_status_id = status.id
+        where
+          (ls.id = :id or :id is null)
+          and
+          (cast(:lendingStatusIds as bigint) is null or status.id in(:lendingStatusIds))
+          and
+          (ls.memo like %:memo% or cast(:memo as varchar) is null)
+          and
+          (bm.name like %:bookName% or cast(:bookName as varchar) is null)
+          and
+          (c.name like %:customerName% or cast(:customerName as varchar) is null)
+          and
+          (ls.lend_start_date >= :lendStartDateBegin or cast(:lendStartDateBegin as date) is null)
+          and
+          (ls.lend_start_date <= :lendStartDateEnd or cast(:lendStartDateEnd as date) is null)
+          and
+          (ls.lend_deadline_date >= :lendDeadlineDateBegin or cast(:lendDeadlineDateBegin as date) is null)
+          and
+          (ls.lend_deadline_date <= :lendDeadlineDateEnd or cast(:lendDeadlineDateEnd as date) is null)
+          and
+          (ls.return_date >= :returnDateBegin or cast(:returnDateBegin as date) is null)
+          and
+          (ls.return_date <= :returnDateEnd or cast(:returnDateEnd as date) is null)
+        group by
+          ls.id,
+          c.name,
+          status.name
+      """,
+      nativeQuery = true)
+  Page<Map<String, Object>> searchLendingSetForSingleId(
+      Long id,
+      Long lendingStatusIds,
       String bookName,
       String customerName,
       String memo,

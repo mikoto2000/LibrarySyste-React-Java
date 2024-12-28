@@ -53,18 +53,35 @@ public class SearchService {
       LocalDate returnDateBegin,
       LocalDate returnDateEnd,
       Pageable pageable) {
-    return this.lendingSetSearchRepository.searchLendingSet(
-        id,
-        lendingStatusIds,
-        bookName,
-        customerName,
-        memo,
-        lendStartDateBegin,
-        lendStartDateEnd,
-        lendDeadlineDateBegin,
-        lendDeadlineDateEnd,
-        returnDateBegin,
-        returnDateEnd,
-        pageable);
+
+    if (lendingStatusIds != null && lendingStatusIds.size() == 1) {
+      return this.lendingSetSearchRepository.searchLendingSetForSingleId(
+          id,
+          lendingStatusIds.get(0),
+          bookName,
+          customerName,
+          memo,
+          lendStartDateBegin,
+          lendStartDateEnd,
+          lendDeadlineDateBegin,
+          lendDeadlineDateEnd,
+          returnDateBegin,
+          returnDateEnd,
+          pageable);
+    } else {
+      return this.lendingSetSearchRepository.searchLendingSetForMultiIds(
+          id,
+          lendingStatusIds,
+          bookName,
+          customerName,
+          memo,
+          lendStartDateBegin,
+          lendStartDateEnd,
+          lendDeadlineDateBegin,
+          lendDeadlineDateEnd,
+          returnDateBegin,
+          returnDateEnd,
+          pageable);
+    }
   }
 }
